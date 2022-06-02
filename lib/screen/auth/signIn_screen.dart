@@ -263,6 +263,9 @@ class SignInScreen extends StatelessWidget {
                 fontSize: 10,
               ),
             ),
+            SizedBox(
+              height: 5,
+            ),
             GestureDetector(
               onTap: () {
                 Navigator.push(
