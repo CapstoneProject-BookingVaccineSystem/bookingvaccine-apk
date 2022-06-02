@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => const SiginScreen(),
+        '/': (context) => const SplashScreen(),
         '/sigin': (context) => const SiginScreen(),
       },
     );
