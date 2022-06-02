@@ -255,7 +255,7 @@ class SiginScreen extends StatelessWidget {
               ),
             ),
             Text(
-              'Belum punya akun?',
+              'Daftar Sekarang',
               style: secondTextStyle.copyWith(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
