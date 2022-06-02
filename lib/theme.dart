@@ -8,7 +8,7 @@ Color primaryColor = const Color(0xff829CCC);
 Color primaryColor2 = const Color(0xff7BD9E8);
 Color secondColor = const Color(0xff4E7EA7);
 Color whiteColor = const Color(0xffFFFFFF);
-Color greyColor = const Color(0xff374957);
+Color greyColor = const Color(0xffC2C2C2);
 
 TextStyle primaryTextStyle = GoogleFonts.poppins(
   color: primaryColor,
@@ -24,4 +24,8 @@ TextStyle secondTextStyle = GoogleFonts.poppins(
 
 TextStyle whiteTextStyle = GoogleFonts.poppins(
   color: whiteColor,
+);
+
+TextStyle greyTextStyle = GoogleFonts.poppins(
+  color: greyColor,
 );
