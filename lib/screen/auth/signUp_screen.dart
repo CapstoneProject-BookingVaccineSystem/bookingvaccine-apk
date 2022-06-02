@@ -2,6 +2,7 @@ import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -485,18 +486,23 @@ class SignUpScreen extends StatelessWidget {
     }
 
     Widget cancel() {
-      return Container(
-          margin: const EdgeInsets.only(
-            top: 8,
-            bottom: 43,
-          ),
-          child: Text(
-            'Batal',
-            style: secondTextStyle.copyWith(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
+      return GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Container(
+            margin: const EdgeInsets.only(
+              top: 8,
+              bottom: 43,
             ),
-          ));
+            child: Text(
+              'Batal',
+              style: secondTextStyle.copyWith(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
+            )),
+      );
     }
 
     return Scaffold(
