@@ -11,8 +11,8 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final _isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     final List<String> genderItems = [
-      'Male',
-      'Female',
+      'Laki-laki',
+      'Perempuan',
     ];
     String? selectedValue;
 
@@ -98,34 +98,25 @@ class SignUpScreen extends StatelessWidget {
             right: 18,
           ),
           child: Form(
-            child: Column(
-              children: [
-                TextFormField(
-                  textInputAction: TextInputAction.next,
-                  style: const TextStyle(color: Colors.grey),
-                  decoration: InputDecoration(
-                    hintText: 'Nama Depan',
-                    hintStyle: greyTextStyle.copyWith(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 1.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 2.0),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
+            child: TextFormField(
+              textInputAction: TextInputAction.next,
+              style: const TextStyle(color: Colors.grey),
+              decoration: InputDecoration(
+                hintText: 'Nama Depan',
+                hintStyle: greyTextStyle.copyWith(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
                 ),
-                const SizedBox(
-                  height: 10,
+                contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: const BorderSide(color: Colors.grey, width: 1.0),
                 ),
-              ],
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+              ),
             ),
           ));
     }
@@ -140,34 +131,25 @@ class SignUpScreen extends StatelessWidget {
             right: 18,
           ),
           child: Form(
-            child: Column(
-              children: [
-                TextFormField(
-                  textInputAction: TextInputAction.next,
-                  style: const TextStyle(color: Colors.grey),
-                  decoration: InputDecoration(
-                    hintText: 'Nama Belakang',
-                    hintStyle: greyTextStyle.copyWith(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 1.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 2.0),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
+            child: TextFormField(
+              textInputAction: TextInputAction.next,
+              style: const TextStyle(color: Colors.grey),
+              decoration: InputDecoration(
+                hintText: 'Nama Belakang',
+                hintStyle: greyTextStyle.copyWith(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
                 ),
-                const SizedBox(
-                  height: 10,
+                contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: const BorderSide(color: Colors.grey, width: 1.0),
                 ),
-              ],
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+              ),
             ),
           ));
     }
@@ -179,10 +161,10 @@ class SignUpScreen extends StatelessWidget {
           left: 18,
           right: 18,
         ),
-        height: 48,
+        height: 49.5,
         width: double.infinity,
         padding: const EdgeInsets.symmetric(
-          vertical: 16,
+          vertical: 17,
           horizontal: 7,
         ),
         decoration: BoxDecoration(
@@ -203,7 +185,7 @@ class SignUpScreen extends StatelessWidget {
     Widget gender() {
       return Container(
         margin: const EdgeInsets.only(
-          top: 18,
+          top: 16,
         ),
         padding: const EdgeInsets.only(
           left: 18,
@@ -227,7 +209,7 @@ class SignUpScreen extends StatelessWidget {
           ),
           isExpanded: true,
           hint: Text(
-            'Select Your Gender',
+            'Pilih Jenis Kelamin',
             style: greyTextStyle.copyWith(
               fontSize: 10,
               fontWeight: FontWeight.w500,
@@ -303,9 +285,6 @@ class SignUpScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
               ],
             ),
           ));
@@ -314,7 +293,7 @@ class SignUpScreen extends StatelessWidget {
     Widget password() {
       return Container(
           margin: const EdgeInsets.only(
-            top: 12,
+            top: 16,
           ),
           padding: const EdgeInsets.only(
             left: 18,
@@ -385,9 +364,6 @@ class SignUpScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
               ],
             ),
           ));
@@ -396,7 +372,7 @@ class SignUpScreen extends StatelessWidget {
     Widget telpNumber() {
       return Container(
           margin: const EdgeInsets.only(
-            top: 12,
+            top: 16,
           ),
           padding: const EdgeInsets.only(
             left: 18,
@@ -429,8 +405,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Checkbox(
                       shape: RoundedRectangleBorder(
@@ -447,6 +422,7 @@ class SignUpScreen extends StatelessWidget {
                       'Saya telah menyetujui kebijakan privasi yang berlaku',
                       style: secondTextStyle.copyWith(
                         fontSize: 10,
+                        overflow: TextOverflow.visible,
                       ),
                     ),
                   ],
