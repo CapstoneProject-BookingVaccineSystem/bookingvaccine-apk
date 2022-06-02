@@ -32,12 +32,17 @@ class SignInScreen extends StatelessWidget {
     }
 
     Widget title() {
-      return Center(
-        child: Text(
-          'Halo! Selamat Datang Kembali!',
-          style: primaryTextStyle2.copyWith(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
+      return Container(
+        margin: const EdgeInsets.only(
+          top: 11,
+        ),
+        child: Center(
+          child: Text(
+            'Halo! Selamat Datang Kembali!',
+            style: primaryTextStyle2.copyWith(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       );
