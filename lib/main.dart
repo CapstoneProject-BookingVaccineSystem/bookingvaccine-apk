@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => const SplashScreen(),
-        '/sigin': (context) => const SiginScreen(),
+        '/signin': (context) => const SiginScreen(),
       },
     );
   }
