@@ -1,7 +1,6 @@
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 
 class SignUpScreen extends StatelessWidget {
