@@ -1,6 +1,10 @@
+// ignore_for_file: file_names
+
+import 'package:bookingvaccine/screen/auth/signUp_screen.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -259,11 +263,22 @@ class SignInScreen extends StatelessWidget {
                 fontSize: 10,
               ),
             ),
-            Text(
-              'Daftar Sekarang',
-              style: secondTextStyle.copyWith(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.leftToRight,
+                    child: const SignUpScreen(),
+                  ),
+                );
+              },
+              child: Text(
+                'Daftar Sekarang',
+                style: secondTextStyle.copyWith(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             )
           ],
