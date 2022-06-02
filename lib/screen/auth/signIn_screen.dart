@@ -2,8 +2,8 @@ import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SiginScreen extends StatelessWidget {
-  const SiginScreen({Key? key}) : super(key: key);
+class SignInScreen extends StatelessWidget {
+  const SignInScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

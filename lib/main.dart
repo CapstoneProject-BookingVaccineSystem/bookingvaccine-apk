@@ -1,4 +1,4 @@
-import 'package:bookingvaccine/screen/auth/sigin_screen.dart';
+import 'package:bookingvaccine/screen/auth/signIn_screen.dart';
 import 'package:bookingvaccine/screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => const SplashScreen(),
-        '/signin': (context) => const SiginScreen(),
+        '/signin': (context) => const SignInScreen(),
       },
     );
   }
