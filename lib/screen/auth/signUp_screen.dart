@@ -553,6 +553,10 @@ class SignUpScreen extends StatelessWidget {
           onTap: () {
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
+
+              if (paramValue.agree == false) {
+                paramValue.changestatusCheckbox(paramValue.agree);
+              }
             }
             paramValue.changestatusCheckbox(paramValue.agree);
           },
