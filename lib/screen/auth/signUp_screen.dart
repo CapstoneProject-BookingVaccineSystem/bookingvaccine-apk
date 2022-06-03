@@ -515,7 +515,7 @@ class SignUpScreen extends StatelessWidget {
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                          text: 'kebijakan privas',
+                          text: 'kebijakan privasi',
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               print("TextSpan is clicked.");
