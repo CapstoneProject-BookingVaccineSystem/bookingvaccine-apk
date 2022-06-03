@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 class SignInViewModel extends ChangeNotifier {
   bool isHidden = true;
-  bool statusEnter = true;
+  bool clickEnter = true;
 
   TextEditingController nikC = TextEditingController();
   TextEditingController passwordC = TextEditingController();
@@ -16,8 +16,8 @@ class SignInViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  changeStatusEnter(bool paramStatusEnter) {
-    statusEnter = paramStatusEnter;
+  changeClickEnter(bool paramClickEnter) {
+    clickEnter = paramClickEnter;
     notifyListeners();
   }
 }
@@ -28,6 +28,7 @@ class SignUpViewModel extends ChangeNotifier {
   bool agree = false;
   String date = '';
   bool statusCheckbox = true;
+  bool clickRegister = true;
 
   TextEditingController firstNameC = TextEditingController();
   TextEditingController lastNameC = TextEditingController();
@@ -74,6 +75,11 @@ class SignUpViewModel extends ChangeNotifier {
     } else {
       statusCheckbox = false;
     }
+    notifyListeners();
+  }
+
+  changeClickRegister(bool paramClickRegister) {
+    clickRegister = paramClickRegister;
     notifyListeners();
   }
 }

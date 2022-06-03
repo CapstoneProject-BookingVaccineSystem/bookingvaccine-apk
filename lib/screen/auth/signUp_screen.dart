@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bookingvaccine/screen/auth/auth_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/gestures.dart';
@@ -551,20 +553,25 @@ class SignUpScreen extends StatelessWidget {
         ),
         child: GestureDetector(
           onTap: () {
+            paramValue.changeClickRegister(false);
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
-
               if (paramValue.agree == false) {
                 paramValue.changestatusCheckbox(paramValue.agree);
               }
             }
+            Timer(const Duration(seconds: 1), () {
+              paramValue.changeClickRegister(true);
+            });
             paramValue.changestatusCheckbox(paramValue.agree);
           },
           child: Container(
             width: 273,
             height: 35,
             decoration: BoxDecoration(
-              color: primaryColor2,
+              color: paramValue.clickRegister == true
+                  ? primaryColor2
+                  : primaryColor2_1,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Center(

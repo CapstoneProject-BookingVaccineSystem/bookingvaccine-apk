@@ -260,28 +260,28 @@ class SignInScreen extends StatelessWidget {
         ),
         child: GestureDetector(
           onLongPress: () {
-            paramValue.changeStatusEnter(false);
+            paramValue.changeClickEnter(false);
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
-              paramValue.changeStatusEnter(false);
+              paramValue.changeClickEnter(false);
             }
             Timer(
               const Duration(seconds: 1),
               () {
-                paramValue.changeStatusEnter(true);
+                paramValue.changeClickEnter(true);
               },
             );
           },
           onTap: () async {
-            paramValue.changeStatusEnter(false);
+            paramValue.changeClickEnter(false);
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
-              paramValue.changeStatusEnter(false);
+              paramValue.changeClickEnter(false);
             }
             Timer(
               const Duration(seconds: 1),
               () {
-                paramValue.changeStatusEnter(true);
+                paramValue.changeClickEnter(true);
               },
             );
           },
@@ -289,7 +289,7 @@ class SignInScreen extends StatelessWidget {
             width: 273,
             height: 35,
             decoration: BoxDecoration(
-              color: paramValue.statusEnter == true
+              color: paramValue.clickEnter == true
                   ? primaryColor2
                   : primaryColor2_1,
               borderRadius: BorderRadius.circular(10),
