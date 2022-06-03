@@ -1,10 +1,19 @@
+import 'package:bookingvaccine/screen/auth/auth_view_model.dart';
 import 'package:bookingvaccine/screen/auth/signIn_screen.dart';
 import 'package:bookingvaccine/screen/auth/signUp_screen.dart';
 import 'package:bookingvaccine/screen/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider<SignInViewModel>(
+        create: (context) => SignInViewModel(),
+      ),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => const SplashScreen(),
-        '/signIn': (context) => const SignInScreen(),
+        '/signIn': (context) => SignInScreen(),
         '/signUp': (context) => const SignUpScreen()
       },
     );

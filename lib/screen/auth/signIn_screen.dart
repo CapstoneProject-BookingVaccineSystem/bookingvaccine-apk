@@ -1,13 +1,16 @@
 // ignore_for_file: file_names
 
+import 'package:bookingvaccine/screen/auth/auth_view_model.dart';
 import 'package:bookingvaccine/screen/auth/signUp_screen.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 class SignInScreen extends StatelessWidget {
-  const SignInScreen({Key? key}) : super(key: key);
+  SignInScreen({Key? key}) : super(key: key);
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +87,7 @@ class SignInScreen extends StatelessWidget {
           ));
     }
 
-    Widget nik() {
+    Widget nik(SignInViewModel paramValue) {
       return Container(
           margin: const EdgeInsets.only(
             top: 12,
@@ -93,56 +96,63 @@ class SignInScreen extends StatelessWidget {
             left: 34.25,
             right: 34.25,
           ),
-          child: Form(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    SvgPicture.asset(
-                      'assets/user.svg',
-                      width: 15,
-                      height: 15,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    'assets/user.svg',
+                    width: 15,
+                    height: 15,
+                  ),
+                  const SizedBox(
+                    width: 11.75,
+                  ),
+                  Text(
+                    'NIK',
+                    style: primaryTextStyle.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
                     ),
-                    const SizedBox(
-                      width: 11.75,
-                    ),
-                    Text(
-                      'NIK',
-                      style: primaryTextStyle.copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  textInputAction: TextInputAction.next,
-                  style: const TextStyle(color: Colors.grey),
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 1.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 2.0),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              TextFormField(
+                maxLength: 16,
+                controller: paramValue.nikC,
+                textInputAction: TextInputAction.next,
+                style: const TextStyle(color: Colors.grey),
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 2.0),
+                    borderRadius: BorderRadius.circular(5.0),
                   ),
                 ),
-              ],
-            ),
+                validator: (value) {
+                  if (value == '') {
+                    return 'Nik tidak boleh kosong';
+                  }
+
+                  return null;
+                },
+              ),
+            ],
           ));
     }
 
-    Widget password() {
+    Widget password(SignInViewModel paramValue) {
       return Container(
           margin: const EdgeInsets.only(
             top: 12,
@@ -151,77 +161,85 @@ class SignInScreen extends StatelessWidget {
             left: 34.25,
             right: 34.25,
           ),
-          child: Form(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    SvgPicture.asset(
-                      'assets/lock.svg',
-                      width: 15,
-                      height: 15,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    'assets/lock.svg',
+                    width: 15,
+                    height: 15,
+                  ),
+                  const SizedBox(
+                    width: 11.75,
+                  ),
+                  Text(
+                    'Password',
+                    style: primaryTextStyle.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
                     ),
-                    const SizedBox(
-                      width: 11.75,
-                    ),
-                    Text(
-                      'Password',
-                      style: primaryTextStyle.copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              TextFormField(
+                controller: paramValue.passwordC,
+                textInputAction: TextInputAction.done,
+                style: const TextStyle(color: Colors.grey),
+                obscureText: paramValue.isHidden,
+                decoration: InputDecoration(
+                  suffixIcon: GestureDetector(
+                      onTap: () {
+                        paramValue.changeIsHidden(paramValue.isHidden);
+                      },
+                      child: paramValue.isHidden == true
+                          ? const Icon(Icons.visibility)
+                          : const Icon(Icons.visibility_off)),
+                  contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 2.0),
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  textInputAction: TextInputAction.done,
-                  style: const TextStyle(color: Colors.grey),
-                  decoration: InputDecoration(
-                    suffixIcon: GestureDetector(
-                      child: const Icon(
-                        Icons.visibility,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 1.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 2.0),
-                      borderRadius: BorderRadius.circular(5.0),
+                validator: (value) {
+                  if (value == '') {
+                    return 'Password tidak boleh kosong';
+                  }
+
+                  return null;
+                },
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Text(
+                    'Lupa Password?',
+                    style: secondTextStyle.copyWith(
+                      fontSize: 10,
+                      decoration: TextDecoration.underline,
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Text(
-                      'Lupa Password?',
-                      style: secondTextStyle.copyWith(
-                        fontSize: 10,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ));
     }
 
-    Widget submit() {
+    Widget submit(SignInViewModel paramValue) {
       return Container(
         margin: const EdgeInsets.only(top: 10),
         padding: const EdgeInsets.only(
@@ -229,6 +247,11 @@ class SignInScreen extends StatelessWidget {
           right: 51,
         ),
         child: GestureDetector(
+          onTap: () {
+            if (_formKey.currentState!.validate()) {
+              _formKey.currentState!.save();
+            }
+          },
           child: Container(
             width: 273,
             height: 35,
@@ -294,30 +317,36 @@ class SignInScreen extends StatelessWidget {
       backgroundColor: backgroundColor1,
       body: SafeArea(
         child: Container(
-          height: double.infinity,
-          margin: const EdgeInsets.only(
-            bottom: 50,
-          ),
-          padding: EdgeInsets.only(
-            top: !_isKeyboard ? 88 : 50,
-          ),
-          decoration: BoxDecoration(
-              color: backgroundColor2,
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(105),
-              )),
-          child: Column(
-            children: [
-              if (!_isKeyboard) logo(),
-              if (!_isKeyboard) title(),
-              if (!_isKeyboard) description(),
-              nik(),
-              password(),
-              submit(),
-              register(),
-            ],
-          ),
-        ),
+            height: double.infinity,
+            margin: const EdgeInsets.only(
+              bottom: 50,
+            ),
+            padding: EdgeInsets.only(
+              top: !_isKeyboard ? 88 : 50,
+            ),
+            decoration: BoxDecoration(
+                color: backgroundColor2,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(105),
+                )),
+            child: Consumer<SignInViewModel>(
+              builder: (context, value, child) {
+                return Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      if (!_isKeyboard) logo(),
+                      if (!_isKeyboard) title(),
+                      if (!_isKeyboard) description(),
+                      nik(value),
+                      password(value),
+                      submit(value),
+                      register(),
+                    ],
+                  ),
+                );
+              },
+            )),
       ),
     );
   }
