@@ -408,6 +408,7 @@ class SignUpScreen extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
+                maxLength: 16,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 style: const TextStyle(color: Colors.grey),
