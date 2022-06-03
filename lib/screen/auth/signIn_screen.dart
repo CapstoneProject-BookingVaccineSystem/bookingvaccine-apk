@@ -197,8 +197,14 @@ class SignInScreen extends StatelessWidget {
                         paramValue.changeIsHidden(paramValue.isHidden);
                       },
                       child: paramValue.isHidden == true
-                          ? const Icon(Icons.visibility)
-                          : const Icon(Icons.visibility_off)),
+                          ? const Icon(
+                              Icons.visibility,
+                              color: Colors.grey,
+                            )
+                          : const Icon(
+                              Icons.visibility_off,
+                              color: Colors.grey,
+                            )),
                   contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
@@ -295,7 +301,7 @@ class SignInScreen extends StatelessWidget {
                   context,
                   PageTransition(
                     type: PageTransitionType.leftToRight,
-                    child: const SignUpScreen(),
+                    child: SignUpScreen(),
                   ),
                 );
               },

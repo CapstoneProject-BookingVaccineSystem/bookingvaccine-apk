@@ -11,6 +11,9 @@ void main() {
       ChangeNotifierProvider<SignInViewModel>(
         create: (context) => SignInViewModel(),
       ),
+      ChangeNotifierProvider<SignUpViewModel>(
+        create: (context) => SignUpViewModel(),
+      ),
     ],
     child: const MyApp(),
   ));
@@ -26,7 +29,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const SplashScreen(),
         '/signIn': (context) => SignInScreen(),
-        '/signUp': (context) => const SignUpScreen()
+        '/signUp': (context) => SignUpScreen()
       },
     );
   }

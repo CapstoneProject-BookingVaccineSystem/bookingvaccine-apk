@@ -1,15 +1,21 @@
+import 'package:bookingvaccine/screen/auth/auth_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
+import 'package:email_validator/email_validator.dart';
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+  SignUpScreen({Key? key}) : super(key: key);
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final _isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
+
     final List<String> genderItems = [
       'Laki-laki',
       'Perempuan',
@@ -88,7 +94,7 @@ class SignUpScreen extends StatelessWidget {
           ));
     }
 
-    Widget firstName() {
+    Widget firstName(SignUpViewModel paramValue) {
       return Container(
           margin: const EdgeInsets.only(
             top: 16,
@@ -97,31 +103,35 @@ class SignUpScreen extends StatelessWidget {
             left: 18,
             right: 18,
           ),
-          child: Form(
-            child: TextFormField(
-              textInputAction: TextInputAction.next,
-              style: const TextStyle(color: Colors.grey),
-              decoration: InputDecoration(
-                hintText: 'Nama Depan',
-                hintStyle: greyTextStyle.copyWith(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w500,
-                ),
-                contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                  borderSide: const BorderSide(color: Colors.grey, width: 1.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.grey, width: 2.0),
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
+          child: TextFormField(
+            textInputAction: TextInputAction.next,
+            style: const TextStyle(color: Colors.grey),
+            decoration: InputDecoration(
+              hintText: 'Nama Depan',
+              hintStyle: greyTextStyle.copyWith(
+                fontSize: 10,
+                fontWeight: FontWeight.w500,
+              ),
+              contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                borderRadius: BorderRadius.circular(5.0),
               ),
             ),
+            validator: (value) {
+              if (value == '') {
+                return 'Nama depan tidak boleh kosong';
+              }
+              return null;
+            },
           ));
     }
 
-    Widget lastName() {
+    Widget lastName(SignUpViewModel paramValue) {
       return Container(
           margin: const EdgeInsets.only(
             top: 16,
@@ -130,59 +140,88 @@ class SignUpScreen extends StatelessWidget {
             left: 18,
             right: 18,
           ),
-          child: Form(
-            child: TextFormField(
-              textInputAction: TextInputAction.next,
-              style: const TextStyle(color: Colors.grey),
-              decoration: InputDecoration(
-                hintText: 'Nama Belakang',
-                hintStyle: greyTextStyle.copyWith(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w500,
-                ),
-                contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                  borderSide: const BorderSide(color: Colors.grey, width: 1.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.grey, width: 2.0),
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
+          child: TextFormField(
+            textInputAction: TextInputAction.next,
+            style: const TextStyle(color: Colors.grey),
+            decoration: InputDecoration(
+              hintText: 'Nama Belakang',
+              hintStyle: greyTextStyle.copyWith(
+                fontSize: 10,
+                fontWeight: FontWeight.w500,
+              ),
+              contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                borderRadius: BorderRadius.circular(5.0),
               ),
             ),
+            validator: (value) {
+              if (value == '') {
+                return 'Nama belakang tidak boleh kosong';
+              }
+              return null;
+            },
           ));
     }
 
-    Widget date() {
+    Widget date(SignUpViewModel paramValue) {
       return Container(
-        margin: const EdgeInsets.only(
-          top: 16,
-          left: 18,
-          right: 18,
-        ),
-        height: 49.5,
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(
-          vertical: 17,
-          horizontal: 7,
-        ),
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 1,
-            color: Colors.grey,
+          margin: const EdgeInsets.only(
+            top: 16,
           ),
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        child: Text('Tanggal Lahir',
-            style: greyTextStyle.copyWith(
-              fontSize: 10,
-              fontWeight: FontWeight.w500,
-            )),
-      );
+          padding: const EdgeInsets.only(
+            left: 18,
+            right: 18,
+          ),
+          child: TextFormField(
+            controller: paramValue.dateC,
+            onTap: () async {
+              DateTime? date = (await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime(2025)));
+              if (date != null) {
+                String dateFormat = DateFormat('yyyy-MM-dd').format(date);
+                paramValue.changeDate(dateFormat);
+              } else {
+                paramValue.changeDate('Tanggal lahir');
+              }
+            },
+            readOnly: true,
+            textInputAction: TextInputAction.next,
+            style: const TextStyle(color: Colors.grey),
+            decoration: InputDecoration(
+              hintText:
+                  paramValue.date == '' ? 'Tanggal lahir' : paramValue.date,
+              hintStyle: greyTextStyle.copyWith(
+                fontSize: 10,
+                fontWeight: FontWeight.w500,
+              ),
+              contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+            ),
+            validator: (value) {
+              if (value == '') {
+                return 'Tanggal lahir tidak boleh kosong';
+              }
+              return null;
+            },
+          ));
     }
 
-    Widget gender() {
+    Widget gender(SignUpViewModel paramValue) {
       return Container(
         margin: const EdgeInsets.only(
           top: 16,
@@ -200,9 +239,10 @@ class SignUpScreen extends StatelessWidget {
               borderSide: const BorderSide(color: Colors.grey, width: 2.0),
               borderRadius: BorderRadius.circular(5.0),
             ),
-            contentPadding: EdgeInsets.zero,
+            contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.0),
+              borderSide: const BorderSide(color: Colors.grey, width: 1.0),
             ),
             //Add more decoration as you want here
             //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
@@ -220,8 +260,7 @@ class SignUpScreen extends StatelessWidget {
             color: greyColor,
           ),
           iconSize: 25,
-          buttonHeight: 48,
-          buttonPadding: const EdgeInsets.only(left: 10, right: 10),
+          buttonHeight: 40,
           dropdownDecoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
           ),
@@ -237,7 +276,7 @@ class SignUpScreen extends StatelessWidget {
               .toList(),
           validator: (value) {
             if (value == null) {
-              return 'Please select gender.';
+              return 'Jenis kelamin tidak boleh kosong';
             }
           },
           onChanged: (value) {
@@ -250,7 +289,7 @@ class SignUpScreen extends StatelessWidget {
       );
     }
 
-    Widget email() {
+    Widget email(SignUpViewModel paramValue) {
       return Container(
           margin: const EdgeInsets.only(
             top: 16,
@@ -259,38 +298,49 @@ class SignUpScreen extends StatelessWidget {
             left: 18,
             right: 18,
           ),
-          child: Form(
-            child: Column(
-              children: [
-                TextFormField(
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
-                  style: const TextStyle(color: Colors.grey),
-                  decoration: InputDecoration(
-                    hintText: 'Email',
-                    hintStyle: greyTextStyle.copyWith(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 1.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 2.0),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
+          child: Column(
+            children: [
+              TextFormField(
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
+                style: const TextStyle(color: Colors.grey),
+                decoration: InputDecoration(
+                  hintText: 'Email',
+                  hintStyle: greyTextStyle.copyWith(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 2.0),
+                    borderRadius: BorderRadius.circular(5.0),
                   ),
                 ),
-              ],
-            ),
+                validator: (value) {
+                  if (value == '') {
+                    return 'Email tidak boleh kosong';
+                  }
+                  final bool _isValid = EmailValidator.validate(
+                    value.toString(),
+                  );
+
+                  if (_isValid == false) {
+                    return 'Format harus berupa email';
+                  }
+                  return null;
+                },
+              ),
+            ],
           ));
     }
 
-    Widget password() {
+    Widget password(SignUpViewModel paramValue) {
       return Container(
           margin: const EdgeInsets.only(
             top: 16,
@@ -299,37 +349,54 @@ class SignUpScreen extends StatelessWidget {
             left: 18,
             right: 18,
           ),
-          child: Form(
-            child: TextFormField(
-              textInputAction: TextInputAction.done,
-              style: const TextStyle(color: Colors.grey),
-              decoration: InputDecoration(
-                hintText: 'Password',
-                hintStyle: greyTextStyle.copyWith(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w500,
-                ),
-                suffixIcon: GestureDetector(
-                  child: const Icon(
-                    Icons.visibility,
-                    color: Colors.grey,
-                  ),
-                ),
-                contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                  borderSide: const BorderSide(color: Colors.grey, width: 1.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.grey, width: 2.0),
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
+          child: TextFormField(
+            textInputAction: TextInputAction.done,
+            obscureText: paramValue.isHidden,
+            style: const TextStyle(color: Colors.grey),
+            decoration: InputDecoration(
+              hintText: 'Password',
+              hintStyle: greyTextStyle.copyWith(
+                fontSize: 10,
+                fontWeight: FontWeight.w500,
+              ),
+              suffixIcon: GestureDetector(
+                  onTap: () {
+                    paramValue.changeIsHidden(paramValue.isHidden);
+                  },
+                  child: paramValue.isHidden == true
+                      ? const Icon(
+                          Icons.visibility,
+                          color: Colors.grey,
+                        )
+                      : const Icon(
+                          Icons.visibility_off,
+                          color: Colors.grey,
+                        )),
+              contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                borderRadius: BorderRadius.circular(5.0),
               ),
             ),
+            validator: (value) {
+              if (value == '') {
+                return 'Password tidak boleh kosong';
+              }
+              bool result = paramValue.validatePassword(value!);
+
+              if (result == false) {
+                return 'Harus ada menggunakan huruf capital dan nomor';
+              }
+              return null;
+            },
           ));
     }
 
-    Widget nik() {
+    Widget nik(SignUpViewModel paramValue) {
       return Container(
           margin: const EdgeInsets.only(
             top: 16,
@@ -338,38 +405,46 @@ class SignUpScreen extends StatelessWidget {
             left: 18,
             right: 18,
           ),
-          child: Form(
-            child: Column(
-              children: [
-                TextFormField(
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.number,
-                  style: const TextStyle(color: Colors.grey),
-                  decoration: InputDecoration(
-                    hintText: 'NIK',
-                    hintStyle: greyTextStyle.copyWith(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 1.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 2.0),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
+          child: Column(
+            children: [
+              TextFormField(
+                textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.number,
+                style: const TextStyle(color: Colors.grey),
+                decoration: InputDecoration(
+                  hintText: 'NIK',
+                  hintStyle: greyTextStyle.copyWith(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 2.0),
+                    borderRadius: BorderRadius.circular(5.0),
                   ),
                 ),
-              ],
-            ),
+                validator: (value) {
+                  if (value == '') {
+                    return 'NIK tidak boleh kosong';
+                  }
+
+                  if (value!.length != 16) {
+                    return "Panjang NIK harus 16";
+                  }
+                  return null;
+                },
+              ),
+            ],
           ));
     }
 
-    Widget telpNumber() {
+    Widget telpNumber(SignUpViewModel paramValue) {
       return Container(
           margin: const EdgeInsets.only(
             top: 16,
@@ -378,61 +453,95 @@ class SignUpScreen extends StatelessWidget {
             left: 18,
             right: 18,
           ),
-          child: Form(
-            child: Column(
-              children: [
-                TextFormField(
-                  textInputAction: TextInputAction.done,
-                  keyboardType: TextInputType.number,
-                  style: const TextStyle(color: Colors.grey),
-                  decoration: InputDecoration(
-                    hintText: 'No. Telp',
-                    hintStyle: greyTextStyle.copyWith(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 1.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 2.0),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
+          child: Column(
+            children: [
+              TextFormField(
+                textInputAction: TextInputAction.done,
+                keyboardType: TextInputType.number,
+                style: const TextStyle(color: Colors.grey),
+                decoration: InputDecoration(
+                  hintText: 'No. Telp',
+                  hintStyle: greyTextStyle.copyWith(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 2.0),
+                    borderRadius: BorderRadius.circular(5.0),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Checkbox(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(2.0),
-                      ),
-                      side: MaterialStateBorderSide.resolveWith(
-                        (states) => BorderSide(width: 1.0, color: greyColor),
-                      ),
-                      value: false,
-                      onChanged: (bool? newValue) {},
-                      focusColor: greyColor,
+                validator: (value) {
+                  if (value == '') {
+                    return 'Nomor telpon tidak boleh kosong';
+                  }
+                  return null;
+                },
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Checkbox(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(2.0),
                     ),
-                    Text(
-                      'Saya telah menyetujui kebijakan privasi yang berlaku',
+                    side: MaterialStateBorderSide.resolveWith(
+                      (states) => BorderSide(
+                          width: 1.0,
+                          color: paramValue.statusCheckbox == true
+                              ? greyColor
+                              : Colors.red),
+                    ),
+                    value: paramValue.agree,
+                    onChanged: (bool? newValue) {
+                      paramValue.changeAgree(newValue!);
+                      paramValue.changestatusCheckbox(newValue);
+                    },
+                    focusColor: greyColor,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Saya telah menyetujui ',
                       style: secondTextStyle.copyWith(
                         fontSize: 10,
                         overflow: TextOverflow.visible,
                       ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'kebijakan privas',
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              print("TextSpan is clicked.");
+                              // callMyFunction();
+                            },
+                          style: secondTextStyle.copyWith(
+                            fontSize: 10,
+                            decoration: TextDecoration.underline,
+                            decorationThickness: 2,
+                          ),
+                        ),
+                        TextSpan(
+                          text: ' yang berlaku',
+                          style: secondTextStyle.copyWith(
+                            fontSize: 10,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                )
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ));
     }
 
-    Widget regiter() {
+    Widget regiter(SignUpViewModel paramValue) {
       return Container(
         margin: const EdgeInsets.only(top: 10),
         padding: const EdgeInsets.only(
@@ -440,6 +549,12 @@ class SignUpScreen extends StatelessWidget {
           right: 51,
         ),
         child: GestureDetector(
+          onTap: () {
+            if (_formKey.currentState!.validate()) {
+              _formKey.currentState!.save();
+            }
+            paramValue.changestatusCheckbox(paramValue.agree);
+          },
           child: Container(
             width: 273,
             height: 35,
@@ -485,36 +600,42 @@ class SignUpScreen extends StatelessWidget {
       backgroundColor: backgroundColor1,
       body: SafeArea(
         child: Container(
-          height: double.infinity,
-          margin: EdgeInsets.only(
-            bottom: !_isKeyboard ? 50 : 0,
-          ),
-          padding: EdgeInsets.only(
-            top: !_isKeyboard ? 70 : 50,
-          ),
-          decoration: BoxDecoration(
-            color: backgroundColor2,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                if (!_isKeyboard) logo(),
-                if (!_isKeyboard) title(),
-                if (!_isKeyboard) description(),
-                firstName(),
-                lastName(),
-                date(),
-                gender(),
-                email(),
-                password(),
-                nik(),
-                telpNumber(),
-                regiter(),
-                cancel(),
-              ],
+            height: double.infinity,
+            margin: EdgeInsets.only(
+              bottom: !_isKeyboard ? 50 : 0,
             ),
-          ),
-        ),
+            padding: EdgeInsets.only(
+              top: !_isKeyboard ? 70 : 50,
+            ),
+            decoration: BoxDecoration(
+              color: backgroundColor2,
+            ),
+            child: Consumer<SignUpViewModel>(
+              builder: (context, value, child) {
+                return Form(
+                  key: _formKey,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        if (!_isKeyboard) logo(),
+                        if (!_isKeyboard) title(),
+                        if (!_isKeyboard) description(),
+                        firstName(value),
+                        lastName(value),
+                        date(value),
+                        gender(value),
+                        email(value),
+                        password(value),
+                        nik(value),
+                        telpNumber(value),
+                        regiter(value),
+                        cancel(),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            )),
       ),
     );
   }
