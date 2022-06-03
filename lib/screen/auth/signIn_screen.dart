@@ -329,23 +329,25 @@ class SignInScreen extends StatelessWidget {
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(105),
                 )),
-            child: Consumer<SignInViewModel>(
-              builder: (context, value, child) {
-                return Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      if (!_isKeyboard) logo(),
-                      if (!_isKeyboard) title(),
-                      if (!_isKeyboard) description(),
-                      nik(value),
-                      password(value),
-                      submit(value),
-                      register(),
-                    ],
-                  ),
-                );
-              },
+            child: SingleChildScrollView(
+              child: Consumer<SignInViewModel>(
+                builder: (context, value, child) {
+                  return Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        if (!_isKeyboard) logo(),
+                        if (!_isKeyboard) title(),
+                        if (!_isKeyboard) description(),
+                        nik(value),
+                        password(value),
+                        submit(value),
+                        register(),
+                      ],
+                    ),
+                  );
+                },
+              ),
             )),
       ),
     );
