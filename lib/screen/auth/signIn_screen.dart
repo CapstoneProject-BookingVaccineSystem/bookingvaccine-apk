@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'dart:async';
+
 import 'package:bookingvaccine/screen/auth/auth_view_model.dart';
 import 'package:bookingvaccine/screen/auth/signUp_screen.dart';
 import 'package:bookingvaccine/theme.dart';
@@ -197,13 +199,17 @@ class SignInScreen extends StatelessWidget {
                         paramValue.changeIsHidden(paramValue.isHidden);
                       },
                       child: paramValue.isHidden == true
-                          ? const Icon(
-                              Icons.visibility,
-                              color: Colors.grey,
+                          ? SvgPicture.asset(
+                              'assets/visibility.svg',
+                              width: 13.75,
+                              height: 9.38,
+                              fit: BoxFit.scaleDown,
                             )
-                          : const Icon(
-                              Icons.visibility_off,
-                              color: Colors.grey,
+                          : SvgPicture.asset(
+                              'assets/visibility_off.svg',
+                              width: 13.75,
+                              height: 9.38,
+                              fit: BoxFit.scaleDown,
                             )),
                   contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                   border: OutlineInputBorder(
@@ -253,16 +259,39 @@ class SignInScreen extends StatelessWidget {
           right: 51,
         ),
         child: GestureDetector(
-          onTap: () {
+          onLongPress: () {
+            paramValue.changeStatusEnter(false);
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
+              paramValue.changeStatusEnter(false);
             }
+            Timer(
+              const Duration(seconds: 1),
+              () {
+                paramValue.changeStatusEnter(true);
+              },
+            );
+          },
+          onTap: () async {
+            paramValue.changeStatusEnter(false);
+            if (_formKey.currentState!.validate()) {
+              _formKey.currentState!.save();
+              paramValue.changeStatusEnter(false);
+            }
+            Timer(
+              const Duration(seconds: 1),
+              () {
+                paramValue.changeStatusEnter(true);
+              },
+            );
           },
           child: Container(
             width: 273,
             height: 35,
             decoration: BoxDecoration(
-              color: primaryColor2,
+              color: paramValue.statusEnter == true
+                  ? primaryColor2
+                  : primaryColor2_1,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Center(

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 class SignInViewModel extends ChangeNotifier {
   bool isHidden = true;
+  bool statusEnter = true;
 
   TextEditingController nikC = TextEditingController();
   TextEditingController passwordC = TextEditingController();
@@ -12,6 +13,11 @@ class SignInViewModel extends ChangeNotifier {
     } else {
       isHidden = true;
     }
+    notifyListeners();
+  }
+
+  changeStatusEnter(bool paramStatusEnter) {
+    statusEnter = paramStatusEnter;
     notifyListeners();
   }
 }
