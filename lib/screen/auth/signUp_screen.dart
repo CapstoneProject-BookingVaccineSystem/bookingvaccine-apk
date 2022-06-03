@@ -189,7 +189,7 @@ class SignUpScreen extends StatelessWidget {
                 String dateFormat = DateFormat('yyyy-MM-dd').format(date);
                 paramValue.changeDate(dateFormat);
               } else {
-                paramValue.changeDate('Tanggal lahir');
+                paramValue.changeDate('');
               }
             },
             readOnly: true,
