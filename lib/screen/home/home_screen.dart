@@ -137,11 +137,11 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 Container(
+                  height: 360,
                   padding: const EdgeInsets.only(top: 167),
                   child: Center(
                     child: Container(
                       width: 340,
-                      height: 210,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 23, vertical: 28),
                       decoration: BoxDecoration(
@@ -157,11 +157,13 @@ class HomeScreen extends StatelessWidget {
                         ],
                       ),
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              const SizedBox(
+                                height: 26,
+                              ),
                               Text(
                                 'Yuk Vaksin!',
                                 style: secondTextStyle.copyWith(
@@ -172,35 +174,34 @@ class HomeScreen extends StatelessWidget {
                               Text(
                                 'Tidak Sakit,',
                                 style: secondTextStyle.copyWith(
-                                  fontSize: 20,
+                                  fontSize: 12,
                                 ),
                               ),
                               Text(
                                 'Tinggal Daftar,',
                                 style: secondTextStyle.copyWith(
-                                  fontSize: 20,
+                                  fontSize: 12,
                                 ),
                               ),
                               Text(
                                 ' Datang, Duduk',
                                 style: secondTextStyle.copyWith(
-                                  fontSize: 20,
+                                  fontSize: 12,
                                 ),
                               ),
                               Text(
                                 ' dan Disuntik.',
                                 style: secondTextStyle.copyWith(
-                                  fontSize: 20,
+                                  fontSize: 12,
                                 ),
                               ),
                             ],
                           ),
-                          Container(
-                            margin: const EdgeInsets.only(top: 20),
+                          Expanded(
                             child: SvgPicture.asset(
                               'assets/yuk_vaksin.svg',
                               width: double.infinity,
-                              height: 116,
+                              height: 126,
                             ),
                           ),
                         ],
