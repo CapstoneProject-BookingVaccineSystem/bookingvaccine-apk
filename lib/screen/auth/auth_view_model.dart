@@ -82,4 +82,28 @@ class SignUpViewModel extends ChangeNotifier {
     clickRegister = paramClickRegister;
     notifyListeners();
   }
+
+  String? get errorText {
+    // at any time, we can get the text from _controller.value.text
+    final text = nikC.text;
+
+    // Note: you can do your own custom validation here
+    // Move this logic this outside the widget for more testable code
+    if (text != '') {
+      if (text.length < 16) {
+        return 'Panjang NIK harus 16';
+      }
+    }
+
+    // return null if the text is valid
+    return null;
+  }
+
+  setStateErrorText(String paramNikC) {
+    print(paramNikC);
+    if (paramNikC != '') {
+      notifyListeners();
+      errorText;
+    }
+  }
 }

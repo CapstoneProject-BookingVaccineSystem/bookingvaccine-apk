@@ -4,6 +4,7 @@ import 'package:bookingvaccine/screen/auth/auth_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:provider/provider.dart';
@@ -410,12 +411,17 @@ class SignUpScreen extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
-                maxLength: 16,
+                controller: paramValue.nikC,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                  LengthLimitingTextInputFormatter(16),
+                ],
                 style: const TextStyle(color: Colors.grey),
                 decoration: InputDecoration(
                   hintText: 'NIK',
+                  errorText: paramValue.errorText,
                   hintStyle: greyTextStyle.copyWith(
                     fontSize: 10,
                     fontWeight: FontWeight.w500,
@@ -432,14 +438,14 @@ class SignUpScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                 ),
+                onChanged: (text) {
+                  paramValue.setStateErrorText(paramValue.nikC.text);
+                },
                 validator: (value) {
                   if (value == '') {
                     return 'NIK tidak boleh kosong';
                   }
 
-                  if (value!.length != 16) {
-                    return "Panjang NIK harus 16";
-                  }
                   return null;
                 },
               ),
