@@ -6,6 +6,7 @@ import 'package:bookingvaccine/screen/auth/auth_view_model.dart';
 import 'package:bookingvaccine/screen/auth/signUp_screen.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -124,8 +125,11 @@ class SignInScreen extends StatelessWidget {
                 height: 10,
               ),
               TextFormField(
-                maxLength: 16,
                 controller: paramValue.nikC,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                  LengthLimitingTextInputFormatter(16),
+                ],
                 textInputAction: TextInputAction.next,
                 style: const TextStyle(color: Colors.grey),
                 keyboardType: TextInputType.number,
