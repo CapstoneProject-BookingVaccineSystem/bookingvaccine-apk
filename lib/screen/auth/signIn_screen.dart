@@ -281,6 +281,7 @@ class SignInScreen extends StatelessWidget {
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
               paramValue.changeClickEnter(false);
+              Navigator.pushReplacementNamed(context, '/home');
             }
             Timer(
               const Duration(seconds: 1),
@@ -325,7 +326,7 @@ class SignInScreen extends StatelessWidget {
                 fontSize: 10,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             GestureDetector(
