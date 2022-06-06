@@ -86,9 +86,14 @@ class FamillyScreen extends StatelessWidget {
                                 right: 20.75,
                               ),
                               decoration: BoxDecoration(
-                                color: primaryColor2,
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(5),
+                                borderRadius: BorderRadius.circular(5),
+                                // borderRadius: const BorderRadius.only(
+                                //   topLeft: Radius.circular(5),
+                                // ),
+                                // color: primaryColor2,
+                                border: Border.all(
+                                  width: 1,
+                                  color: primaryColor2,
                                 ),
                               ),
                               child: Row(
@@ -98,7 +103,7 @@ class FamillyScreen extends StatelessWidget {
                                   Row(
                                     children: [
                                       SvgPicture.asset(
-                                        'assets/familly.svg',
+                                        'assets/familly_blue.svg',
                                         width: 16.5,
                                         height: 10.5,
                                       ),
@@ -107,14 +112,14 @@ class FamillyScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         'Keluarga $countFamilly',
-                                        style: whiteTextStyle.copyWith(
+                                        style: primaryTextStyle2.copyWith(
                                           fontSize: 12,
                                         ),
                                       ),
                                     ],
                                   ),
                                   SvgPicture.asset(
-                                    'assets/plus.svg',
+                                    'assets/plus_blue.svg',
                                     width: 11.67,
                                     height: 11.67,
                                   ),
