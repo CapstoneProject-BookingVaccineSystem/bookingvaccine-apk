@@ -599,32 +599,37 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(
                   height: 8,
                 ),
-                Container(
-                  height: 44.25,
-                  width: double.infinity,
-                  padding: const EdgeInsets.only(
-                    left: 21.5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: primaryColor2,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/date_vaksinasi.svg',
-                        width: 13.5,
-                        height: 15,
-                      ),
-                      const SizedBox(
-                        width: 16.1,
-                      ),
-                      Text(
-                        'Jadwal Vaksinasi',
-                        style: whiteTextStyle.copyWith(
-                            fontSize: 12, fontWeight: FontWeight.w500),
-                      )
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/vaksinasni');
+                  },
+                  child: Container(
+                    height: 44.25,
+                    width: double.infinity,
+                    padding: const EdgeInsets.only(
+                      left: 21.5,
+                    ),
+                    decoration: BoxDecoration(
+                      color: primaryColor2,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/date_vaksinasi.svg',
+                          width: 13.5,
+                          height: 15,
+                        ),
+                        const SizedBox(
+                          width: 16.1,
+                        ),
+                        Text(
+                          'Jadwal Vaksinasi',
+                          style: whiteTextStyle.copyWith(
+                              fontSize: 12, fontWeight: FontWeight.w500),
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],
