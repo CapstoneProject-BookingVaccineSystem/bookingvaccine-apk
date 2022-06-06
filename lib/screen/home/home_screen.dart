@@ -563,32 +563,37 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(
                   height: 8,
                 ),
-                Container(
-                  height: 44.25,
-                  width: double.infinity,
-                  padding: const EdgeInsets.only(
-                    left: 20.5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: primaryColor2,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/familly.svg',
-                        width: 16.5,
-                        height: 10.5,
-                      ),
-                      const SizedBox(
-                        width: 15.1,
-                      ),
-                      Text(
-                        'Anggota keluarga',
-                        style: whiteTextStyle.copyWith(
-                            fontSize: 12, fontWeight: FontWeight.w500),
-                      )
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/familly');
+                  },
+                  child: Container(
+                    height: 44.25,
+                    width: double.infinity,
+                    padding: const EdgeInsets.only(
+                      left: 20.5,
+                    ),
+                    decoration: BoxDecoration(
+                      color: primaryColor2,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/familly.svg',
+                          width: 16.5,
+                          height: 10.5,
+                        ),
+                        const SizedBox(
+                          width: 15.1,
+                        ),
+                        Text(
+                          'Anggota keluarga',
+                          style: whiteTextStyle.copyWith(
+                              fontSize: 12, fontWeight: FontWeight.w500),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(
