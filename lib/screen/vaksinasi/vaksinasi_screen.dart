@@ -16,23 +16,29 @@ class VaksinasiScreen extends StatelessWidget {
       child: Scaffold(
           backgroundColor: Colors.white,
           appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(75),
-            child: AppBar(
-              leading: Builder(
-                builder: (context) => IconButton(
-                  icon: SvgPicture.asset(
-                    'assets/arrow_left.svg',
-                    width: 16.23,
-                    height: 15.81,
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                  padding: const EdgeInsets.only(top: 15),
-                ),
-              ),
-              elevation: 0,
-              backgroundColor: whiteColor,
-            ),
-          ),
+              preferredSize: const Size.fromHeight(75),
+              child: Consumer<VaksinasiViewModel>(
+                builder: (context, value, child) {
+                  return AppBar(
+                    leading: Builder(
+                      builder: (context) => IconButton(
+                        icon: SvgPicture.asset(
+                          'assets/arrow_left.svg',
+                          width: 16.23,
+                          height: 15.81,
+                        ),
+                        onPressed: () {
+                          value.changeClickContent(false, 0);
+                          Navigator.pop(context);
+                        },
+                        padding: const EdgeInsets.only(top: 15),
+                      ),
+                    ),
+                    elevation: 0,
+                    backgroundColor: whiteColor,
+                  );
+                },
+              )),
           body: Consumer<VaksinasiViewModel>(
             builder: (context, value, child) {
               return Column(
@@ -110,7 +116,7 @@ class VaksinasiScreen extends StatelessWidget {
                         int countIndex = index + 1;
                         return GestureDetector(
                           onTap: () {
-                            value.chnageClicContent(true, countIndex);
+                            value.changeClickContent(true, countIndex);
                           },
                           child: Container(
                             padding: const EdgeInsets.only(
@@ -291,12 +297,22 @@ class VaksinasiScreen extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                value.chnageClicContent(false, 0);
+                                value.changeClickContent(false, 0);
                               },
-                              child: Text(
-                                'Batal',
-                                style: primaryTextStyle2.copyWith(
-                                  fontSize: 14,
+                              child: Container(
+                                height: 51,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                  color: whiteColor,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Batal',
+                                    style: primaryTextStyle2.copyWith(
+                                      fontSize: 14,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),

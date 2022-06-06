@@ -5,7 +5,7 @@ class VaksinasiViewModel extends ChangeNotifier {
   bool clickChoose = false;
   int indexContent = 0;
 
-  chnageClicContent(bool paramClickContent, int paramIndexContent) {
+  changeClickContent(bool paramClickContent, int paramIndexContent) {
     clickContent = paramClickContent;
     indexContent = paramIndexContent;
     notifyListeners();
