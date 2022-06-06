@@ -304,7 +304,7 @@ class VaksinasiScreen extends StatelessWidget {
                               onTap: () {
                                 value.changeClickChoose(true);
                                 Timer(
-                                  Duration(seconds: 1),
+                                  const Duration(seconds: 1),
                                   () {
                                     value.changeClickChoose(false);
                                   },
