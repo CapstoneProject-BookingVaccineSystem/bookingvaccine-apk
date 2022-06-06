@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bookingvaccine/screen/familly/familly_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
@@ -132,6 +134,7 @@ class FamillyScreen extends StatelessWidget {
                                   ),
                                 );
                               }
+
                               return InkWell(
                                 onTap: () {
                                   toogleFunction(animated: true);
@@ -276,7 +279,7 @@ class FamillyScreen extends StatelessWidget {
                                     ),
                                     validator: (value) {
                                       if (value == '') {
-                                        return 'Nama belakang tidak boleh kosong';
+                                        return 'Nama lengkap tidak boleh kosong';
                                       }
                                       return null;
                                     },
@@ -286,14 +289,23 @@ class FamillyScreen extends StatelessWidget {
                                   ),
                                   GestureDetector(
                                     onTap: () {
+                                      value.changeClickAdd(true);
                                       if (_formKey.currentState!.validate()) {
                                         _formKey.currentState!.save();
                                       }
+                                      Timer(
+                                        Duration(seconds: 1),
+                                        () {
+                                          value.changeClickAdd(false);
+                                        },
+                                      );
                                     },
                                     child: Container(
                                       height: 42,
                                       decoration: BoxDecoration(
-                                        color: primaryColor2,
+                                        color: value.clickAdd == true
+                                            ? primaryColor2_1
+                                            : primaryColor2,
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: Center(
