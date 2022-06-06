@@ -635,11 +635,13 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushReplacementNamed(context, '/signIn');
+                  },
                   child: Container(
                     height: 44.25,
                     width: double.infinity,
@@ -653,12 +655,12 @@ class HomeScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         SvgPicture.asset(
-                          'assets/date_vaksinasi.svg',
+                          'assets/logout.svg',
                           width: 13.5,
                           height: 15,
                         ),
                         const SizedBox(
-                          width: 16.1,
+                          width: 12,
                         ),
                         Text(
                           'Keluar Akun',
