@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bookingvaccine/screen/vaksinasi/vaksinasi_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:delayed_display/delayed_display.dart';
@@ -298,18 +300,31 @@ class VaksinasiScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Container(
-                              height: 51,
-                              width: 163,
-                              decoration: BoxDecoration(
-                                color: primaryColor2,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'Pilih',
-                                  style: whiteTextStyle.copyWith(
-                                    fontSize: 14,
+                            GestureDetector(
+                              onTap: () {
+                                value.changeClickChoose(true);
+                                Timer(
+                                  Duration(seconds: 1),
+                                  () {
+                                    value.changeClickChoose(false);
+                                  },
+                                );
+                              },
+                              child: Container(
+                                height: 51,
+                                width: 163,
+                                decoration: BoxDecoration(
+                                  color: value.clickChoose == false
+                                      ? primaryColor2
+                                      : primaryColor2_1,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Pilih',
+                                    style: whiteTextStyle.copyWith(
+                                      fontSize: 14,
+                                    ),
                                   ),
                                 ),
                               ),
