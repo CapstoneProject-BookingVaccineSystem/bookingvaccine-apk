@@ -34,11 +34,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => VaksinasiScreen(),
+        '/': (context) => const SplashScreen(),
         '/signIn': (context) => SignInScreen(),
         '/signUp': (context) => SignUpScreen(),
         '/home': (context) => const HomeScreen(),
         '/familly': (context) => FamillyScreen(),
+        '/vaksinasni': (context) => VaksinasiScreen(),
       },
     );
   }
