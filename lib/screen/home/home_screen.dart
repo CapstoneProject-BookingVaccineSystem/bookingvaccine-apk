@@ -472,137 +472,174 @@ class HomeScreen extends StatelessWidget {
               left: 18,
               top: 26,
               right: 18,
+              bottom: 26,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Column(
                   children: [
-                    Text(
-                      'Logo',
-                      style: primaryTextStyle2.copyWith(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Logo',
+                          style: primaryTextStyle2.copyWith(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: SvgPicture.asset(
+                            'assets/logout.svg',
+                            width: 13.73,
+                            height: 13.73,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    Container(
+                      height: 44.25,
+                      width: double.infinity,
+                      padding: const EdgeInsets.only(
+                        left: 22.1,
                       ),
+                      decoration: BoxDecoration(
+                        color: primaryColor2_1,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/home.svg',
+                            width: 13.8,
+                            height: 12.49,
+                          ),
+                          const SizedBox(
+                            width: 17.1,
+                          ),
+                          Text(
+                            'Beranda',
+                            style: whiteTextStyle.copyWith(
+                                fontSize: 12, fontWeight: FontWeight.w500),
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                      height: 44.25,
+                      width: double.infinity,
+                      padding: const EdgeInsets.only(
+                        left: 20,
+                      ),
+                      decoration: BoxDecoration(
+                        color: primaryColor2,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/profil.svg',
+                            width: 15,
+                            height: 15,
+                          ),
+                          const SizedBox(
+                            width: 17.1,
+                          ),
+                          Text(
+                            'Profil',
+                            style: whiteTextStyle.copyWith(
+                                fontSize: 12, fontWeight: FontWeight.w500),
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.pushNamed(context, '/familly');
                       },
-                      child: SvgPicture.asset(
-                        'assets/x.svg',
-                        width: 13.73,
-                        height: 13.73,
+                      child: Container(
+                        height: 44.25,
+                        width: double.infinity,
+                        padding: const EdgeInsets.only(
+                          left: 20.5,
+                        ),
+                        decoration: BoxDecoration(
+                          color: primaryColor2,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/familly.svg',
+                              width: 16.5,
+                              height: 10.5,
+                            ),
+                            const SizedBox(
+                              width: 15.1,
+                            ),
+                            Text(
+                              'Anggota keluarga',
+                              style: whiteTextStyle.copyWith(
+                                  fontSize: 12, fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
                       ),
                     ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/vaksinasni');
+                      },
+                      child: Container(
+                        height: 44.25,
+                        width: double.infinity,
+                        padding: const EdgeInsets.only(
+                          left: 21.5,
+                        ),
+                        decoration: BoxDecoration(
+                          color: primaryColor2,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/date_vaksinasi.svg',
+                              width: 13.5,
+                              height: 15,
+                            ),
+                            const SizedBox(
+                              width: 16.1,
+                            ),
+                            Text(
+                              'Jadwal Vaksinasi',
+                              style: whiteTextStyle.copyWith(
+                                  fontSize: 12, fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 ),
-                const SizedBox(
-                  height: 25,
-                ),
-                Container(
-                  height: 44.25,
-                  width: double.infinity,
-                  padding: const EdgeInsets.only(
-                    left: 22.1,
-                  ),
-                  decoration: BoxDecoration(
-                    color: primaryColor2_1,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/home.svg',
-                        width: 13.8,
-                        height: 12.49,
-                      ),
-                      const SizedBox(
-                        width: 17.1,
-                      ),
-                      Text(
-                        'Beranda',
-                        style: whiteTextStyle.copyWith(
-                            fontSize: 12, fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Container(
-                  height: 44.25,
-                  width: double.infinity,
-                  padding: const EdgeInsets.only(
-                    left: 20,
-                  ),
-                  decoration: BoxDecoration(
-                    color: primaryColor2,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/profil.svg',
-                        width: 15,
-                        height: 15,
-                      ),
-                      const SizedBox(
-                        width: 17.1,
-                      ),
-                      Text(
-                        'Profil',
-                        style: whiteTextStyle.copyWith(
-                            fontSize: 12, fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
                 GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/familly');
-                  },
-                  child: Container(
-                    height: 44.25,
-                    width: double.infinity,
-                    padding: const EdgeInsets.only(
-                      left: 20.5,
-                    ),
-                    decoration: BoxDecoration(
-                      color: primaryColor2,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(
-                          'assets/familly.svg',
-                          width: 16.5,
-                          height: 10.5,
-                        ),
-                        const SizedBox(
-                          width: 15.1,
-                        ),
-                        Text(
-                          'Anggota keluarga',
-                          style: whiteTextStyle.copyWith(
-                              fontSize: 12, fontWeight: FontWeight.w500),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/vaksinasni');
-                  },
+                  onTap: () {},
                   child: Container(
                     height: 44.25,
                     width: double.infinity,
@@ -624,7 +661,7 @@ class HomeScreen extends StatelessWidget {
                           width: 16.1,
                         ),
                         Text(
-                          'Jadwal Vaksinasi',
+                          'Keluar Akun',
                           style: whiteTextStyle.copyWith(
                               fontSize: 12, fontWeight: FontWeight.w500),
                         )
