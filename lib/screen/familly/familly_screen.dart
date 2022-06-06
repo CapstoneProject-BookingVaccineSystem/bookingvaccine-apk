@@ -22,7 +22,7 @@ class FamillyScreen extends StatelessWidget {
                   width: 16.23,
                   height: 15.81,
                 ),
-                onPressed: () => print('tes'),
+                onPressed: () => Navigator.pop(context),
                 padding: const EdgeInsets.only(top: 15),
               ),
             ),
