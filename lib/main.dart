@@ -6,6 +6,7 @@ import 'package:bookingvaccine/screen/familly/familly_view_model.dart';
 import 'package:bookingvaccine/screen/home/home_screen.dart';
 import 'package:bookingvaccine/screen/splash_screen.dart';
 import 'package:bookingvaccine/screen/vaksinasi/vaksinasi_screen.dart';
+import 'package:bookingvaccine/screen/vaksinasi/vaksinasi_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +21,9 @@ void main() {
       ),
       ChangeNotifierProvider<FamillyViewModel>(
         create: (context) => FamillyViewModel(),
+      ),
+      ChangeNotifierProvider<VaksinasiViewModel>(
+        create: (context) => VaksinasiViewModel(),
       ),
     ],
     child: const MyApp(),
@@ -39,7 +43,7 @@ class MyApp extends StatelessWidget {
         '/signUp': (context) => SignUpScreen(),
         '/home': (context) => const HomeScreen(),
         '/familly': (context) => FamillyScreen(),
-        '/vaksinasni': (context) => VaksinasiScreen(),
+        '/vaksinasni': (context) => const VaksinasiScreen(),
       },
     );
   }

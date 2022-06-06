@@ -1,299 +1,328 @@
+import 'package:bookingvaccine/screen/vaksinasi/vaksinasi_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
+import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class VaksinasiScreen extends StatelessWidget {
-  VaksinasiScreen({Key? key}) : super(key: key);
-  final _formKey = GlobalKey<FormState>();
+  const VaksinasiScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(75),
-          child: AppBar(
-            leading: Builder(
-              builder: (context) => IconButton(
-                icon: SvgPicture.asset(
-                  'assets/arrow_left.svg',
-                  width: 16.23,
-                  height: 15.81,
+          backgroundColor: Colors.white,
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(75),
+            child: AppBar(
+              leading: Builder(
+                builder: (context) => IconButton(
+                  icon: SvgPicture.asset(
+                    'assets/arrow_left.svg',
+                    width: 16.23,
+                    height: 15.81,
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                  padding: const EdgeInsets.only(top: 15),
                 ),
-                onPressed: () => Navigator.pop(context),
-                padding: const EdgeInsets.only(top: 15),
               ),
+              elevation: 0,
+              backgroundColor: whiteColor,
             ),
-            elevation: 0,
-            backgroundColor: whiteColor,
           ),
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              margin: const EdgeInsets.only(
-                left: 19,
-                right: 19,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          body: Consumer<VaksinasiViewModel>(
+            builder: (context, value, child) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Booking Jadwal Vaksinasi ',
-                    style: primaryTextStyle2.copyWith(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 7,
-                  ),
-                  Text(
-                    'Dengan mudah, aman dan terpercaya',
-                    style: primaryTextStyle.copyWith(
-                      fontSize: 14,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    'Masukkan Kelurahan terdekat Anda',
-                    style: primaryTextStyle.copyWith(
-                      fontSize: 12,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 2,
-                  ),
-                  TextFormField(
-                    textInputAction: TextInputAction.done,
-                    style: const TextStyle(color: Colors.grey),
-                    decoration: InputDecoration(
-                      hintText: 'Masukkan Nama Kelurahan, Kota/Kabupaten',
-                      hintStyle: greyTextStyle.copyWith(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      contentPadding: const EdgeInsets.fromLTRB(20, 10, 10, 0),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide:
-                            const BorderSide(color: Colors.grey, width: 1.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: Colors.grey, width: 2.0),
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return Container(
-                    padding: const EdgeInsets.only(
+                  Container(
+                    margin: const EdgeInsets.only(
                       left: 19,
                       right: 19,
-                      top: 15,
                     ),
-                    child: Container(
-                      height: 156,
-                      width: double.infinity,
-                      margin: const EdgeInsets.only(bottom: 10),
-                      padding: const EdgeInsets.only(
-                        left: 20,
-                        top: 19.5,
-                      ),
-                      decoration: BoxDecoration(
-                        color: whiteColor,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.3),
-                            spreadRadius: 2,
-                            blurRadius: 2,
-                            offset: const Offset(
-                                0, 1), // changes position of shadow
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Booking Jadwal Vaksinasi ',
+                          style: primaryTextStyle2.copyWith(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
                           ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Puskesmas Raja Basa Indah',
-                            style: primaryTextStyle.copyWith(
-                              fontSize: 14,
+                        ),
+                        const SizedBox(
+                          height: 7,
+                        ),
+                        Text(
+                          'Dengan mudah, aman dan terpercaya',
+                          style: primaryTextStyle.copyWith(
+                            fontSize: 14,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          'Masukkan Kelurahan terdekat Anda',
+                          style: primaryTextStyle.copyWith(
+                            fontSize: 12,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 2,
+                        ),
+                        TextFormField(
+                          textInputAction: TextInputAction.done,
+                          style: const TextStyle(color: Colors.grey),
+                          decoration: InputDecoration(
+                            hintText: 'Masukkan Nama Kelurahan, Kota/Kabupaten',
+                            hintStyle: greyTextStyle.copyWith(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            contentPadding:
+                                const EdgeInsets.fromLTRB(20, 10, 10, 0),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                              borderSide: const BorderSide(
+                                  color: Colors.grey, width: 1.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Colors.grey, width: 2.0),
+                              borderRadius: BorderRadius.circular(5.0),
                             ),
                           ),
-                          const SizedBox(
-                            height: 9.48,
-                          ),
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                'assets/street.svg',
-                                width: 13,
-                                height: 13,
-                              ),
-                              const SizedBox(
-                                width: 9.41,
-                              ),
-                              Flexible(
-                                child: Text(
-                                  'Jl. Pramuka No. 1 Rajabasa, Lampung, Indonesia',
-                                  overflow: TextOverflow.ellipsis,
-                                  style: primaryTextStyle.copyWith(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 9,
-                          ),
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                'assets/telphone.svg',
-                                width: 13,
-                                height: 13,
-                              ),
-                              const SizedBox(
-                                width: 9.41,
-                              ),
-                              Flexible(
-                                child: Text(
-                                  '0891234567890',
-                                  overflow: TextOverflow.ellipsis,
-                                  style: primaryTextStyle.copyWith(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 9,
-                          ),
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                'assets/stock_vaksin.svg',
-                                width: 13,
-                                height: 13,
-                              ),
-                              const SizedBox(
-                                width: 9.41,
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  text: 'Stok Vaksin : ',
-                                  style:
-                                      primaryTextStyle2.copyWith(fontSize: 10),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                        text: 'Sinovac - 100 Buah',
-                                        style: primaryTextStyle.copyWith(
-                                          fontSize: 10,
-                                        )),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 9,
-                          ),
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                'assets/stock_vaksin.svg',
-                                width: 13,
-                                height: 13,
-                              ),
-                              const SizedBox(
-                                width: 9.41,
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  text: 'Tersedia pada sesi : ',
-                                  style:
-                                      primaryTextStyle2.copyWith(fontSize: 10),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                        text: '08.00 WIB - Selesai',
-                                        style: primaryTextStyle.copyWith(
-                                          fontSize: 10,
-                                        )),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-            Container(
-              height: 75,
-              decoration: BoxDecoration(
-                color: whiteColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: const Offset(0, 1), // changes position of shadow
-                  ),
-                ],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    'Batal',
-                    style: primaryTextStyle2.copyWith(
-                      fontSize: 14,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                      ],
                     ),
                   ),
-                  Container(
-                    height: 51,
-                    width: 163,
-                    decoration: BoxDecoration(
-                      color: primaryColor2,
-                      borderRadius: BorderRadius.circular(5),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        int countIndex = index + 1;
+                        return GestureDetector(
+                          onTap: () {
+                            value.chnageClicContent(true, countIndex);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.only(
+                              left: 19,
+                              right: 19,
+                              top: 15,
+                            ),
+                            child: Container(
+                              height: 156,
+                              width: double.infinity,
+                              margin: const EdgeInsets.only(bottom: 10),
+                              padding: const EdgeInsets.only(
+                                left: 20,
+                                top: 19.5,
+                              ),
+                              decoration: BoxDecoration(
+                                color: whiteColor,
+                                border: Border.all(
+                                  color: value.indexContent == countIndex
+                                      ? primaryColor2
+                                      : Colors.white,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.3),
+                                    spreadRadius: 2,
+                                    blurRadius: 2,
+                                    offset: const Offset(0, 1),
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Puskesmas Raja Basa Indah',
+                                    style: primaryTextStyle.copyWith(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 9.48,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/street.svg',
+                                        width: 13,
+                                        height: 13,
+                                      ),
+                                      const SizedBox(
+                                        width: 9.41,
+                                      ),
+                                      Flexible(
+                                        child: Text(
+                                          'Jl. Pramuka No. 1 Rajabasa, Lampung, Indonesia',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: primaryTextStyle.copyWith(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 9,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/telphone.svg',
+                                        width: 13,
+                                        height: 13,
+                                      ),
+                                      const SizedBox(
+                                        width: 9.41,
+                                      ),
+                                      Flexible(
+                                        child: Text(
+                                          '0891234567890',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: primaryTextStyle.copyWith(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 9,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/stock_vaksin.svg',
+                                        width: 13,
+                                        height: 13,
+                                      ),
+                                      const SizedBox(
+                                        width: 9.41,
+                                      ),
+                                      RichText(
+                                        text: TextSpan(
+                                          text: 'Stok Vaksin : ',
+                                          style: primaryTextStyle2.copyWith(
+                                              fontSize: 10),
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                                text: 'Sinovac - 100 Buah',
+                                                style:
+                                                    primaryTextStyle.copyWith(
+                                                  fontSize: 10,
+                                                )),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 9,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/stock_vaksin.svg',
+                                        width: 13,
+                                        height: 13,
+                                      ),
+                                      const SizedBox(
+                                        width: 9.41,
+                                      ),
+                                      RichText(
+                                        text: TextSpan(
+                                          text: 'Tersedia pada sesi : ',
+                                          style: primaryTextStyle2.copyWith(
+                                              fontSize: 10),
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                                text: '08.00 WIB - Selesai',
+                                                style:
+                                                    primaryTextStyle.copyWith(
+                                                  fontSize: 10,
+                                                )),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                    child: Center(
-                      child: Text(
-                        'Pilih',
-                        style: whiteTextStyle.copyWith(
-                          fontSize: 14,
+                  ),
+                  if (value.clickContent == true) ...{
+                    DelayedDisplay(
+                      child: Container(
+                        height: 75,
+                        decoration: BoxDecoration(
+                          color: whiteColor,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: const Offset(
+                                  0, 1), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                value.chnageClicContent(false, 0);
+                              },
+                              child: Text(
+                                'Batal',
+                                style: primaryTextStyle2.copyWith(
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: 51,
+                              width: 163,
+                              decoration: BoxDecoration(
+                                color: primaryColor2,
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Pilih',
+                                  style: whiteTextStyle.copyWith(
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                  ),
+                    )
+                  }
                 ],
-              ),
-            )
-          ],
-        ),
-      ),
+              );
+            },
+          )),
     );
   }
 }
