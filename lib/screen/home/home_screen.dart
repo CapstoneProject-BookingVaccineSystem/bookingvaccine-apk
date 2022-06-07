@@ -882,7 +882,6 @@ class HomeScreen extends StatelessWidget {
                                             ),
                                             SvgPicture.asset(
                                               'assets/arrow_right.svg',
-                                              width: double.infinity,
                                               height: 4.65,
                                               color: whiteColor,
                                             ),
