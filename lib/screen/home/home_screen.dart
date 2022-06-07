@@ -1,6 +1,11 @@
+import 'dart:async';
+
+import 'package:bookingvaccine/screen/home/home_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -292,7 +297,7 @@ class HomeScreen extends StatelessWidget {
       );
     }
 
-    Widget newsTitle() {
+    Widget newsTitle(HomeViewModel paramValue) {
       return Container(
         padding: const EdgeInsets.only(
           left: 18,
@@ -309,19 +314,30 @@ class HomeScreen extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            Container(
-              width: 100,
-              height: 27,
-              decoration: BoxDecoration(
-                color: primaryColor2,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Center(
-                child: Text(
-                  'Lebih Banyak',
-                  style: whiteTextStyle.copyWith(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
+            GestureDetector(
+              onTap: () {
+                paramValue.changeClickButtonMore(true);
+
+                Timer(const Duration(milliseconds: 200), () {
+                  paramValue.changeClickButtonMore(false);
+                });
+              },
+              child: Container(
+                width: 100,
+                height: 27,
+                decoration: BoxDecoration(
+                  color: paramValue.clickButtonMore == true
+                      ? primaryColor2_1
+                      : primaryColor2,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Center(
+                  child: Text(
+                    'Lebih Banyak',
+                    style: whiteTextStyle.copyWith(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
@@ -429,117 +445,223 @@ class HomeScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(80),
-          child: AppBar(
-            leading: Builder(
-              builder: (context) => IconButton(
-                icon: const Icon(
-                  Icons.menu_rounded,
-                ),
-                onPressed: () => Scaffold.of(context).openDrawer(),
-                padding: const EdgeInsets.only(top: 15),
-              ),
-            ),
-            elevation: 0,
-            backgroundColor: backgroundColor1,
-            actions: [
-              Container(
-                margin: const EdgeInsets.only(
-                  top: 15,
-                  right: 17,
-                ),
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: greyColor,
-                  image: const DecorationImage(
-                    image:
-                        NetworkImage('https://picsum.photos/200/300?random=2'),
-                    fit: BoxFit.fill,
+          backgroundColor: Colors.white,
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(80),
+            child: AppBar(
+              leading: Builder(
+                builder: (context) => IconButton(
+                  icon: const Icon(
+                    Icons.menu_rounded,
                   ),
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                  padding: const EdgeInsets.only(top: 15),
                 ),
-              )
-            ],
-          ),
-        ),
-        drawer: Drawer(
-          child: Container(
-            padding: const EdgeInsets.only(
-              left: 18,
-              top: 26,
-              right: 18,
-              bottom: 26,
+              ),
+              elevation: 0,
+              backgroundColor: backgroundColor1,
+              actions: [
+                Container(
+                  margin: const EdgeInsets.only(
+                    top: 15,
+                    right: 17,
+                  ),
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: greyColor,
+                    image: const DecorationImage(
+                      image: NetworkImage(
+                          'https://picsum.photos/200/300?random=2'),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                )
+              ],
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Logo',
-                          style: primaryTextStyle2.copyWith(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: SvgPicture.asset(
-                            'assets/logout.svg',
-                            width: 13.73,
-                            height: 13.73,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    Container(
-                      height: 44.25,
-                      width: double.infinity,
-                      padding: const EdgeInsets.only(
-                        left: 22.1,
-                      ),
-                      decoration: BoxDecoration(
-                        color: primaryColor2_1,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Row(
+          ),
+          drawer: Drawer(
+            child: Container(
+              padding: const EdgeInsets.only(
+                left: 18,
+                top: 26,
+                right: 18,
+                bottom: 26,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SvgPicture.asset(
-                            'assets/home.svg',
-                            width: 13.8,
-                            height: 12.49,
-                          ),
-                          const SizedBox(
-                            width: 17.1,
-                          ),
                           Text(
-                            'Beranda',
-                            style: whiteTextStyle.copyWith(
-                                fontSize: 12, fontWeight: FontWeight.w500),
-                          )
+                            'Logo',
+                            style: primaryTextStyle2.copyWith(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: SvgPicture.asset(
+                              'assets/logout.svg',
+                              width: 13.73,
+                              height: 13.73,
+                            ),
+                          ),
                         ],
                       ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Container(
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      Container(
+                        height: 44.25,
+                        width: double.infinity,
+                        padding: const EdgeInsets.only(
+                          left: 22.1,
+                        ),
+                        decoration: BoxDecoration(
+                          color: primaryColor2_1,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/home.svg',
+                              width: 13.8,
+                              height: 12.49,
+                            ),
+                            const SizedBox(
+                              width: 17.1,
+                            ),
+                            Text(
+                              'Beranda',
+                              style: whiteTextStyle.copyWith(
+                                  fontSize: 12, fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Container(
+                        height: 44.25,
+                        width: double.infinity,
+                        padding: const EdgeInsets.only(
+                          left: 20,
+                        ),
+                        decoration: BoxDecoration(
+                          color: primaryColor2,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/profil.svg',
+                              width: 15,
+                              height: 15,
+                            ),
+                            const SizedBox(
+                              width: 17.1,
+                            ),
+                            Text(
+                              'Profil',
+                              style: whiteTextStyle.copyWith(
+                                  fontSize: 12, fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/familly');
+                        },
+                        child: Container(
+                          height: 44.25,
+                          width: double.infinity,
+                          padding: const EdgeInsets.only(
+                            left: 20.5,
+                          ),
+                          decoration: BoxDecoration(
+                            color: primaryColor2,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Row(
+                            children: [
+                              SvgPicture.asset(
+                                'assets/familly.svg',
+                                width: 16.5,
+                                height: 10.5,
+                              ),
+                              const SizedBox(
+                                width: 15.1,
+                              ),
+                              Text(
+                                'Anggota keluarga',
+                                style: whiteTextStyle.copyWith(
+                                    fontSize: 12, fontWeight: FontWeight.w500),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/vaksinasni');
+                        },
+                        child: Container(
+                          height: 44.25,
+                          width: double.infinity,
+                          padding: const EdgeInsets.only(
+                            left: 21.5,
+                          ),
+                          decoration: BoxDecoration(
+                            color: primaryColor2,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Row(
+                            children: [
+                              SvgPicture.asset(
+                                'assets/date_vaksinasi.svg',
+                                width: 13.5,
+                                height: 15,
+                              ),
+                              const SizedBox(
+                                width: 16.1,
+                              ),
+                              Text(
+                                'Jadwal Vaksinasi',
+                                style: whiteTextStyle.copyWith(
+                                    fontSize: 12, fontWeight: FontWeight.w500),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacementNamed(context, '/signIn');
+                    },
+                    child: Container(
                       height: 44.25,
                       width: double.infinity,
                       padding: const EdgeInsets.only(
-                        left: 20,
+                        left: 21.5,
                       ),
                       decoration: BoxDecoration(
                         color: primaryColor2,
@@ -548,336 +670,250 @@ class HomeScreen extends StatelessWidget {
                       child: Row(
                         children: [
                           SvgPicture.asset(
-                            'assets/profil.svg',
-                            width: 15,
+                            'assets/logout.svg',
+                            width: 13.5,
                             height: 15,
                           ),
                           const SizedBox(
-                            width: 17.1,
+                            width: 12,
                           ),
                           Text(
-                            'Profil',
+                            'Keluar Akun',
                             style: whiteTextStyle.copyWith(
                                 fontSize: 12, fontWeight: FontWeight.w500),
                           )
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/familly');
-                      },
-                      child: Container(
-                        height: 44.25,
-                        width: double.infinity,
-                        padding: const EdgeInsets.only(
-                          left: 20.5,
-                        ),
-                        decoration: BoxDecoration(
-                          color: primaryColor2,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/familly.svg',
-                              width: 16.5,
-                              height: 10.5,
-                            ),
-                            const SizedBox(
-                              width: 15.1,
-                            ),
-                            Text(
-                              'Anggota keluarga',
-                              style: whiteTextStyle.copyWith(
-                                  fontSize: 12, fontWeight: FontWeight.w500),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/vaksinasni');
-                      },
-                      child: Container(
-                        height: 44.25,
-                        width: double.infinity,
-                        padding: const EdgeInsets.only(
-                          left: 21.5,
-                        ),
-                        decoration: BoxDecoration(
-                          color: primaryColor2,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/date_vaksinasi.svg',
-                              width: 13.5,
-                              height: 15,
-                            ),
-                            const SizedBox(
-                              width: 16.1,
-                            ),
-                            Text(
-                              'Jadwal Vaksinasi',
-                              style: whiteTextStyle.copyWith(
-                                  fontSize: 12, fontWeight: FontWeight.w500),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushReplacementNamed(context, '/signIn');
-                  },
-                  child: Container(
-                    height: 44.25,
-                    width: double.infinity,
-                    padding: const EdgeInsets.only(
-                      left: 21.5,
-                    ),
-                    decoration: BoxDecoration(
-                      color: primaryColor2,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(
-                          'assets/logout.svg',
-                          width: 13.5,
-                          height: 15,
-                        ),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        Text(
-                          'Keluar Akun',
-                          style: whiteTextStyle.copyWith(
-                              fontSize: 12, fontWeight: FontWeight.w500),
-                        )
-                      ],
-                    ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-        body: ListView(
-          children: [
-            Stack(
-              children: [
-                Container(
-                  height: 200,
-                  width: double.infinity,
-                  padding: const EdgeInsets.only(
-                    left: 18,
-                  ),
-                  decoration: BoxDecoration(
-                    color: backgroundColor1,
-                    borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(10),
-                        bottomRight: Radius.circular(10)),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+          body: Consumer<HomeViewModel>(
+            builder: (context, value, child) {
+              return ListView(
+                children: [
+                  Stack(
                     children: [
-                      Text(
-                        'Halo, John Doe!',
-                        style: whiteTextStyle.copyWith(
-                          fontSize: 16,
+                      Container(
+                        height: 200,
+                        width: double.infinity,
+                        padding: const EdgeInsets.only(
+                          left: 18,
                         ),
-                      ),
-                      Text(
-                        'Selamat Datang Kembali!',
-                        style: whiteTextStyle.copyWith(
-                          fontSize: 16,
+                        decoration: BoxDecoration(
+                          color: backgroundColor1,
+                          borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10)),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        'Mari, daftar jadwal vaksinasi dengan mudah bersama kami.',
-                        style: whiteTextStyle.copyWith(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                'assets/location.svg',
-                                width: 15,
-                                height: 15,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Halo, John Doe!',
+                              style: whiteTextStyle.copyWith(
+                                fontSize: 16,
                               ),
-                              // ignore: prefer_const_constructors
-                              SizedBox(
-                                width: 7.5,
+                            ),
+                            Text(
+                              'Selamat Datang Kembali!',
+                              style: whiteTextStyle.copyWith(
+                                fontSize: 16,
                               ),
-                              Text(
-                                'Lampung, Indonesia',
-                                style: whiteTextStyle.copyWith(
-                                  fontSize: 10,
-                                ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              'Mari, daftar jadwal vaksinasi dengan mudah bersama kami.',
+                              style: whiteTextStyle.copyWith(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
                               ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(75),
-                                    topRight: Radius.circular(12),
-                                    bottomLeft: Radius.circular(45),
-                                  ),
-                                  color:
-                                      const Color(0xFFFFFFFF).withOpacity(0.3),
-                                ),
-                                width: 85,
-                                height: 85,
-                              )
-                            ],
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 380,
-                  padding: const EdgeInsets.only(top: 167),
-                  child: Center(
-                    child: Container(
-                      width: 340,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 23, vertical: 28),
-                      decoration: BoxDecoration(
-                        color: whiteColor,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.3),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: const Offset(
-                                0, 1), // changes position of shadow
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(
-                                height: 26,
-                              ),
-                              Text(
-                                'Yuk Vaksin!',
-                                style: secondTextStyle.copyWith(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              Text(
-                                'Tidak Sakit,',
-                                style: secondTextStyle.copyWith(
-                                  fontSize: 12,
-                                ),
-                              ),
-                              Text(
-                                'Tinggal Daftar,',
-                                style: secondTextStyle.copyWith(
-                                  fontSize: 12,
-                                ),
-                              ),
-                              Text(
-                                'Datang, Duduk',
-                                style: secondTextStyle.copyWith(
-                                  fontSize: 12,
-                                ),
-                              ),
-                              Text(
-                                'dan Disuntik.',
-                                style: secondTextStyle.copyWith(
-                                  fontSize: 12,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 2,
-                              ),
-                              Container(
-                                height: 25,
-                                width: 121,
-                                decoration: BoxDecoration(
-                                  color: primaryColor2,
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
                                   children: [
+                                    SvgPicture.asset(
+                                      'assets/location.svg',
+                                      width: 15,
+                                      height: 15,
+                                    ),
+                                    // ignore: prefer_const_constructors
+                                    SizedBox(
+                                      width: 7.5,
+                                    ),
                                     Text(
-                                      'Daftar Sekarang!',
+                                      'Lampung, Indonesia',
                                       style: whiteTextStyle.copyWith(
                                         fontSize: 10,
-                                        fontWeight: FontWeight.w400,
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      width: 9.63,
-                                    ),
-                                    SvgPicture.asset(
-                                      'assets/arrow_right.svg',
-                                      width: double.infinity,
-                                      height: 4.65,
-                                      color: whiteColor,
                                     ),
                                   ],
                                 ),
-                              )
-                            ],
-                          ),
-                          Expanded(
-                            child: SvgPicture.asset(
-                              'assets/yuk_vaksin.svg',
-                              width: double.infinity,
-                              height: 126,
+                                Row(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(75),
+                                          topRight: Radius.circular(12),
+                                          bottomLeft: Radius.circular(45),
+                                        ),
+                                        color: const Color(0xFFFFFFFF)
+                                            .withOpacity(0.3),
+                                      ),
+                                      width: 85,
+                                      height: 85,
+                                    )
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: 380,
+                        padding: const EdgeInsets.only(top: 167),
+                        child: Center(
+                          child: Container(
+                            width: 340,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 23, vertical: 28),
+                            decoration: BoxDecoration(
+                              color: whiteColor,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.3),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: const Offset(
+                                      0, 1), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      height: 26,
+                                    ),
+                                    Text(
+                                      'Yuk Vaksin!',
+                                      style: secondTextStyle.copyWith(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Tidak Sakit,',
+                                      style: secondTextStyle.copyWith(
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Tinggal Daftar,',
+                                      style: secondTextStyle.copyWith(
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Datang, Duduk',
+                                      style: secondTextStyle.copyWith(
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    Text(
+                                      'dan Disuntik.',
+                                      style: secondTextStyle.copyWith(
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 2,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        value
+                                            .changeClickButtonRegisterNow(true);
+
+                                        Timer(const Duration(milliseconds: 200),
+                                            () {
+                                          value.changeClickButtonRegisterNow(
+                                              false);
+                                        });
+                                      },
+                                      child: Container(
+                                        height: 25,
+                                        width: 121,
+                                        decoration: BoxDecoration(
+                                          color: value.clickButtonRegisterNow ==
+                                                  true
+                                              ? primaryColor2_1
+                                              : primaryColor2,
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'Daftar Sekarang!',
+                                              style: whiteTextStyle.copyWith(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 9.63,
+                                            ),
+                                            SvgPicture.asset(
+                                              'assets/arrow_right.svg',
+                                              width: double.infinity,
+                                              height: 4.65,
+                                              color: whiteColor,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Expanded(
+                                  child: SvgPicture.asset(
+                                    'assets/yuk_vaksin.svg',
+                                    width: double.infinity,
+                                    height: 126,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
+                        ),
+                      )
+                    ],
                   ),
-                )
-              ],
-            ),
-            exclusiveTitle(),
-            exclusiveContent(),
-            newsTitle(),
-            newsContent(),
-          ],
-        ),
-      ),
+                  exclusiveTitle(),
+                  exclusiveContent(),
+                  newsTitle(value),
+                  newsContent(),
+                ],
+              );
+            },
+          )),
     );
   }
 }
