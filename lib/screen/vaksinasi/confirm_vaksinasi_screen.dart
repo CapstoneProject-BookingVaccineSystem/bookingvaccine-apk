@@ -1,4 +1,5 @@
-import 'package:bookingvaccine/screen/vaksinasi/vaksinasi_view_model.dart';
+import 'dart:async';
+import 'package:bookingvaccine/screen/vaksinasi/confirm_vaksinasi_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +12,13 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final confirmC = context.read<ConfirmVaksinasiViewModel>();
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.white,
           appBar: PreferredSize(
               preferredSize: const Size.fromHeight(75),
-              child: Consumer<VaksinasiViewModel>(
+              child: Consumer<ConfirmVaksinasiViewModel>(
                 builder: (context, value, child) {
                   return AppBar(
                     leading: Builder(
@@ -27,8 +29,6 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
                           height: 15.81,
                         ),
                         onPressed: () {
-                          value.changeClickContent(false, 0);
-                          value.changeClickKelurahan(false);
                           Navigator.pop(context);
                         },
                         padding: const EdgeInsets.only(top: 15),
@@ -39,7 +39,7 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
                   );
                 },
               )),
-          body: Consumer<VaksinasiViewModel>(
+          body: Consumer<ConfirmVaksinasiViewModel>(
             builder: (context, value, child) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -368,26 +368,48 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
                                                           ),
                                                         ],
                                                       ),
-                                                      Container(
-                                                        height: 42,
-                                                        width: double.infinity,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: primaryColor2,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(5),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            'Tambahkan',
-                                                            style:
-                                                                whiteTextStyle
-                                                                    .copyWith(
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          confirmC
+                                                              .changeClickAdd(
+                                                                  true);
+
+                                                          Timer(
+                                                              const Duration(
+                                                                  milliseconds:
+                                                                      200), () {
+                                                            confirmC
+                                                                .changeClickAdd(
+                                                                    false);
+                                                          });
+                                                        },
+                                                        child: Container(
+                                                          height: 42,
+                                                          width:
+                                                              double.infinity,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: confirmC
+                                                                        .clickAdd ==
+                                                                    false
+                                                                ? primaryColor2
+                                                                : primaryColor2,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5),
+                                                          ),
+                                                          child: Center(
+                                                            child: Text(
+                                                              'Tambahkan',
+                                                              style:
+                                                                  whiteTextStyle
+                                                                      .copyWith(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
@@ -633,12 +655,17 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              value.changeClickBookingNow(true);
+                              Timer(const Duration(milliseconds: 200), () {
+                                value.changeClickBookingNow(false);
+                              });
+                            },
                             child: Container(
                               height: 51,
                               width: 300,
                               decoration: BoxDecoration(
-                                color: value.clickChoose == false
+                                color: value.clickBookingNow == false
                                     ? primaryColor2
                                     : primaryColor2_1,
                                 borderRadius: BorderRadius.circular(5),

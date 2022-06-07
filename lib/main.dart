@@ -7,6 +7,7 @@ import 'package:bookingvaccine/screen/home/home_screen.dart';
 import 'package:bookingvaccine/screen/home/home_view_model.dart';
 import 'package:bookingvaccine/screen/splash_screen.dart';
 import 'package:bookingvaccine/screen/vaksinasi/confirm_vaksinasi_screen.dart';
+import 'package:bookingvaccine/screen/vaksinasi/confirm_vaksinasi_view_model.dart';
 import 'package:bookingvaccine/screen/vaksinasi/vaksinasi_screen.dart';
 import 'package:bookingvaccine/screen/vaksinasi/vaksinasi_view_model.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,9 @@ void main() {
       ),
       ChangeNotifierProvider<HomeViewModel>(
         create: (context) => HomeViewModel(),
+      ),
+      ChangeNotifierProvider<ConfirmVaksinasiViewModel>(
+        create: (context) => ConfirmVaksinasiViewModel(),
       ),
     ],
     child: const MyApp(),
