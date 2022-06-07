@@ -566,7 +566,7 @@ class SignUpScreen extends StatelessWidget {
                 paramValue.changestatusCheckbox(paramValue.agree);
               }
             }
-            Timer(const Duration(seconds: 1), () {
+            Timer(const Duration(milliseconds: 200), () {
               paramValue.changeClickRegister(true);
             });
             paramValue.changestatusCheckbox(paramValue.agree);
