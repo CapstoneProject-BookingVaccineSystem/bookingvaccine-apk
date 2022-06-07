@@ -347,7 +347,7 @@ class HomeScreen extends StatelessWidget {
               margin: const EdgeInsets.only(
                 right: 10,
               ),
-              height: 238,
+              height: 245,
               width: 208,
               decoration: BoxDecoration(
                   color: whiteColor,
@@ -380,7 +380,6 @@ class HomeScreen extends StatelessWidget {
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(
                           'Satgas Covid-19',
@@ -397,7 +396,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 15,
                         ),
                         Row(
                           children: [
@@ -412,9 +411,9 @@ class HomeScreen extends StatelessWidget {
                             Text(
                               'Kamis, 02 Juni 2022 / 18:10 WIB',
                               style: secondTextStyle.copyWith(
-                                fontSize: 5,
+                                fontSize: 10,
                               ),
-                            )
+                            ),
                           ],
                         )
                       ],
@@ -765,7 +764,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  height: 360,
+                  height: 380,
                   padding: const EdgeInsets.only(top: 167),
                   child: Center(
                     child: Container(
@@ -824,6 +823,38 @@ class HomeScreen extends StatelessWidget {
                                   fontSize: 12,
                                 ),
                               ),
+                              const SizedBox(
+                                height: 2,
+                              ),
+                              Container(
+                                height: 25,
+                                width: 121,
+                                decoration: BoxDecoration(
+                                  color: primaryColor2,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Daftar Sekarang!',
+                                      style: whiteTextStyle.copyWith(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 9.63,
+                                    ),
+                                    SvgPicture.asset(
+                                      'assets/arrow_right.svg',
+                                      width: double.infinity,
+                                      height: 4.65,
+                                      color: whiteColor,
+                                    ),
+                                  ],
+                                ),
+                              )
                             ],
                           ),
                           Expanded(
