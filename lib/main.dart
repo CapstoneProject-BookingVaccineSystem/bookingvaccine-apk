@@ -4,6 +4,7 @@ import 'package:bookingvaccine/screen/auth/signUp_screen.dart';
 import 'package:bookingvaccine/screen/familly/familly_screen.dart';
 import 'package:bookingvaccine/screen/familly/familly_view_model.dart';
 import 'package:bookingvaccine/screen/home/home_screen.dart';
+import 'package:bookingvaccine/screen/home/home_view_model.dart';
 import 'package:bookingvaccine/screen/splash_screen.dart';
 import 'package:bookingvaccine/screen/vaksinasi/vaksinasi_screen.dart';
 import 'package:bookingvaccine/screen/vaksinasi/vaksinasi_view_model.dart';
@@ -24,6 +25,9 @@ void main() {
       ),
       ChangeNotifierProvider<VaksinasiViewModel>(
         create: (context) => VaksinasiViewModel(),
+      ),
+      ChangeNotifierProvider<HomeViewModel>(
+        create: (context) => HomeViewModel(),
       ),
     ],
     child: const MyApp(),

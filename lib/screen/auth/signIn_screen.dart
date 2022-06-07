@@ -270,7 +270,7 @@ class SignInScreen extends StatelessWidget {
               paramValue.changeClickEnter(false);
             }
             Timer(
-              const Duration(seconds: 1),
+              const Duration(milliseconds: 200),
               () {
                 paramValue.changeClickEnter(true);
               },
@@ -284,7 +284,7 @@ class SignInScreen extends StatelessWidget {
               Navigator.pushReplacementNamed(context, '/home');
             }
             Timer(
-              const Duration(seconds: 1),
+              const Duration(milliseconds: 200),
               () {
                 paramValue.changeClickEnter(true);
               },

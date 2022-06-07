@@ -566,7 +566,7 @@ class SignUpScreen extends StatelessWidget {
                 paramValue.changestatusCheckbox(paramValue.agree);
               }
             }
-            Timer(const Duration(seconds: 1), () {
+            Timer(const Duration(milliseconds: 200), () {
               paramValue.changeClickRegister(true);
             });
             paramValue.changestatusCheckbox(paramValue.agree);
@@ -594,9 +594,10 @@ class SignUpScreen extends StatelessWidget {
       );
     }
 
-    Widget cancel() {
+    Widget cancel(SignUpViewModel paramValue) {
       return GestureDetector(
         onTap: () {
+          paramValue.changestatusCheckbox(true);
           Navigator.pop(context);
         },
         child: Container(
@@ -647,7 +648,7 @@ class SignUpScreen extends StatelessWidget {
                         nik(value),
                         telpNumber(value),
                         regiter(value),
-                        cancel(),
+                        cancel(value),
                       ],
                     ),
                   ),
