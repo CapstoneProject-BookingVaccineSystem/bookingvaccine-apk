@@ -44,6 +44,7 @@ dependencies:
   email_validator: ^2.0.1
   expansion_widget: ^0.0.3
   delayed_display: ^2.0.0
+  ndialog: ^4.1.1+1
   
 
 

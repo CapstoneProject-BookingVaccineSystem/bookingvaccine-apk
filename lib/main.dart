@@ -6,6 +6,7 @@ import 'package:bookingvaccine/screen/familly/familly_view_model.dart';
 import 'package:bookingvaccine/screen/home/home_screen.dart';
 import 'package:bookingvaccine/screen/home/home_view_model.dart';
 import 'package:bookingvaccine/screen/splash_screen.dart';
+import 'package:bookingvaccine/screen/vaksinasi/confirm_vaksinasi_screen.dart';
 import 'package:bookingvaccine/screen/vaksinasi/vaksinasi_screen.dart';
 import 'package:bookingvaccine/screen/vaksinasi/vaksinasi_view_model.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => const SplashScreen(),
+        '/': (context) => const ConfirmVaksinasiScreen(),
         '/signIn': (context) => SignInScreen(),
         '/signUp': (context) => SignUpScreen(),
         '/home': (context) => const HomeScreen(),
