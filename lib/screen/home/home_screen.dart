@@ -848,7 +848,8 @@ class HomeScreen extends StatelessWidget {
                                       onTap: () {
                                         value
                                             .changeClickButtonRegisterNow(true);
-
+                                        Navigator.pushNamed(
+                                            context, '/vaksinasni');
                                         Timer(const Duration(milliseconds: 200),
                                             () {
                                           value.changeClickButtonRegisterNow(
