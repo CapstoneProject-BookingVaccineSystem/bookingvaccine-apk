@@ -594,9 +594,10 @@ class SignUpScreen extends StatelessWidget {
       );
     }
 
-    Widget cancel() {
+    Widget cancel(SignUpViewModel paramValue) {
       return GestureDetector(
         onTap: () {
+          paramValue.changestatusCheckbox(true);
           Navigator.pop(context);
         },
         child: Container(
@@ -647,7 +648,7 @@ class SignUpScreen extends StatelessWidget {
                         nik(value),
                         telpNumber(value),
                         regiter(value),
-                        cancel(),
+                        cancel(value),
                       ],
                     ),
                   ),
