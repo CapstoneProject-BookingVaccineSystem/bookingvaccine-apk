@@ -361,6 +361,9 @@ class VaksinasiScreen extends StatelessWidget {
                             GestureDetector(
                               onTap: () {
                                 value.changeClickChoose(true);
+
+                                Navigator.pushNamed(
+                                    context, '/vaksinasi-confirm');
                                 Timer(
                                   const Duration(milliseconds: 200),
                                   () {
