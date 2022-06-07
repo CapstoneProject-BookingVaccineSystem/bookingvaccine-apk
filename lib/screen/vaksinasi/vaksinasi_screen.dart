@@ -82,6 +82,10 @@ class VaksinasiScreen extends StatelessWidget {
                         ),
                         TextFormField(
                           textInputAction: TextInputAction.done,
+                          readOnly: true,
+                          onTap: () {
+                            value.changeClickKelurahan(true);
+                          },
                           style: const TextStyle(color: Colors.grey),
                           decoration: InputDecoration(
                             hintText: 'Masukkan Nama Kelurahan, Kota/Kabupaten',
@@ -101,6 +105,42 @@ class VaksinasiScreen extends StatelessWidget {
                                   color: Colors.grey, width: 2.0),
                               borderRadius: BorderRadius.circular(5.0),
                             ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          height: 105,
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 2,
+                              color: Colors.grey,
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {},
+                                child: Container(
+                                  height: 25.67,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 5,
+                                    horizontal: 10,
+                                  ),
+                                  width: double.infinity,
+                                  child: Text(
+                                    'Rajabasa, Lampung',
+                                    style: primaryTextStyle.copyWith(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         const SizedBox(
@@ -214,26 +254,21 @@ class VaksinasiScreen extends StatelessWidget {
                                   Row(
                                     children: [
                                       SvgPicture.asset(
-                                        'assets/stock_vaksin.svg',
+                                        'assets/clock.svg',
                                         width: 13,
                                         height: 13,
                                       ),
                                       const SizedBox(
                                         width: 9.41,
                                       ),
-                                      RichText(
-                                        text: TextSpan(
-                                          text: 'Stok Vaksin : ',
-                                          style: primaryTextStyle2.copyWith(
-                                              fontSize: 10),
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                                text: 'Sinovac - 100 Buah',
-                                                style:
-                                                    primaryTextStyle.copyWith(
-                                                  fontSize: 10,
-                                                )),
-                                          ],
+                                      Flexible(
+                                        child: Text(
+                                          '08.00 - Selesai',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: primaryTextStyle.copyWith(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                       )
                                     ],
@@ -241,33 +276,20 @@ class VaksinasiScreen extends StatelessWidget {
                                   const SizedBox(
                                     height: 9,
                                   ),
-                                  Row(
-                                    children: [
-                                      SvgPicture.asset(
-                                        'assets/stock_vaksin.svg',
-                                        width: 13,
-                                        height: 13,
-                                      ),
-                                      const SizedBox(
-                                        width: 9.41,
-                                      ),
-                                      RichText(
-                                        text: TextSpan(
-                                          text: 'Tersedia pada sesi : ',
-                                          style: primaryTextStyle2.copyWith(
-                                              fontSize: 10),
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                                text: '08.00 WIB - Selesai',
-                                                style:
-                                                    primaryTextStyle.copyWith(
-                                                  fontSize: 10,
-                                                )),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                                  RichText(
+                                    text: TextSpan(
+                                      text: 'Stok Vaksin : ',
+                                      style: primaryTextStyle2.copyWith(
+                                          fontSize: 10),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: 'Sinovac - 100 Buah',
+                                            style: primaryTextStyle.copyWith(
+                                              fontSize: 10,
+                                            )),
+                                      ],
+                                    ),
+                                  )
                                 ],
                               ),
                             ),
@@ -320,7 +342,7 @@ class VaksinasiScreen extends StatelessWidget {
                               onTap: () {
                                 value.changeClickChoose(true);
                                 Timer(
-                                  const Duration(seconds: 1),
+                                  const Duration(milliseconds: 200),
                                   () {
                                     value.changeClickChoose(false);
                                   },
