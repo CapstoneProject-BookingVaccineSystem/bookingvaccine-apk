@@ -43,12 +43,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => const ConfirmVaksinasiScreen(),
+        '/': (context) => const SplashScreen(),
         '/signIn': (context) => SignInScreen(),
         '/signUp': (context) => SignUpScreen(),
         '/home': (context) => const HomeScreen(),
         '/familly': (context) => FamillyScreen(),
         '/vaksinasni': (context) => const VaksinasiScreen(),
+        '/vaksinasi-confirm': (context) => const ConfirmVaksinasiScreen(),
       },
     );
   }
