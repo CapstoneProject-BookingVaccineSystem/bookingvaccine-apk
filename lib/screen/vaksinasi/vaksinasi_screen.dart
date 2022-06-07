@@ -29,6 +29,7 @@ class VaksinasiScreen extends StatelessWidget {
                         ),
                         onPressed: () {
                           value.changeClickContent(false, 0);
+                          value.changeClickKelurahan(false);
                           Navigator.pop(context);
                         },
                         padding: const EdgeInsets.only(top: 15),
