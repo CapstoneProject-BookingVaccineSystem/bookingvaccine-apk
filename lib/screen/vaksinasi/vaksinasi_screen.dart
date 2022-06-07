@@ -84,7 +84,11 @@ class VaksinasiScreen extends StatelessWidget {
                           textInputAction: TextInputAction.done,
                           readOnly: true,
                           onTap: () {
-                            value.changeClickKelurahan(true);
+                            if (value.clickKelurahan == false) {
+                              value.changeClickKelurahan(true);
+                            } else {
+                              value.changeClickKelurahan(false);
+                            }
                           },
                           style: const TextStyle(color: Colors.grey),
                           decoration: InputDecoration(
@@ -107,42 +111,57 @@ class VaksinasiScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          height: 105,
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 2,
-                              color: Colors.grey,
-                            ),
-                            borderRadius: BorderRadius.circular(5),
+                        if (value.clickKelurahan == true) ...{
+                          const SizedBox(
+                            height: 10,
                           ),
-                          child: Column(
-                            children: [
-                              GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                  height: 25.67,
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 5,
-                                    horizontal: 10,
-                                  ),
-                                  width: double.infinity,
-                                  child: Text(
-                                    'Rajabasa, Lampung',
-                                    style: primaryTextStyle.copyWith(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
+                          DelayedDisplay(
+                            delay: const Duration(microseconds: 250),
+                            slidingCurve: Curves.easeInOut,
+                            slidingBeginOffset: const Offset(0.0, -0.3),
+                            child: Container(
+                              height: 105,
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 2,
+                                  color: Colors.grey,
                                 ),
+                                borderRadius: BorderRadius.circular(5),
                               ),
-                            ],
-                          ),
-                        ),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 80,
+                                    child: ListView.builder(
+                                      itemCount: 3,
+                                      itemBuilder: (context, index) {
+                                        return GestureDetector(
+                                          onTap: () {},
+                                          child: Container(
+                                            height: 25.67,
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 5,
+                                              horizontal: 10,
+                                            ),
+                                            width: double.infinity,
+                                            child: Text(
+                                              'Rajabasa, Lampung',
+                                              style: primaryTextStyle.copyWith(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                        },
                         const SizedBox(
                           height: 20,
                         ),
