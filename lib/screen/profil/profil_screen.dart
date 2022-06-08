@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ProfilScreen extends StatelessWidget {
-  ProfilScreen({Key? key}) : super(key: key);
+  const ProfilScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,9 @@ class ProfilScreen extends StatelessWidget {
                             'assets/ellipse1.svg',
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
                             child: Padding(
                               padding: const EdgeInsets.only(left: 20, top: 30),
                               child: SvgPicture.asset(

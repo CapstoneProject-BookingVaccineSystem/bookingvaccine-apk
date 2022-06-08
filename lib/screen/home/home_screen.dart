@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bookingvaccine/screen/home/home_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -461,20 +460,25 @@ class HomeScreen extends StatelessWidget {
               elevation: 0,
               backgroundColor: backgroundColor1,
               actions: [
-                Container(
-                  margin: const EdgeInsets.only(
-                    top: 15,
-                    right: 17,
-                  ),
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: greyColor,
-                    image: const DecorationImage(
-                      image: NetworkImage(
-                          'https://picsum.photos/200/300?random=2'),
-                      fit: BoxFit.fill,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/profile');
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.only(
+                      top: 15,
+                      right: 17,
+                    ),
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: greyColor,
+                      image: const DecorationImage(
+                        image: NetworkImage(
+                            'https://picsum.photos/200/300?random=2'),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                 )
@@ -551,32 +555,37 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(
                         height: 8,
                       ),
-                      Container(
-                        height: 44.25,
-                        width: double.infinity,
-                        padding: const EdgeInsets.only(
-                          left: 20,
-                        ),
-                        decoration: BoxDecoration(
-                          color: primaryColor2,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/profil.svg',
-                              width: 15,
-                              height: 15,
-                            ),
-                            const SizedBox(
-                              width: 17.1,
-                            ),
-                            Text(
-                              'Profil',
-                              style: whiteTextStyle.copyWith(
-                                  fontSize: 12, fontWeight: FontWeight.w500),
-                            )
-                          ],
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/profile');
+                        },
+                        child: Container(
+                          height: 44.25,
+                          width: double.infinity,
+                          padding: const EdgeInsets.only(
+                            left: 20,
+                          ),
+                          decoration: BoxDecoration(
+                            color: primaryColor2,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Row(
+                            children: [
+                              SvgPicture.asset(
+                                'assets/profil.svg',
+                                width: 15,
+                                height: 15,
+                              ),
+                              const SizedBox(
+                                width: 17.1,
+                              ),
+                              Text(
+                                'Profil',
+                                style: whiteTextStyle.copyWith(
+                                    fontSize: 12, fontWeight: FontWeight.w500),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                       const SizedBox(
