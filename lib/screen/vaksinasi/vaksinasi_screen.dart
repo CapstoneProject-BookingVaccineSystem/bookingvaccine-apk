@@ -85,14 +85,16 @@ class VaksinasiScreen extends StatelessWidget {
                           textInputAction: TextInputAction.done,
                           readOnly: true,
                           onTap: () {
-                            if (value.clickKelurahan == false) {
-                              value.changeClickKelurahan(true);
-                            } else {
-                              value.changeClickKelurahan(false);
-                            }
+                            value.changeClickKelurahan(true);
                           },
                           style: const TextStyle(color: Colors.grey),
                           decoration: InputDecoration(
+                            suffixIcon: SvgPicture.asset(
+                              'assets/downward.svg',
+                              width: 13.75,
+                              height: 9.38,
+                              fit: BoxFit.scaleDown,
+                            ),
                             hintText: 'Masukkan Nama Kelurahan, Kota/Kabupaten',
                             hintStyle: greyTextStyle.copyWith(
                               fontSize: 10,
