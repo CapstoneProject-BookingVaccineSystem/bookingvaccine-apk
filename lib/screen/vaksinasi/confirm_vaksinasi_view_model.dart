@@ -10,7 +10,6 @@ class ConfirmVaksinasiViewModel extends ChangeNotifier {
   }
 
   changeClickAdd(bool paramClickAdd) {
-    print(paramClickAdd);
     clickAdd = paramClickAdd;
     notifyListeners();
   }

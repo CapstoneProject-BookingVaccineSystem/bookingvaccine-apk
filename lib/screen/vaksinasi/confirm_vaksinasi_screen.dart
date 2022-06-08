@@ -321,51 +321,62 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
                                                               ),
                                                             ),
                                                           ),
-                                                          Row(
-                                                            children: [
-                                                              Container(
-                                                                margin:
-                                                                    const EdgeInsets
-                                                                        .only(
-                                                                  left: 5,
-                                                                  top: 10,
-                                                                  right: 10,
-                                                                  bottom: 10,
-                                                                ),
-                                                                height: 10,
-                                                                width: 10,
-                                                                child: Checkbox(
-                                                                  shape:
-                                                                      RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            2.0),
+                                                          ListView.builder(
+                                                            itemCount: 3,
+                                                            padding:
+                                                                EdgeInsets.zero,
+                                                            itemBuilder:
+                                                                (context,
+                                                                    index) {
+                                                              return Row(
+                                                                children: [
+                                                                  Container(
+                                                                    margin:
+                                                                        const EdgeInsets
+                                                                            .only(
+                                                                      left: 5,
+                                                                      top: 10,
+                                                                      right: 10,
+                                                                      bottom:
+                                                                          10,
+                                                                    ),
+                                                                    height: 10,
+                                                                    width: 10,
+                                                                    child:
+                                                                        Checkbox(
+                                                                      shape:
+                                                                          RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(2.0),
+                                                                      ),
+                                                                      side: MaterialStateBorderSide
+                                                                          .resolveWith(
+                                                                        (states) => BorderSide(
+                                                                            width:
+                                                                                1.0,
+                                                                            color:
+                                                                                greyColor),
+                                                                      ),
+                                                                      onChanged:
+                                                                          (value) {},
+                                                                      value:
+                                                                          false,
+                                                                      focusColor:
+                                                                          greyColor,
+                                                                    ),
                                                                   ),
-                                                                  side: MaterialStateBorderSide
-                                                                      .resolveWith(
-                                                                    (states) => BorderSide(
-                                                                        width:
-                                                                            1.0,
-                                                                        color:
-                                                                            greyColor),
-                                                                  ),
-                                                                  onChanged:
-                                                                      (value) {},
-                                                                  value: false,
-                                                                  focusColor:
-                                                                      greyColor,
-                                                                ),
-                                                              ),
-                                                              Text(
-                                                                'Indy Ratna Pratiwi',
-                                                                style:
-                                                                    primaryTextStyle
+                                                                  Text(
+                                                                    'Indy Ratna Pratiwi',
+                                                                    style: primaryTextStyle
                                                                         .copyWith(
-                                                                  fontSize: 12,
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ),
+                                                                      fontSize:
+                                                                          12,
+                                                                    ),
+                                                                  )
+                                                                ],
+                                                              );
+                                                            },
+                                                          )
                                                         ],
                                                       ),
                                                       GestureDetector(
