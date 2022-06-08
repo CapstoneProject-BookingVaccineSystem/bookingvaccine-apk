@@ -657,6 +657,8 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               value.changeClickBookingNow(true);
+                              Navigator.pushReplacementNamed(
+                                  context, '/Invoice');
                               Timer(const Duration(milliseconds: 200), () {
                                 value.changeClickBookingNow(false);
                               });
