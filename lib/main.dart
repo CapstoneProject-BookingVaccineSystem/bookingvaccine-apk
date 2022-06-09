@@ -9,6 +9,8 @@ import 'package:bookingvaccine/screen/home/home_screen.dart';
 import 'package:bookingvaccine/screen/home/home_view_model.dart';
 import 'package:bookingvaccine/screen/invoice/invoice_screen.dart';
 import 'package:bookingvaccine/screen/invoice/invoice_view_model.dart';
+import 'package:bookingvaccine/screen/news/detail_news_screen.dart';
+import 'package:bookingvaccine/screen/news/list_news_screen.dart';
 import 'package:bookingvaccine/screen/profil/profil_screen.dart';
 import 'package:bookingvaccine/screen/splash_screen.dart';
 import 'package:bookingvaccine/screen/vaksinasi/confirm_vaksinasi_screen.dart';
@@ -66,6 +68,8 @@ class MyApp extends StatelessWidget {
         '/vaksinasi-confirm': (context) => const ConfirmVaksinasiScreen(),
         '/Invoice': (context) => const InvoiceScreen(),
         '/profile': (context) => const ProfilScreen(),
+        '/list-news': (context) => const ListNewsScreen(),
+        '/detail-news': (context) => const DetailNewsScreen(),
       },
     );
   }

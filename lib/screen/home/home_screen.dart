@@ -316,7 +316,7 @@ class HomeScreen extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 paramValue.changeClickButtonMore(true);
-
+                Navigator.pushNamed(context, '/list-news');
                 Timer(const Duration(milliseconds: 200), () {
                   paramValue.changeClickButtonMore(false);
                 });
