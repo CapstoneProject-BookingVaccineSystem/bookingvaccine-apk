@@ -309,73 +309,97 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
                                                             color: const Color(
                                                               0xffF7F7F7,
                                                             ),
-                                                            child: Text(
-                                                              'Daftar Keluarga :',
-                                                              style:
-                                                                  secondTextStyle
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Text(
+                                                                  'Daftar Keluarga :',
+                                                                  style: secondTextStyle
                                                                       .copyWith(
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                              ),
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                  ),
+                                                                ),
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                  child:
+                                                                      SvgPicture
+                                                                          .asset(
+                                                                    'assets/cancel_x.svg',
+                                                                    width: 20,
+                                                                    height: 20,
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
                                                           ),
-                                                          ListView.builder(
-                                                            itemCount: 3,
-                                                            padding:
-                                                                EdgeInsets.zero,
-                                                            itemBuilder:
-                                                                (context,
-                                                                    index) {
-                                                              return Row(
-                                                                children: [
-                                                                  Container(
-                                                                    margin:
-                                                                        const EdgeInsets
-                                                                            .only(
-                                                                      left: 5,
-                                                                      top: 10,
-                                                                      right: 10,
-                                                                      bottom:
+                                                          SizedBox(
+                                                            height: 100,
+                                                            child: ListView
+                                                                .builder(
+                                                              itemCount: 3,
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .zero,
+                                                              itemBuilder:
+                                                                  (context,
+                                                                      index) {
+                                                                return Row(
+                                                                  children: [
+                                                                    Container(
+                                                                      margin: const EdgeInsets
+                                                                          .only(
+                                                                        left: 5,
+                                                                        top: 10,
+                                                                        right:
+                                                                            10,
+                                                                        bottom:
+                                                                            10,
+                                                                      ),
+                                                                      height:
                                                                           10,
-                                                                    ),
-                                                                    height: 10,
-                                                                    width: 10,
-                                                                    child:
-                                                                        Checkbox(
-                                                                      shape:
-                                                                          RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(2.0),
+                                                                      width: 10,
+                                                                      child:
+                                                                          Checkbox(
+                                                                        shape:
+                                                                            RoundedRectangleBorder(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(2.0),
+                                                                        ),
+                                                                        side: MaterialStateBorderSide
+                                                                            .resolveWith(
+                                                                          (states) => BorderSide(
+                                                                              width: 1.0,
+                                                                              color: greyColor),
+                                                                        ),
+                                                                        onChanged:
+                                                                            (value) {},
+                                                                        value:
+                                                                            false,
+                                                                        focusColor:
+                                                                            greyColor,
                                                                       ),
-                                                                      side: MaterialStateBorderSide
-                                                                          .resolveWith(
-                                                                        (states) => BorderSide(
-                                                                            width:
-                                                                                1.0,
-                                                                            color:
-                                                                                greyColor),
+                                                                    ),
+                                                                    Text(
+                                                                      'Indy Ratna Pratiwi',
+                                                                      style: primaryTextStyle
+                                                                          .copyWith(
+                                                                        fontSize:
+                                                                            12,
                                                                       ),
-                                                                      onChanged:
-                                                                          (value) {},
-                                                                      value:
-                                                                          false,
-                                                                      focusColor:
-                                                                          greyColor,
-                                                                    ),
-                                                                  ),
-                                                                  Text(
-                                                                    'Indy Ratna Pratiwi',
-                                                                    style: primaryTextStyle
-                                                                        .copyWith(
-                                                                      fontSize:
-                                                                          12,
-                                                                    ),
-                                                                  )
-                                                                ],
-                                                              );
-                                                            },
+                                                                    )
+                                                                  ],
+                                                                );
+                                                              },
+                                                            ),
                                                           )
                                                         ],
                                                       ),
