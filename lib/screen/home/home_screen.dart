@@ -685,7 +685,7 @@ class HomeScreen extends StatelessWidget {
                                 height: 13.5,
                               ),
                               const SizedBox(
-                                width: 14,
+                                width: 15,
                               ),
                               Text(
                                 'Riwayat Booking',
