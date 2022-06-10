@@ -9,6 +9,7 @@ import 'package:bookingvaccine/screen/home/home_screen.dart';
 import 'package:bookingvaccine/screen/home/home_view_model.dart';
 import 'package:bookingvaccine/screen/invoice/invoice_screen.dart';
 import 'package:bookingvaccine/screen/invoice/invoice_view_model.dart';
+import 'package:bookingvaccine/screen/invoice/list_invoice_screen.dart';
 import 'package:bookingvaccine/screen/news/detail_news_screen.dart';
 import 'package:bookingvaccine/screen/news/list_news_screen.dart';
 import 'package:bookingvaccine/screen/profil/profil_screen.dart';
@@ -57,7 +58,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => const SplashScreen(),
+        '/': (context) => const ListInvoiceScreen(),
         '/signIn': (context) => SignInScreen(),
         '/signUp': (context) => SignUpScreen(),
         '/home': (context) => const HomeScreen(),
