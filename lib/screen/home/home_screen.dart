@@ -660,6 +660,42 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/list-invoice');
+                        },
+                        child: Container(
+                          height: 44.25,
+                          width: double.infinity,
+                          padding: const EdgeInsets.only(
+                            left: 20,
+                          ),
+                          decoration: BoxDecoration(
+                            color: primaryColor2,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Row(
+                            children: [
+                              SvgPicture.asset(
+                                'assets/history.svg',
+                                width: 15.22,
+                                height: 13.5,
+                              ),
+                              const SizedBox(
+                                width: 14,
+                              ),
+                              Text(
+                                'Riwayat Booking',
+                                style: whiteTextStyle.copyWith(
+                                    fontSize: 12, fontWeight: FontWeight.w500),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   GestureDetector(
