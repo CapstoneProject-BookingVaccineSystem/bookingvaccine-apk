@@ -184,34 +184,28 @@ class InvoiceScreen extends StatelessWidget {
                               left: 10,
                               right: 10,
                             ),
-                            child: Flexible(
-                              child: Text(
-                                'Puskesmas Raja Basa Indah',
-                                style: secondTextStyle.copyWith(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                textAlign: TextAlign.center,
+                            child: Text(
+                              'Puskesmas Raja Basa Indah',
+                              style: secondTextStyle.copyWith(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
                               ),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),
-                        Align(
-                          child: Container(
-                            padding: const EdgeInsets.only(
-                              left: 30,
-                              right: 30,
+                        Container(
+                          padding: const EdgeInsets.only(
+                            left: 30,
+                            right: 30,
+                          ),
+                          child: Text(
+                            'Jl. Pramuka No. 1 Rajabasa, Lampung, Indonesia',
+                            style: primaryTextStyle.copyWith(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
                             ),
-                            child: Flexible(
-                              child: Text(
-                                'Jl. Pramuka No. 1 Rajabasa, Lampung, Indonesia',
-                                style: primaryTextStyle.copyWith(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ],
