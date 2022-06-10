@@ -241,7 +241,9 @@ class SignInScreen extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/forget-pw');
+                  },
                   child: Text(
                     'Lupa Password?',
                     style: secondTextStyle.copyWith(

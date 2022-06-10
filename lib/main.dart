@@ -5,6 +5,8 @@ import 'package:bookingvaccine/screen/familly/add_familly_screen.dart';
 import 'package:bookingvaccine/screen/familly/edit_familly_screen.dart';
 import 'package:bookingvaccine/screen/familly/familly_screen.dart';
 import 'package:bookingvaccine/screen/familly/familly_view_model.dart';
+import 'package:bookingvaccine/screen/forgetPassword/forget_password_screen.dart';
+import 'package:bookingvaccine/screen/forgetPassword/send_email_screen.dart';
 import 'package:bookingvaccine/screen/home/home_screen.dart';
 import 'package:bookingvaccine/screen/home/home_view_model.dart';
 import 'package:bookingvaccine/screen/invoice/invoice_screen.dart';
@@ -72,6 +74,8 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => const ProfilScreen(),
         '/list-news': (context) => const ListNewsScreen(),
         '/detail-news': (context) => const DetailNewsScreen(),
+        '/forget-pw': (context) => ForgetPasswordScreen(),
+        '/send-email': (context) => const SendEmailScreen(),
       },
     );
   }
