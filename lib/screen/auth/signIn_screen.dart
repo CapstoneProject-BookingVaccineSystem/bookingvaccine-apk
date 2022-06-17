@@ -241,7 +241,9 @@ class SignInScreen extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/forget-pw');
+                  },
                   child: Text(
                     'Lupa Password?',
                     style: secondTextStyle.copyWith(
@@ -270,7 +272,7 @@ class SignInScreen extends StatelessWidget {
               paramValue.changeClickEnter(false);
             }
             Timer(
-              const Duration(seconds: 1),
+              const Duration(milliseconds: 200),
               () {
                 paramValue.changeClickEnter(true);
               },

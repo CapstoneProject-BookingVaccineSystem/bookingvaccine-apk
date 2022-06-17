@@ -12,6 +12,7 @@ Color secondColor = const Color(0xff4E7EA7);
 
 Color whiteColor = const Color(0xffFFFFFF);
 Color greyColor = const Color(0xffC2C2C2);
+Color redColor = const Color(0xffEB4747);
 
 TextStyle primaryTextStyle = GoogleFonts.poppins(
   color: primaryColor,
@@ -35,4 +36,8 @@ TextStyle whiteTextStyle = GoogleFonts.poppins(
 
 TextStyle greyTextStyle = GoogleFonts.poppins(
   color: greyColor,
+);
+
+TextStyle redTextStyle = GoogleFonts.poppins(
+  color: redColor,
 );
