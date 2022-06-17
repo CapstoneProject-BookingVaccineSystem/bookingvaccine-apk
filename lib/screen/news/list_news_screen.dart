@@ -51,7 +51,7 @@ class ListNewsScreen extends StatelessWidget {
                     height: 7,
                   ),
                   Text(
-                    'Telusuri riwayat booking vaksinasi anda dan keluarga.',
+                    'Baca berita terbaru terkait Covid-19.',
                     style: primaryTextStyle.copyWith(
                       fontSize: 10,
                     ),
