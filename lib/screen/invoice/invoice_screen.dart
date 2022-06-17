@@ -333,7 +333,7 @@ class InvoiceScreen extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'Kembali ke Halaman Utama',
-                          style: whiteTextStyle.copyWith(
+                          style: secondTextStyle.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                           ),
