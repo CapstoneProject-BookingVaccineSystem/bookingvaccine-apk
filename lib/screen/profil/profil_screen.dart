@@ -103,7 +103,7 @@ class ProfilScreen extends StatelessWidget {
                           child: Center(
                             child: Text(
                               'Edit Profil',
-                              style: primaryTextStyle2.copyWith(
+                              style: secondTextStyle.copyWith(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -258,7 +258,7 @@ class ProfilScreen extends StatelessWidget {
                           child: Center(
                             child: Text(
                               'Edit  Informasi',
-                              style: whiteTextStyle.copyWith(
+                              style: secondTextStyle.copyWith(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w500,
                               ),
