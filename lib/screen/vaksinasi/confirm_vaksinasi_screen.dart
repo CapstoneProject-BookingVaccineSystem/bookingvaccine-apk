@@ -4,8 +4,8 @@ import 'package:bookingvaccine/theme.dart';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 import 'package:ndialog/ndialog.dart';
+import 'package:provider/provider.dart';
 
 class ConfirmVaksinasiScreen extends StatelessWidget {
   const ConfirmVaksinasiScreen({Key? key}) : super(key: key);

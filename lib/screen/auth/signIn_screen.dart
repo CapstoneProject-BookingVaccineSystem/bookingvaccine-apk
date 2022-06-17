@@ -293,8 +293,8 @@ class SignInScreen extends StatelessWidget {
             );
           },
           child: Container(
-            width: 273,
-            height: 35,
+            width: 317,
+            height: 45,
             decoration: BoxDecoration(
               color: paramValue.clickEnter == true
                   ? primaryColor2
@@ -304,7 +304,7 @@ class SignInScreen extends StatelessWidget {
             child: Center(
               child: Text(
                 'Masuk',
-                style: whiteTextStyle.copyWith(
+                style: secondTextStyle.copyWith(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
