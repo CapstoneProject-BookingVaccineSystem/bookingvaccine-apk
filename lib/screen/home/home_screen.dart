@@ -106,28 +106,15 @@ class HomeScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Berbagai Macam',
-                          style: whiteTextStyle.copyWith(
-                            fontSize: 12,
-                          ),
-                        ),
-                        Text(
-                          'Vaksin Covid - 19',
-                          style: whiteTextStyle.copyWith(
-                            fontSize: 12,
-                          ),
-                        ),
-                        Text(
-                          'yang Digunakan',
-                          style: whiteTextStyle.copyWith(
-                            fontSize: 12,
-                          ),
-                        ),
-                        Text(
-                          'di Indonesia',
-                          style: whiteTextStyle.copyWith(
-                            fontSize: 12,
+                        SizedBox(
+                          width: 150,
+                          child: Text(
+                            'Berbagai Macam Vaksin Covid - 19 yang Digunakan di Indonesia',
+                            style: whiteTextStyle.copyWith(
+                              fontSize: 12,
+                            ),
+                            maxLines: 4,
+                            textAlign: TextAlign.justify,
                           ),
                         ),
                         const SizedBox(
@@ -229,28 +216,15 @@ class HomeScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Berbagai Macam',
-                          style: whiteTextStyle.copyWith(
-                            fontSize: 12,
-                          ),
-                        ),
-                        Text(
-                          'Vaksin Covid - 19',
-                          style: whiteTextStyle.copyWith(
-                            fontSize: 12,
-                          ),
-                        ),
-                        Text(
-                          'yang Digunakan',
-                          style: whiteTextStyle.copyWith(
-                            fontSize: 12,
-                          ),
-                        ),
-                        Text(
-                          'di Indonesia',
-                          style: whiteTextStyle.copyWith(
-                            fontSize: 12,
+                        SizedBox(
+                          width: 150,
+                          child: Text(
+                            'Berbagai Macam Vaksin Covid - 19 yang Digunakan di Indonesia',
+                            style: whiteTextStyle.copyWith(
+                              fontSize: 12,
+                            ),
+                            maxLines: 4,
+                            textAlign: TextAlign.justify,
                           ),
                         ),
                         const SizedBox(
@@ -397,18 +371,12 @@ class HomeScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Satgas Covid-19',
+                          'Satgas Covid-19 Pemerintah Masih Terapkan PPKM Masih Terapkan PPKM Masih Terapkan PPKM',
                           style: secondTextStyle2.copyWith(
                             fontSize: 10,
                             fontWeight: FontWeight.w500,
                           ),
-                        ),
-                        Text(
-                          'Pemerintah Masih Terapkan PPKM',
-                          style: secondTextStyle2.copyWith(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          maxLines: 2,
                         ),
                         const SizedBox(
                           height: 15,
@@ -540,13 +508,14 @@ class HomeScreen extends StatelessWidget {
                               'assets/home.svg',
                               width: 13.8,
                               height: 12.49,
+                              color: secondColor,
                             ),
                             const SizedBox(
                               width: 17.1,
                             ),
                             Text(
                               'Beranda',
-                              style: whiteTextStyle.copyWith(
+                              style: secondTextStyle.copyWith(
                                   fontSize: 12, fontWeight: FontWeight.w500),
                             )
                           ],
@@ -575,13 +544,14 @@ class HomeScreen extends StatelessWidget {
                                 'assets/profil.svg',
                                 width: 15,
                                 height: 15,
+                                color: secondColor,
                               ),
                               const SizedBox(
                                 width: 17.1,
                               ),
                               Text(
                                 'Profil',
-                                style: whiteTextStyle.copyWith(
+                                style: secondTextStyle.copyWith(
                                     fontSize: 12, fontWeight: FontWeight.w500),
                               )
                             ],
@@ -611,13 +581,14 @@ class HomeScreen extends StatelessWidget {
                                 'assets/familly.svg',
                                 width: 16.5,
                                 height: 10.5,
+                                color: secondColor,
                               ),
                               const SizedBox(
                                 width: 15.1,
                               ),
                               Text(
                                 'Anggota keluarga',
-                                style: whiteTextStyle.copyWith(
+                                style: secondTextStyle.copyWith(
                                     fontSize: 12, fontWeight: FontWeight.w500),
                               )
                             ],
@@ -647,13 +618,14 @@ class HomeScreen extends StatelessWidget {
                                 'assets/date_vaksinasi.svg',
                                 width: 13.5,
                                 height: 15,
+                                color: secondColor,
                               ),
                               const SizedBox(
                                 width: 16.1,
                               ),
                               Text(
                                 'Jadwal Vaksinasi',
-                                style: whiteTextStyle.copyWith(
+                                style: secondTextStyle.copyWith(
                                     fontSize: 12, fontWeight: FontWeight.w500),
                               )
                             ],
@@ -683,13 +655,14 @@ class HomeScreen extends StatelessWidget {
                                 'assets/history.svg',
                                 width: 15.22,
                                 height: 13.5,
+                                color: secondColor,
                               ),
                               const SizedBox(
                                 width: 15,
                               ),
                               Text(
                                 'Riwayat Booking',
-                                style: whiteTextStyle.copyWith(
+                                style: secondTextStyle.copyWith(
                                     fontSize: 12, fontWeight: FontWeight.w500),
                               )
                             ],
@@ -718,13 +691,14 @@ class HomeScreen extends StatelessWidget {
                             'assets/logout.svg',
                             width: 13.5,
                             height: 15,
+                            color: secondColor,
                           ),
                           const SizedBox(
                             width: 12,
                           ),
                           Text(
                             'Keluar Akun',
-                            style: whiteTextStyle.copyWith(
+                            style: secondTextStyle.copyWith(
                                 fontSize: 12, fontWeight: FontWeight.w500),
                           )
                         ],
@@ -918,7 +892,7 @@ class HomeScreen extends StatelessWidget {
                                           children: [
                                             Text(
                                               'Daftar Sekarang!',
-                                              style: whiteTextStyle.copyWith(
+                                              style: secondTextStyle.copyWith(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.w400,
                                               ),
@@ -929,7 +903,7 @@ class HomeScreen extends StatelessWidget {
                                             SvgPicture.asset(
                                               'assets/arrow_right.svg',
                                               height: 4.65,
-                                              color: whiteColor,
+                                              color: secondColor,
                                             ),
                                           ],
                                         ),
