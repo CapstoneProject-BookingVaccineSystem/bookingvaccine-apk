@@ -3,14 +3,13 @@ import 'dart:async';
 import 'package:bookingvaccine/screen/familly/familly_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:expansion_widget/expansion_widget.dart';
 import 'package:provider/provider.dart';
 
 class FamillyScreen extends StatelessWidget {
-  FamillyScreen({Key? key}) : super(key: key);
-  final _formKey = GlobalKey<FormState>();
+  const FamillyScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -309,8 +308,8 @@ class FamillyScreen extends StatelessWidget {
                                                 child: Center(
                                                   child: Text(
                                                     'Ubah',
-                                                    style:
-                                                        whiteTextStyle.copyWith(
+                                                    style: secondTextStyle
+                                                        .copyWith(
                                                       fontSize: 12,
                                                     ),
                                                   ),
@@ -354,7 +353,7 @@ class FamillyScreen extends StatelessWidget {
                                     child: Center(
                                       child: Text(
                                         'Tambahkan',
-                                        style: whiteTextStyle.copyWith(
+                                        style: secondTextStyle.copyWith(
                                           fontSize: 12,
                                         ),
                                       ),
@@ -392,9 +391,8 @@ class FamillyScreen extends StatelessWidget {
                         child: Center(
                           child: Text(
                             'Tambahkan',
-                            style: whiteTextStyle.copyWith(
-                              fontSize: 12,
-                            ),
+                            style: secondTextStyle.copyWith(
+                                fontSize: 12, color: const Color(0xff8E8B8B)),
                           ),
                         ),
                       ),

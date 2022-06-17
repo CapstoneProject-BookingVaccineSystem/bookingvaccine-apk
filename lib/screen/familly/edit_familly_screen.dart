@@ -196,7 +196,7 @@ class EditFamillyScreen extends StatelessWidget {
                                   child: Center(
                                     child: Text(
                                       'Simpan',
-                                      style: whiteTextStyle.copyWith(
+                                      style: secondTextStyle.copyWith(
                                         fontSize: 12,
                                       ),
                                     ),

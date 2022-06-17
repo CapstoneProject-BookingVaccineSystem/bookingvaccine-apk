@@ -196,8 +196,8 @@ class AddFamillyScreen extends StatelessWidget {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      'Tambahkan',
-                                      style: whiteTextStyle.copyWith(
+                                      'Simpan',
+                                      style: secondTextStyle.copyWith(
                                         fontSize: 12,
                                       ),
                                     ),

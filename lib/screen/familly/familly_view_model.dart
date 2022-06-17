@@ -9,6 +9,7 @@ class FamillyViewModel extends ChangeNotifier {
 
   List tes = [
     1,
+    2,
   ];
 
   void changeisExpaned(bool paramisExpaned, int paramIndexForm) {
