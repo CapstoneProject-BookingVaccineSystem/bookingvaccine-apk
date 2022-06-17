@@ -572,8 +572,8 @@ class SignUpScreen extends StatelessWidget {
             paramValue.changestatusCheckbox(paramValue.agree);
           },
           child: Container(
-            width: 273,
-            height: 35,
+            width: 339,
+            height: 42,
             decoration: BoxDecoration(
               color: paramValue.clickRegister == true
                   ? primaryColor2
@@ -583,7 +583,7 @@ class SignUpScreen extends StatelessWidget {
             child: Center(
               child: Text(
                 'Daftar Sekarang',
-                style: whiteTextStyle.copyWith(
+                style: secondTextStyle.copyWith(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
