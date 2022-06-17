@@ -167,7 +167,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                 );
               },
               child: Container(
-                width: 273,
+                width: 339,
                 height: 42,
                 decoration: BoxDecoration(
                   color: paramValue.clickEnter == true
@@ -178,8 +178,8 @@ class ForgetPasswordScreen extends StatelessWidget {
                 child: Center(
                   child: Text(
                     'Kirim Konfirmasi',
-                    style: whiteTextStyle.copyWith(
-                      fontSize: 14,
+                    style: secondTextStyle.copyWith(
+                      fontSize: 12,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
