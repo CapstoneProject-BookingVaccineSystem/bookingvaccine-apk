@@ -438,7 +438,7 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
                                                             child: Text(
                                                               'Tambahkan',
                                                               style:
-                                                                  whiteTextStyle
+                                                                  secondTextStyle
                                                                       .copyWith(
                                                                 fontSize: 12,
                                                                 fontWeight:
@@ -710,7 +710,7 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
                               child: Center(
                                 child: Text(
                                   'Booking Sekarang',
-                                  style: whiteTextStyle.copyWith(
+                                  style: secondTextStyle.copyWith(
                                     fontSize: 14,
                                   ),
                                 ),

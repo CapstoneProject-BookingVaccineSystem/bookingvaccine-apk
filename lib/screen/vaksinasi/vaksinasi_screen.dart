@@ -353,7 +353,7 @@ class VaksinasiScreen extends StatelessWidget {
                                 child: Center(
                                   child: Text(
                                     'Batal',
-                                    style: primaryTextStyle2.copyWith(
+                                    style: secondTextStyle.copyWith(
                                       fontSize: 14,
                                     ),
                                   ),
@@ -385,7 +385,7 @@ class VaksinasiScreen extends StatelessWidget {
                                 child: Center(
                                   child: Text(
                                     'Pilih',
-                                    style: whiteTextStyle.copyWith(
+                                    style: secondTextStyle.copyWith(
                                       fontSize: 14,
                                     ),
                                   ),
