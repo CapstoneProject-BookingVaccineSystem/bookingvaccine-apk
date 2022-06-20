@@ -93,19 +93,24 @@ class ProfilScreen extends StatelessWidget {
                   Stack(
                     children: [
                       Align(
-                        child: Container(
-                          height: 32,
-                          width: 126,
-                          decoration: BoxDecoration(
-                            color: whiteColor,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Edit Profil',
-                              style: secondTextStyle.copyWith(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/edit-profile');
+                          },
+                          child: Container(
+                            height: 32,
+                            width: 126,
+                            decoration: BoxDecoration(
+                              color: whiteColor,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Edit Profil',
+                                style: secondTextStyle.copyWith(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                           ),
@@ -247,7 +252,9 @@ class ProfilScreen extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, '/edit-informasi');
+                        },
                         child: Container(
                           height: 22,
                           width: 115,

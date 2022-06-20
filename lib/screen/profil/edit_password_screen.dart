@@ -26,14 +26,14 @@ class EditPasswordScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
+                  Stack(
                     children: [
-                      Stack(
+                      SvgPicture.asset(
+                        'assets/ellipse1.svg',
+                        height: 80,
+                      ),
+                      Row(
                         children: [
-                          SvgPicture.asset(
-                            'assets/ellipse1.svg',
-                            height: 80,
-                          ),
                           GestureDetector(
                             onTap: () {
                               Navigator.pop(context);
@@ -48,14 +48,17 @@ class EditPasswordScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20, top: 30),
+                            child: Text(
+                              'Ganti Password Anda',
+                              style: whiteTextStyle.copyWith(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
                         ],
-                      ),
-                      Text(
-                        'Ganti Password Anda',
-                        style: whiteTextStyle.copyWith(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
                       ),
                     ],
                   ),

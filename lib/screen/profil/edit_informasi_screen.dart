@@ -26,14 +26,14 @@ class EditInformasiScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
+                  Stack(
                     children: [
-                      Stack(
+                      SvgPicture.asset(
+                        'assets/ellipse1.svg',
+                        height: 80,
+                      ),
+                      Row(
                         children: [
-                          SvgPicture.asset(
-                            'assets/ellipse1.svg',
-                            height: 80,
-                          ),
                           GestureDetector(
                             onTap: () {
                               Navigator.pop(context);
@@ -48,14 +48,17 @@ class EditInformasiScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20, top: 30),
+                            child: Text(
+                              'Edit Informasi Akun',
+                              style: whiteTextStyle.copyWith(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
                         ],
-                      ),
-                      Text(
-                        'Edit Informasi Akun',
-                        style: whiteTextStyle.copyWith(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
                       ),
                     ],
                   ),
@@ -154,18 +157,24 @@ class EditInformasiScreen extends StatelessWidget {
                               padding: const EdgeInsets.only(
                                 bottom: 10,
                               ),
-                              child: Container(
-                                height: 10,
-                                width: 10,
-                                decoration: BoxDecoration(
-                                  color: primaryColor2,
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'Ganti Password',
-                                    style: secondTextStyle.copyWith(
-                                      fontSize: 10,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, '/edit-password');
+                                },
+                                child: Container(
+                                  height: 10,
+                                  width: 10,
+                                  decoration: BoxDecoration(
+                                    color: primaryColor2,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Ganti Password',
+                                      style: secondTextStyle.copyWith(
+                                        fontSize: 10,
+                                      ),
                                     ),
                                   ),
                                 ),

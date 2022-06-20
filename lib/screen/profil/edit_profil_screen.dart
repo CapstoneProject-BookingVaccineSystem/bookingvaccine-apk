@@ -32,13 +32,13 @@ class EditProfilScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
+                  Stack(
                     children: [
-                      Stack(
+                      SvgPicture.asset(
+                        'assets/ellipse1.svg',
+                      ),
+                      Row(
                         children: [
-                          SvgPicture.asset(
-                            'assets/ellipse1.svg',
-                          ),
                           GestureDetector(
                             onTap: () {
                               Navigator.pop(context);
@@ -53,15 +53,18 @@ class EditProfilScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Text(
-                            'Edit Profil',
-                            style: whiteTextStyle.copyWith(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20, top: 30),
+                            child: Text(
+                              'Edit Profil',
+                              style: whiteTextStyle.copyWith(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ],
-                      ),
+                      )
                     ],
                   ),
                   Stack(
