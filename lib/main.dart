@@ -14,7 +14,9 @@ import 'package:bookingvaccine/screen/invoice/invoice_view_model.dart';
 import 'package:bookingvaccine/screen/invoice/list_invoice_screen.dart';
 import 'package:bookingvaccine/screen/news/detail_news_screen.dart';
 import 'package:bookingvaccine/screen/news/list_news_screen.dart';
+import 'package:bookingvaccine/screen/profil/edit_profil_screen.dart';
 import 'package:bookingvaccine/screen/profil/profil_screen.dart';
+import 'package:bookingvaccine/screen/profil/profil_view_model.dart';
 import 'package:bookingvaccine/screen/splash_screen.dart';
 import 'package:bookingvaccine/screen/vaksinasi/confirm_vaksinasi_screen.dart';
 import 'package:bookingvaccine/screen/vaksinasi/confirm_vaksinasi_view_model.dart';
@@ -47,6 +49,9 @@ void main() {
       ChangeNotifierProvider<InvoiceViewModel>(
         create: (context) => InvoiceViewModel(),
       ),
+      ChangeNotifierProvider<ProfilViewModel>(
+        create: (context) => ProfilViewModel(),
+      ),
     ],
     child: const MyApp(),
   ));
@@ -60,7 +65,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => const SplashScreen(),
+        '/': (context) => EditProfilScreen(),
         '/signIn': (context) => SignInScreen(),
         '/signUp': (context) => SignUpScreen(),
         '/home': (context) => const HomeScreen(),
