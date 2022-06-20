@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => EditPasswordScreen(),
+        '/': (context) => const SplashScreen(),
         '/signIn': (context) => SignInScreen(),
         '/signUp': (context) => SignUpScreen(),
         '/home': (context) => const HomeScreen(),
@@ -79,6 +79,9 @@ class MyApp extends StatelessWidget {
         '/Invoice': (context) => const InvoiceScreen(),
         '/list-invoice': (context) => const ListInvoiceScreen(),
         '/profile': (context) => const ProfilScreen(),
+        '/edit-profile': (context) => EditProfilScreen(),
+        '/edit-informasi': (context) => EditInformasiScreen(),
+        '/edit-password': (context) => EditPasswordScreen(),
         '/list-news': (context) => const ListNewsScreen(),
         '/detail-news': (context) => const DetailNewsScreen(),
         '/forget-pw': (context) => ForgetPasswordScreen(),

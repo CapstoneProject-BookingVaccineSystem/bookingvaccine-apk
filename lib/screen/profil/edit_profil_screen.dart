@@ -53,6 +53,13 @@ class EditProfilScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+                          Text(
+                            'Edit Profil',
+                            style: whiteTextStyle.copyWith(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ],
                       ),
                     ],
