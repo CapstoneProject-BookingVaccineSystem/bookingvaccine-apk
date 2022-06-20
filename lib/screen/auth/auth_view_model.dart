@@ -1,3 +1,5 @@
+import 'package:bookingvaccine/model/api/auth_api.dart';
+import 'package:bookingvaccine/model/register_model.dart';
 import 'package:flutter/cupertino.dart';
 
 class SignInViewModel extends ChangeNotifier {
@@ -24,7 +26,6 @@ class SignInViewModel extends ChangeNotifier {
 
 class SignUpViewModel extends ChangeNotifier {
   bool isHidden = true;
-  late String gender;
   bool agree = false;
   String date = '';
   bool statusCheckbox = true;
@@ -100,10 +101,15 @@ class SignUpViewModel extends ChangeNotifier {
   }
 
   setStateErrorText(String paramNikC) {
-    print(paramNikC);
     if (paramNikC != '') {
       notifyListeners();
       errorText;
     }
+  }
+
+  registerUser(RegisterModel RegisterModel) async {
+    try {
+      await AuthApi().registerUser(RegisterModel);
+    } catch (e) {}
   }
 }

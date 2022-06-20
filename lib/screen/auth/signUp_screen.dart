@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bookingvaccine/model/register_model.dart';
 import 'package:bookingvaccine/screen/auth/auth_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/gestures.dart';
@@ -20,7 +21,7 @@ class SignUpScreen extends StatelessWidget {
     final _isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
 
     final List<String> genderItems = [
-      'Laki-laki',
+      'Laki-Laki',
       'Perempuan',
     ];
     String? selectedValue;
@@ -107,6 +108,7 @@ class SignUpScreen extends StatelessWidget {
             right: 18,
           ),
           child: TextFormField(
+            controller: paramValue.firstNameC,
             textInputAction: TextInputAction.next,
             style: const TextStyle(color: Colors.grey),
             decoration: InputDecoration(
@@ -144,6 +146,7 @@ class SignUpScreen extends StatelessWidget {
             right: 18,
           ),
           child: TextFormField(
+            controller: paramValue.lastNameC,
             textInputAction: TextInputAction.next,
             style: const TextStyle(color: Colors.grey),
             decoration: InputDecoration(
@@ -304,6 +307,7 @@ class SignUpScreen extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
+                controller: paramValue.emailC,
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
                 style: const TextStyle(color: Colors.grey),
@@ -353,6 +357,7 @@ class SignUpScreen extends StatelessWidget {
             right: 18,
           ),
           child: TextFormField(
+            controller: paramValue.passwordC,
             textInputAction: TextInputAction.done,
             obscureText: paramValue.isHidden,
             style: const TextStyle(color: Colors.grey),
@@ -465,6 +470,7 @@ class SignUpScreen extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
+                controller: paramValue.numberC,
                 textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.number,
                 style: const TextStyle(color: Colors.grey),
@@ -526,7 +532,6 @@ class SignUpScreen extends StatelessWidget {
                           text: 'kebijakan privasi',
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              print("TextSpan is clicked.");
                               // callMyFunction();
                             },
                           style: secondTextStyle.copyWith(
@@ -558,10 +563,19 @@ class SignUpScreen extends StatelessWidget {
           right: 51,
         ),
         child: GestureDetector(
-          onTap: () {
+          onTap: () async {
             paramValue.changeClickRegister(false);
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
+              await paramValue.registerUser(RegisterModel(
+                  username: paramValue.nikC.text,
+                  password: paramValue.passwordC.text,
+                  firstName: paramValue.firstNameC.text,
+                  lastName: paramValue.lastNameC.text,
+                  birthDate: DateTime.parse(paramValue.date),
+                  gender: selectedValue!,
+                  email: paramValue.emailC.text,
+                  noPhone: paramValue.numberC.text));
               if (paramValue.agree == false) {
                 paramValue.changestatusCheckbox(paramValue.agree);
               }
