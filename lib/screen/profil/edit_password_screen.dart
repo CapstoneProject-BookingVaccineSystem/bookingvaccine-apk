@@ -1,8 +1,8 @@
+import 'package:bookingvaccine/screen/auth/auth_view_model.dart';
 import 'package:bookingvaccine/screen/profil/profil_view_model.dart';
+import 'package:bookingvaccine/screen/prompt/prompt.dart';
 import 'package:bookingvaccine/theme.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +13,8 @@ class EditPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _viewModelValidationPassword =
+        Provider.of<SignUpViewModel>(context, listen: false);
     return SafeArea(
       child: Scaffold(
         backgroundColor: whiteColor,
@@ -87,10 +89,10 @@ class EditPasswordScreen extends StatelessWidget {
                         ),
                       ),
                       TextFormField(
+                        obscureText: true,
                         style: secondTextStyle.copyWith(
                           fontSize: 14,
                         ),
-                        readOnly: true,
                         decoration: InputDecoration(
                           hintStyle: TextStyle(
                             fontSize: 14,
@@ -107,21 +109,28 @@ class EditPasswordScreen extends StatelessWidget {
                             ),
                           ),
                         ),
+                        validator: (value) {
+                          if (value == '') {
+                            return 'Password lama tidak boleh kosong';
+                          }
+
+                          return null;
+                        },
                       ),
                       const SizedBox(
                         height: 25,
                       ),
                       Text(
-                        'Password Lama',
+                        'Password Baru',
                         style: primaryTextStyle2.copyWith(
                           fontSize: 14,
                         ),
                       ),
                       TextFormField(
+                        obscureText: true,
                         style: secondTextStyle.copyWith(
                           fontSize: 14,
                         ),
-                        readOnly: true,
                         decoration: InputDecoration(
                           hintStyle: TextStyle(
                             fontSize: 14,
@@ -138,6 +147,18 @@ class EditPasswordScreen extends StatelessWidget {
                             ),
                           ),
                         ),
+                        validator: (value) {
+                          if (value == '') {
+                            return 'Password Baru tidak boleh kosong';
+                          }
+                          bool result = _viewModelValidationPassword
+                              .validatePassword(value!);
+
+                          if (result == false) {
+                            return 'Harus ada menggunakan huruf capital dan nomor';
+                          }
+                          return null;
+                        },
                       ),
                       const SizedBox(
                         height: 25,
@@ -149,10 +170,10 @@ class EditPasswordScreen extends StatelessWidget {
                         ),
                       ),
                       TextFormField(
+                        obscureText: true,
                         style: secondTextStyle.copyWith(
                           fontSize: 14,
                         ),
-                        readOnly: true,
                         decoration: InputDecoration(
                           hintStyle: TextStyle(
                             fontSize: 14,
@@ -169,6 +190,18 @@ class EditPasswordScreen extends StatelessWidget {
                             ),
                           ),
                         ),
+                        validator: (value) {
+                          if (value == '') {
+                            return 'Password Baru tidak boleh kosong';
+                          }
+                          bool result = _viewModelValidationPassword
+                              .validatePassword(value!);
+
+                          if (result == false) {
+                            return 'Harus ada menggunakan huruf capital dan nomor';
+                          }
+                          return null;
+                        },
                       ),
                       const SizedBox(
                         height: 25,
@@ -177,6 +210,8 @@ class EditPasswordScreen extends StatelessWidget {
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
+                            Prompt().promptConfirm(
+                                context, 'Password berhasil diperbarui');
                           }
                         },
                         child: Container(

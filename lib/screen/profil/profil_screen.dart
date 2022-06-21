@@ -271,7 +271,9 @@ class _ProfilScreenState extends State<ProfilScreen> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, '/edit-informasi');
+                          },
                           child: Container(
                             height: 22,
                             width: 115,

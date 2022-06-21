@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bookingvaccine/screen/profil/profil_view_model.dart';
+import 'package:bookingvaccine/screen/prompt/prompt.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class EditProfilScreen extends StatelessWidget {
   EditProfilScreen({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
   final List<String> genderItems = [
-    'Laki-laki',
+    'Laki-Laki',
     'Perempuan',
   ];
   TextEditingController tesC = TextEditingController(text: 'tes');
@@ -339,9 +340,11 @@ class EditProfilScreen extends StatelessWidget {
                           height: 26,
                         ),
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
+                              Prompt().promptConfirm(
+                                  context, 'Profil berhasil diperbarui');
                             }
                           },
                           child: Container(

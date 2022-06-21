@@ -1,4 +1,5 @@
 import 'package:bookingvaccine/screen/profil/profil_view_model.dart';
+import 'package:bookingvaccine/screen/prompt/prompt.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -268,6 +269,10 @@ class EditInformasiScreen extends StatelessWidget {
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
+                            Prompt().promptConfirm(
+                              context,
+                              'Informasi Akun berhasil diperbarui',
+                            );
                           }
                         },
                         child: Container(
