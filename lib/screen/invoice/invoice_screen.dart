@@ -312,7 +312,7 @@ class InvoiceScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       value.changeClickBackToHome(true);
-                      valueVaksinasi.changeClickContent(false, 0);
+                      valueVaksinasi.changeClickContent(false, 0, 0);
                       valueVaksinasi.changeClickKelurahan(false);
                       Navigator.pushReplacementNamed(context, '/home');
                       Timer(

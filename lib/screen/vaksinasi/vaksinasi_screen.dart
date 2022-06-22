@@ -7,8 +7,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-class VaksinasiScreen extends StatelessWidget {
+class VaksinasiScreen extends StatefulWidget {
   const VaksinasiScreen({Key? key}) : super(key: key);
+
+  @override
+  State<VaksinasiScreen> createState() => _VaksinasiScreenState();
+}
+
+class _VaksinasiScreenState extends State<VaksinasiScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
+      var _viewModel = Provider.of<VaksinasiViewModel>(context, listen: false);
+      await _viewModel.getAllDataArea();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +43,7 @@ class VaksinasiScreen extends StatelessWidget {
                           height: 15.81,
                         ),
                         onPressed: () {
-                          value.changeClickContent(false, 0);
+                          value.changeClickContent(false, 0, 0);
                           value.changeClickKelurahan(false);
                           Navigator.pop(context);
                         },
@@ -137,10 +152,13 @@ class VaksinasiScreen extends StatelessWidget {
                                   SizedBox(
                                     height: 80,
                                     child: ListView.builder(
-                                      itemCount: 3,
+                                      itemCount: value.dataArea.length,
                                       itemBuilder: (context, index) {
                                         return GestureDetector(
-                                          onTap: () {},
+                                          onTap: () {
+                                            value.getDataSessionByAreaId(
+                                                value.dataArea[index].idArea);
+                                          },
                                           child: Container(
                                             height: 25.67,
                                             padding: const EdgeInsets.symmetric(
@@ -149,7 +167,7 @@ class VaksinasiScreen extends StatelessWidget {
                                             ),
                                             width: double.infinity,
                                             child: Text(
-                                              'Rajabasa, Lampung',
+                                              value.dataArea[index].areaName,
                                               style: primaryTextStyle.copyWith(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.w500,
@@ -173,146 +191,162 @@ class VaksinasiScreen extends StatelessWidget {
                   ),
                   Expanded(
                     child: ListView.builder(
-                      itemCount: 5,
+                      itemCount: value.dataSessionByAreaId.length,
                       itemBuilder: (context, index) {
                         int countIndex = index + 1;
                         return GestureDetector(
                           onTap: () {
-                            value.changeClickContent(true, countIndex);
+                            value.changeClickContent(true, countIndex,
+                                value.dataSessionByAreaId[index].idSession);
                           },
-                          child: Container(
-                            padding: const EdgeInsets.only(
-                              left: 19,
-                              right: 19,
-                              top: 15,
-                            ),
+                          child: DelayedDisplay(
+                            delay: const Duration(microseconds: 250),
+                            slidingCurve: Curves.easeInOut,
+                            slidingBeginOffset: const Offset(0.0, -0.3),
                             child: Container(
-                              height: 156,
-                              width: double.infinity,
-                              margin: const EdgeInsets.only(bottom: 10),
                               padding: const EdgeInsets.only(
-                                left: 20,
-                                top: 19.5,
+                                left: 19,
+                                right: 19,
+                                top: 4,
                               ),
-                              decoration: BoxDecoration(
-                                color: whiteColor,
-                                border: Border.all(
-                                  color: value.indexContent == countIndex
-                                      ? primaryColor2
-                                      : Colors.white,
+                              child: Container(
+                                height: 156,
+                                width: double.infinity,
+                                margin: const EdgeInsets.only(bottom: 10),
+                                padding: const EdgeInsets.only(
+                                  left: 20,
+                                  top: 19.5,
                                 ),
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.3),
-                                    spreadRadius: 2,
-                                    blurRadius: 2,
-                                    offset: const Offset(0, 1),
+                                decoration: BoxDecoration(
+                                  color: whiteColor,
+                                  border: Border.all(
+                                    color: value.indexContent == countIndex
+                                        ? primaryColor2
+                                        : Colors.white,
                                   ),
-                                ],
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Puskesmas Raja Basa Indah',
-                                    style: primaryTextStyle.copyWith(
-                                      fontSize: 14,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 2,
+                                      blurRadius: 2,
+                                      offset: const Offset(0, 1),
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    height: 9.48,
-                                  ),
-                                  Row(
-                                    children: [
-                                      SvgPicture.asset(
-                                        'assets/street.svg',
-                                        width: 13,
-                                        height: 13,
+                                  ],
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      value
+                                          .dataSessionByAreaId[index]
+                                          .healthFacilitiesDaoMapped
+                                          .healthFacilitiesName,
+                                      style: primaryTextStyle.copyWith(
+                                        fontSize: 14,
                                       ),
-                                      const SizedBox(
-                                        width: 9.41,
-                                      ),
-                                      Flexible(
-                                        child: Text(
-                                          'Jl. Pramuka No. 1 Rajabasa, Lampung, Indonesia',
-                                          overflow: TextOverflow.ellipsis,
-                                          style: primaryTextStyle.copyWith(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w400,
-                                          ),
+                                    ),
+                                    const SizedBox(
+                                      height: 9.48,
+                                    ),
+                                    Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          'assets/street.svg',
+                                          width: 13,
+                                          height: 13,
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 9,
-                                  ),
-                                  Row(
-                                    children: [
-                                      SvgPicture.asset(
-                                        'assets/telphone.svg',
-                                        width: 13,
-                                        height: 13,
-                                      ),
-                                      const SizedBox(
-                                        width: 9.41,
-                                      ),
-                                      Flexible(
-                                        child: Text(
-                                          '0891234567890',
-                                          overflow: TextOverflow.ellipsis,
-                                          style: primaryTextStyle.copyWith(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w400,
-                                          ),
+                                        const SizedBox(
+                                          width: 9.41,
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 9,
-                                  ),
-                                  Row(
-                                    children: [
-                                      SvgPicture.asset(
-                                        'assets/clock.svg',
-                                        width: 13,
-                                        height: 13,
-                                      ),
-                                      const SizedBox(
-                                        width: 9.41,
-                                      ),
-                                      Flexible(
-                                        child: Text(
-                                          '08.00 - Selesai',
-                                          overflow: TextOverflow.ellipsis,
-                                          style: primaryTextStyle.copyWith(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 9,
-                                  ),
-                                  RichText(
-                                    text: TextSpan(
-                                      text: 'Stok Vaksin : ',
-                                      style: primaryTextStyle2.copyWith(
-                                          fontSize: 10),
-                                      children: <TextSpan>[
-                                        TextSpan(
-                                            text: 'Sinovac - 100 Buah',
+                                        Flexible(
+                                          child: Text(
+                                            value
+                                                .dataSessionByAreaId[index]
+                                                .healthFacilitiesDaoMapped
+                                                .addressHealthFacilities,
+                                            overflow: TextOverflow.ellipsis,
                                             style: primaryTextStyle.copyWith(
                                               fontSize: 10,
-                                            )),
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        )
                                       ],
                                     ),
-                                  )
-                                ],
+                                    const SizedBox(
+                                      height: 9,
+                                    ),
+                                    Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          'assets/telphone.svg',
+                                          width: 13,
+                                          height: 13,
+                                        ),
+                                        const SizedBox(
+                                          width: 9.41,
+                                        ),
+                                        Flexible(
+                                          child: Text(
+                                            value
+                                                .dataSessionByAreaId[index]
+                                                .healthFacilitiesDaoMapped
+                                                .phoneFacilities,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: primaryTextStyle.copyWith(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 9,
+                                    ),
+                                    Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          'assets/clock.svg',
+                                          width: 13,
+                                          height: 13,
+                                        ),
+                                        const SizedBox(
+                                          width: 9.41,
+                                        ),
+                                        Flexible(
+                                          child: Text(
+                                            '${value.dataSessionByAreaId[index].startTime.substring(0, 5)} - Selesai',
+                                            overflow: TextOverflow.ellipsis,
+                                            style: primaryTextStyle.copyWith(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 9,
+                                    ),
+                                    RichText(
+                                      text: TextSpan(
+                                        text: 'Stok Vaksin : ',
+                                        style: primaryTextStyle2.copyWith(
+                                            fontSize: 10),
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                              text:
+                                                  '${value.dataSessionByAreaId[index].vaccineMapped.vaccineName} - ${value.dataSessionByAreaId[index].stock} Buah',
+                                              style: primaryTextStyle.copyWith(
+                                                fontSize: 10,
+                                              )),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -341,7 +375,7 @@ class VaksinasiScreen extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                value.changeClickContent(false, 0);
+                                value.changeClickContent(false, 0, 0);
                               },
                               child: Container(
                                 height: 51,
@@ -361,11 +395,13 @@ class VaksinasiScreen extends StatelessWidget {
                               ),
                             ),
                             GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 value.changeClickChoose(true);
-
+                                await value
+                                    .getDetailDataSessionById(value.idContent);
                                 Navigator.pushNamed(
                                     context, '/vaksinasi-confirm');
+
                                 Timer(
                                   const Duration(milliseconds: 200),
                                   () {
