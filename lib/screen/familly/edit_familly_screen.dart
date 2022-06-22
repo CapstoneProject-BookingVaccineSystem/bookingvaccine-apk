@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bookingvaccine/model/familly_model/detail_familly.dart';
 import 'package:bookingvaccine/screen/familly/familly_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,14 @@ class EditFamillyScreen extends StatelessWidget {
                   width: 16.23,
                   height: 15.81,
                 ),
-                onPressed: () => Navigator.pop(context),
+                onPressed: () async {
+                  var _viewModel =
+                      Provider.of<FamillyViewModel>(context, listen: false);
+                  _viewModel.nikC.clear();
+                  _viewModel.fullNameC.clear();
+                  await _viewModel.getDataFamillyByUserId(4);
+                  Navigator.pop(context);
+                },
                 padding: const EdgeInsets.only(top: 15),
               ),
             ),
@@ -98,6 +106,7 @@ class EditFamillyScreen extends StatelessWidget {
                                 height: 10,
                               ),
                               TextFormField(
+                                controller: value.nikC,
                                 inputFormatters: [
                                   FilteringTextInputFormatter.allow(
                                       RegExp('[0-9]')),
@@ -125,6 +134,10 @@ class EditFamillyScreen extends StatelessWidget {
                                     return 'Nik tidak boleh kosong';
                                   }
 
+                                  if (value!.length < 16) {
+                                    return 'Nik tidak boleh kurang dari 16';
+                                  }
+
                                   return null;
                                 },
                               ),
@@ -141,6 +154,7 @@ class EditFamillyScreen extends StatelessWidget {
                                 height: 10,
                               ),
                               TextFormField(
+                                controller: value.fullNameC,
                                 textInputAction: TextInputAction.next,
                                 style: const TextStyle(color: Colors.grey),
                                 decoration: InputDecoration(
@@ -172,10 +186,17 @@ class EditFamillyScreen extends StatelessWidget {
                                 height: 10,
                               ),
                               GestureDetector(
-                                onTap: () {
+                                onTap: () async {
                                   value.changeClickAdd(true);
                                   if (_formKey.currentState!.validate()) {
                                     _formKey.currentState!.save();
+
+                                    await value.editDataFamilly(
+                                        DetailFamillyModel(
+                                            nik: value.nikC.text,
+                                            fullName: value.fullNameC.text,
+                                            idFamily: value.idFamilly),
+                                        context);
                                   }
 
                                   Timer(

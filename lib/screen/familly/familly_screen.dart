@@ -7,8 +7,23 @@ import 'package:flutter_svg/svg.dart';
 import 'package:expansion_widget/expansion_widget.dart';
 import 'package:provider/provider.dart';
 
-class FamillyScreen extends StatelessWidget {
+class FamillyScreen extends StatefulWidget {
   const FamillyScreen({Key? key}) : super(key: key);
+
+  @override
+  State<FamillyScreen> createState() => _FamillyScreenState();
+}
+
+class _FamillyScreenState extends State<FamillyScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
+      var _viewModel = Provider.of<FamillyViewModel>(context, listen: false);
+      await _viewModel.getDataFamillyByUserId(4);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,43 +48,92 @@ class FamillyScreen extends StatelessWidget {
             backgroundColor: whiteColor,
           ),
         ),
-        body: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(
-                left: 19,
-                right: 19,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Tambahkan Anggota Keluarga',
-                    style: primaryTextStyle2.copyWith(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                    ),
+        body: Consumer<FamillyViewModel>(builder: (context, value, child) {
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(
+                    left: 19,
+                    right: 19,
                   ),
-                  const SizedBox(
-                    height: 7,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Tambahkan Anggota Keluarga',
+                        style: primaryTextStyle2.copyWith(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 7,
+                      ),
+                      Text(
+                        'Tambahkan anggota keluarga untuk mempermudah pendaftaran vaksinasi keluarga anda.',
+                        style: primaryTextStyle.copyWith(
+                          fontSize: 10,
+                        ),
+                      ),
+                      if (value.dataFamillyByUserId.isEmpty) ...{
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            value.changeClickAdd(true);
+                            Navigator.pushNamed(context, '/add-familly');
+                            Timer(
+                              const Duration(milliseconds: 200),
+                              () {
+                                value.changeClickAdd(false);
+                              },
+                            );
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only(
+                              left: 18,
+                              right: 18,
+                              top: 12,
+                            ),
+                            height: 42,
+                            decoration: BoxDecoration(
+                              color: value.clickAdd == true
+                                  ? primaryColor2_1
+                                  : primaryColor2,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Tambahkan',
+                                style: secondTextStyle.copyWith(
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        Text(
+                          'Anda hanya bisa menambahkan sampai 8 anggota keluarga',
+                          style: primaryTextStyle.copyWith(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        )
+                      }
+                    ],
                   ),
-                  Text(
-                    'Tambahkan anggota keluarga untuk mempermudah pendaftaran vaksinasi keluarga anda.',
-                    style: primaryTextStyle.copyWith(
-                      fontSize: 10,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Consumer<FamillyViewModel>(
-              builder: (context, value, child) {
-                return Column(
+                ),
+                Column(
                   children: [
                     LimitedBox(
                       maxHeight: 450,
                       child: ListView.builder(
-                        itemCount: value.tes.length,
+                        itemCount: value.dataFamillyByUserId.length,
                         itemBuilder: (context, index) {
                           int countFamilly = index + 1;
 
@@ -219,7 +283,7 @@ class FamillyScreen extends StatelessWidget {
                                           height: 10,
                                         ),
                                         Text(
-                                          '190100240819021',
+                                          value.dataFamillyByUserId[index].nik,
                                           style: secondTextStyle.copyWith(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 12,
@@ -238,7 +302,8 @@ class FamillyScreen extends StatelessWidget {
                                           height: 10,
                                         ),
                                         Text(
-                                          'Indy Ratna Pratiwi',
+                                          value.dataFamillyByUserId[index]
+                                              .fullName,
                                           style: secondTextStyle.copyWith(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 12,
@@ -253,14 +318,136 @@ class FamillyScreen extends StatelessWidget {
                                           children: [
                                             GestureDetector(
                                               onTap: () {
-                                                value.changeClickAdd(true);
-                                                Timer(
-                                                  const Duration(
-                                                      milliseconds: 200),
-                                                  () {
-                                                    value.changeClickAdd(false);
-                                                  },
-                                                );
+                                                showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return AlertDialog(
+                                                        actionsPadding:
+                                                            EdgeInsets.zero,
+                                                        buttonPadding:
+                                                            EdgeInsets.zero,
+                                                        actions: [
+                                                          Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: <
+                                                                  Widget>[
+                                                                Expanded(
+                                                                  child:
+                                                                      GestureDetector(
+                                                                    onTap: () {
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      height:
+                                                                          53,
+                                                                      color: const Color(
+                                                                          0xffF7F7F7),
+                                                                      child:
+                                                                          Center(
+                                                                        child:
+                                                                            Text(
+                                                                          'Kembali',
+                                                                          style:
+                                                                              secondTextStyle.copyWith(
+                                                                            fontSize:
+                                                                                14,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  child:
+                                                                      GestureDetector(
+                                                                    onTap:
+                                                                        () async {
+                                                                      await value.deletDataFamillyById(
+                                                                          value
+                                                                              .dataFamillyByUserId[index]
+                                                                              .idFamily,
+                                                                          index);
+
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      height:
+                                                                          53,
+                                                                      color:
+                                                                          primaryColor2,
+                                                                      child:
+                                                                          Center(
+                                                                        child:
+                                                                            Text(
+                                                                          'Konfirmasi',
+                                                                          style:
+                                                                              secondTextStyle.copyWith(fontSize: 14),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ])
+                                                        ],
+                                                        content: Container(
+                                                          height: 185,
+                                                          width: 337,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: whiteColor,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5),
+                                                          ),
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                'Apakah anda yakin?',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style:
+                                                                    secondTextStyle
+                                                                        .copyWith(
+                                                                  fontSize: 20,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                ),
+                                                              ),
+                                                              const SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              Text(
+                                                                'Data yang diubah tidak akan tersimpan.',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style:
+                                                                    secondTextStyle
+                                                                        .copyWith(
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      );
+                                                    });
                                               },
                                               child: Container(
                                                 height: 42,
@@ -285,6 +472,10 @@ class FamillyScreen extends StatelessWidget {
                                                 value.changeClickChange(true);
                                                 Navigator.pushNamed(
                                                     context, '/edit-familly');
+
+                                                value.getDataFamillyById(value
+                                                    .dataFamillyByUserId[index]
+                                                    .idFamily);
                                                 Timer(
                                                   const Duration(
                                                       milliseconds: 200),
@@ -323,8 +514,9 @@ class FamillyScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              if (countFamilly == value.tes.length &&
-                                  value.tes.length < 8) ...{
+                              if (countFamilly ==
+                                      value.dataFamillyByUserId.length &&
+                                  value.dataFamillyByUserId.length < 8) ...{
                                 GestureDetector(
                                   onTap: () {
                                     value.changeClickAdd(true);
@@ -376,7 +568,7 @@ class FamillyScreen extends StatelessWidget {
                         },
                       ),
                     ),
-                    if (value.tes.length >= 8) ...{
+                    if (value.dataFamillyByUserId.length >= 8) ...{
                       Container(
                         margin: const EdgeInsets.only(
                           left: 18,
@@ -408,11 +600,11 @@ class FamillyScreen extends StatelessWidget {
                       )
                     }
                   ],
-                );
-              },
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        }),
       ),
     );
   }
