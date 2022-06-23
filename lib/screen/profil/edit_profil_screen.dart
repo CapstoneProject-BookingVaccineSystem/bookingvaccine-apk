@@ -388,8 +388,8 @@ class EditProfilScreen extends StatelessWidget {
                                                 child: GestureDetector(
                                                   onTap: () async {
                                                     Navigator.pop(context);
-                                                    await paramValue.editUserById(
-                                                        UserModel(
+                                                     await paramValue.editUserById(
+                                                       UserModel(
                                                             createdAt: paramValue
                                                                 .user.createdAt,
                                                             createdBy: paramValue
