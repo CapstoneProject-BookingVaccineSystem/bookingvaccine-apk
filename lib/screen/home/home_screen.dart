@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
+import '../profil/profil_view_model.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -429,7 +431,10 @@ class HomeScreen extends StatelessWidget {
               backgroundColor: backgroundColor1,
               actions: [
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
+                    var _viewModel =
+                        Provider.of<ProfilViewModel>(context, listen: false);
+                    await _viewModel.getDataUser();
                     Navigator.pushNamed(context, '/profile');
                   },
                   child: Container(

@@ -1,3 +1,4 @@
+import 'package:bookingvaccine/model/user_model.dart';
 import 'package:bookingvaccine/screen/profil/profil_view_model.dart';
 import 'package:bookingvaccine/screen/prompt/prompt.dart';
 import 'package:bookingvaccine/theme.dart';
@@ -36,7 +37,11 @@ class EditInformasiScreen extends StatelessWidget {
                       Row(
                         children: [
                           GestureDetector(
-                            onTap: () {
+                            onTap: () async {
+                              var _viewModel = Provider.of<ProfilViewModel>(
+                                  context,
+                                  listen: false);
+                              await _viewModel.getDataUser();
                               Navigator.pop(context);
                             },
                             child: Padding(
@@ -88,6 +93,7 @@ class EditInformasiScreen extends StatelessWidget {
                         ),
                       ),
                       TextFormField(
+                        controller: paramValue.emailC,
                         style: secondTextStyle.copyWith(
                           fontSize: 14,
                         ),
@@ -192,6 +198,7 @@ class EditInformasiScreen extends StatelessWidget {
                         ),
                       ),
                       TextFormField(
+                        controller: paramValue.nikC,
                         style: secondTextStyle.copyWith(
                           fontSize: 14,
                         ),
@@ -221,6 +228,10 @@ class EditInformasiScreen extends StatelessWidget {
                             return 'NIK tidak boleh kosong';
                           }
 
+                          if (value!.length < 15) {
+                            return 'NIK tidak kurang dari 16';
+                          }
+
                           return null;
                         },
                       ),
@@ -234,6 +245,7 @@ class EditInformasiScreen extends StatelessWidget {
                         ),
                       ),
                       TextFormField(
+                        controller: paramValue.phoneNumberC,
                         style: secondTextStyle.copyWith(
                           fontSize: 14,
                         ),
@@ -269,10 +281,125 @@ class EditInformasiScreen extends StatelessWidget {
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
-                            Prompt().promptConfirm(
-                              context,
-                              'Informasi Akun berhasil diperbarui',
-                            );
+
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext paramContext) {
+                                  return AlertDialog(
+                                    actionsPadding: EdgeInsets.zero,
+                                    buttonPadding: EdgeInsets.zero,
+                                    actions: [
+                                      Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Expanded(
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Container(
+                                                  height: 53,
+                                                  color:
+                                                      const Color(0xffF7F7F7),
+                                                  child: Center(
+                                                    child: Text(
+                                                      'Kembali',
+                                                      style: secondTextStyle
+                                                          .copyWith(
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: GestureDetector(
+                                                onTap: () async {
+                                                  Navigator.pop(context);
+                                                  await paramValue.editInformationUserById(
+                                                      UserModel(
+                                                          createdAt: paramValue
+                                                              .user.createdAt,
+                                                          createdBy: paramValue
+                                                              .user.createdBy,
+                                                          isDeleted: paramValue
+                                                              .user.isDeleted,
+                                                          idUser: paramValue
+                                                              .user.idUser,
+                                                          username: paramValue
+                                                              .nikC.text,
+                                                          password: paramValue
+                                                              .user.password,
+                                                          firstName: paramValue
+                                                              .firstNameC.text,
+                                                          lastName: paramValue
+                                                              .lastNameC.text,
+                                                          birthDate: paramValue
+                                                              .user.birthDate,
+                                                          gender:
+                                                              paramValue.gender,
+                                                          email: paramValue
+                                                              .emailC.text,
+                                                          noPhone: paramValue
+                                                              .phoneNumberC
+                                                              .text,
+                                                          roles: paramValue
+                                                              .user.roles),
+                                                      context);
+                                                },
+                                                child: Container(
+                                                  height: 53,
+                                                  color: primaryColor2,
+                                                  child: Center(
+                                                    child: Text(
+                                                      'Konfirmasi',
+                                                      style: secondTextStyle
+                                                          .copyWith(
+                                                              fontSize: 14),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ])
+                                    ],
+                                    content: Container(
+                                      height: 185,
+                                      width: 337,
+                                      decoration: BoxDecoration(
+                                        color: whiteColor,
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Apakah anda yakin?',
+                                            textAlign: TextAlign.center,
+                                            style: secondTextStyle.copyWith(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          Text(
+                                            'Data yang diubah tidak akan tersimpan.',
+                                            textAlign: TextAlign.center,
+                                            style: secondTextStyle.copyWith(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                });
                           }
                         },
                         child: Container(

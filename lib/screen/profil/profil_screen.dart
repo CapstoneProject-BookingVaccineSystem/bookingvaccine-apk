@@ -103,7 +103,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                     ),
                     Align(
                       child: Text(
-                        'Hizbullah Haidar Anis Al Wakil',
+                        '${paramValue.user.firstName} ${paramValue.user.lastName}',
                         style: whiteTextStyle.copyWith(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
@@ -163,7 +163,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                         ),
                         Flexible(
                           child: Text(
-                            'John',
+                            paramValue.user.firstName,
                             style: secondTextStyle.copyWith(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -188,7 +188,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                         ),
                         Flexible(
                           child: Text(
-                            'Doe',
+                            paramValue.user.lastName,
                             style: secondTextStyle.copyWith(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -213,7 +213,9 @@ class _ProfilScreenState extends State<ProfilScreen> {
                         ),
                         Flexible(
                           child: Text(
-                            '17/5/2001',
+                            paramValue.user.birthDate
+                                .toString()
+                                .substring(0, 10),
                             style: secondTextStyle.copyWith(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -238,7 +240,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                         ),
                         Flexible(
                           child: Text(
-                            'Laki-laki',
+                            paramValue.user.gender,
                             style: secondTextStyle.copyWith(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -309,7 +311,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                         ),
                         Flexible(
                           child: Text(
-                            'johndoe@gmail.com',
+                            paramValue.user.email,
                             style: secondTextStyle.copyWith(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -359,7 +361,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                         ),
                         Flexible(
                           child: Text(
-                            '19010002000200',
+                            paramValue.user.username,
                             style: secondTextStyle.copyWith(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -384,7 +386,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                         ),
                         Flexible(
                           child: Text(
-                            '0891234567890',
+                            paramValue.user.noPhone,
                             style: secondTextStyle.copyWith(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,

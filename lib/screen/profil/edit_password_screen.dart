@@ -1,3 +1,4 @@
+import 'package:bookingvaccine/model/user_model.dart';
 import 'package:bookingvaccine/screen/auth/auth_view_model.dart';
 import 'package:bookingvaccine/screen/profil/profil_view_model.dart';
 import 'package:bookingvaccine/screen/prompt/prompt.dart';
@@ -89,6 +90,7 @@ class EditPasswordScreen extends StatelessWidget {
                         ),
                       ),
                       TextFormField(
+                        controller: paramValue.oldPassword,
                         obscureText: true,
                         style: secondTextStyle.copyWith(
                           fontSize: 14,
@@ -114,6 +116,10 @@ class EditPasswordScreen extends StatelessWidget {
                             return 'Password lama tidak boleh kosong';
                           }
 
+                          if (value != paramValue.user.password) {
+                            return 'Password lama salah';
+                          }
+
                           return null;
                         },
                       ),
@@ -127,6 +133,7 @@ class EditPasswordScreen extends StatelessWidget {
                         ),
                       ),
                       TextFormField(
+                        controller: paramValue.newPassword,
                         obscureText: true,
                         style: secondTextStyle.copyWith(
                           fontSize: 14,
@@ -157,6 +164,7 @@ class EditPasswordScreen extends StatelessWidget {
                           if (result == false) {
                             return 'Harus ada menggunakan huruf capital dan nomor';
                           }
+
                           return null;
                         },
                       ),
@@ -170,6 +178,7 @@ class EditPasswordScreen extends StatelessWidget {
                         ),
                       ),
                       TextFormField(
+                        controller: paramValue.confirmPassword,
                         obscureText: true,
                         style: secondTextStyle.copyWith(
                           fontSize: 14,
@@ -194,11 +203,9 @@ class EditPasswordScreen extends StatelessWidget {
                           if (value == '') {
                             return 'Password Baru tidak boleh kosong';
                           }
-                          bool result = _viewModelValidationPassword
-                              .validatePassword(value!);
 
-                          if (result == false) {
-                            return 'Harus ada menggunakan huruf capital dan nomor';
+                          if (value != paramValue.newPassword.text) {
+                            return 'Konfirmasi password berbeda dengan password baru';
                           }
                           return null;
                         },
@@ -207,11 +214,124 @@ class EditPasswordScreen extends StatelessWidget {
                         height: 25,
                       ),
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
-                            Prompt().promptConfirm(
-                                context, 'Password berhasil diperbarui');
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext paramContext) {
+                                  return AlertDialog(
+                                    actionsPadding: EdgeInsets.zero,
+                                    buttonPadding: EdgeInsets.zero,
+                                    actions: [
+                                      Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Expanded(
+                                              child: GestureDetector(
+                                                onTap: () {},
+                                                child: Container(
+                                                  height: 53,
+                                                  color:
+                                                      const Color(0xffF7F7F7),
+                                                  child: Center(
+                                                    child: Text(
+                                                      'Kembali',
+                                                      style: secondTextStyle
+                                                          .copyWith(
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: GestureDetector(
+                                                onTap: () async {
+                                                  Navigator.pop(context);
+                                                  await paramValue.changePasswordUserId(
+                                                      UserModel(
+                                                          createdAt: paramValue
+                                                              .user.createdAt,
+                                                          createdBy: paramValue
+                                                              .user.createdBy,
+                                                          isDeleted: paramValue
+                                                              .user.isDeleted,
+                                                          idUser: paramValue
+                                                              .user.idUser,
+                                                          username: paramValue
+                                                              .nikC.text,
+                                                          password: paramValue
+                                                              .newPassword.text,
+                                                          firstName: paramValue
+                                                              .firstNameC.text,
+                                                          lastName: paramValue
+                                                              .lastNameC.text,
+                                                          birthDate: DateTime.parse(
+                                                              paramValue.date),
+                                                          gender:
+                                                              paramValue.gender,
+                                                          email: paramValue
+                                                              .user.email,
+                                                          noPhone: paramValue
+                                                              .user.noPhone,
+                                                          roles:
+                                                              paramValue.user.roles),
+                                                      context);
+                                                },
+                                                child: Container(
+                                                  height: 53,
+                                                  color: primaryColor2,
+                                                  child: Center(
+                                                    child: Text(
+                                                      'Konfirmasi',
+                                                      style: secondTextStyle
+                                                          .copyWith(
+                                                              fontSize: 14),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ])
+                                    ],
+                                    content: Container(
+                                      height: 185,
+                                      width: 337,
+                                      decoration: BoxDecoration(
+                                        color: whiteColor,
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Apakah anda yakin?',
+                                            textAlign: TextAlign.center,
+                                            style: secondTextStyle.copyWith(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          Text(
+                                            'Data yang diubah tidak akan tersimpan.',
+                                            textAlign: TextAlign.center,
+                                            style: secondTextStyle.copyWith(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                });
                           }
                         },
                         child: Container(
