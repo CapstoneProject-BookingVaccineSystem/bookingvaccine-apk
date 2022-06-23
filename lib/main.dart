@@ -14,6 +14,7 @@ import 'package:bookingvaccine/screen/invoice/invoice_view_model.dart';
 import 'package:bookingvaccine/screen/invoice/list_invoice_screen.dart';
 import 'package:bookingvaccine/screen/news/detail_news_screen.dart';
 import 'package:bookingvaccine/screen/news/list_news_screen.dart';
+import 'package:bookingvaccine/screen/news/news_view_model.dart';
 import 'package:bookingvaccine/screen/profil/edit_informasi_screen.dart';
 import 'package:bookingvaccine/screen/profil/edit_password_screen.dart';
 import 'package:bookingvaccine/screen/profil/edit_profil_screen.dart';
@@ -53,6 +54,9 @@ void main() {
       ),
       ChangeNotifierProvider<ProfilViewModel>(
         create: (context) => ProfilViewModel(),
+      ),
+      ChangeNotifierProvider<NewsViewModel>(
+        create: (context) => NewsViewModel(),
       ),
     ],
     child: const MyApp(),
