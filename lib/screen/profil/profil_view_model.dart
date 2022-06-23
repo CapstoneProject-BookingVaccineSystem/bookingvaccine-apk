@@ -32,6 +32,7 @@ class ProfilViewModel extends ChangeNotifier {
     final String? filePath = prefs.getString('imageProfil');
 
     gender = user.gender;
+    date = user.birthDate.toString().substring(0, 10);
     dateC =
         TextEditingController(text: user.birthDate.toString().substring(0, 10));
 
