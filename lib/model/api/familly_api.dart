@@ -8,7 +8,7 @@ class FamillyApi {
 
   Future getDataFamillyByUserId(int id) async {
     try {
-      final _response = await Dio().get(_baseUrl + 'user/' + 4.toString());
+      final _response = await Dio().get(_baseUrl + 'user/' + id.toString());
 
       List<dynamic> _getAllDataFamillyByUserId = _response.data['data'];
       List<FamillyModel> _allDataFamillyByUserId = [];
@@ -41,7 +41,7 @@ class FamillyApi {
     try {
       await Dio().post(_baseUrl,
           data: AddFamillyModel(
-              fullName: familly.fullName, idUser: 4, nik: familly.nik));
+              fullName: familly.fullName, idUser: 23, nik: familly.nik));
     } catch (e) {}
   }
 
