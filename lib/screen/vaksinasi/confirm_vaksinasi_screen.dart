@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'package:bookingvaccine/screen/vaksinasi/confirm_vaksinasi_view_model.dart';
+
+import 'package:bookingvaccine/screen/vaksinasi/vaksinasi_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ndialog/ndialog.dart';
 import 'package:provider/provider.dart';
 
 class ConfirmVaksinasiScreen extends StatelessWidget {
@@ -12,13 +12,12 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final confirmC = context.read<ConfirmVaksinasiViewModel>();
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.white,
           appBar: PreferredSize(
               preferredSize: const Size.fromHeight(75),
-              child: Consumer<ConfirmVaksinasiViewModel>(
+              child: Consumer<VaksinasiViewModel>(
                 builder: (context, value, child) {
                   return AppBar(
                     leading: Builder(
@@ -39,7 +38,7 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
                   );
                 },
               )),
-          body: Consumer<ConfirmVaksinasiViewModel>(
+          body: Consumer<VaksinasiViewModel>(
             builder: (context, value, child) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -128,7 +127,10 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Puskesmas Raja Basa Indah',
+                                      value
+                                          .detailDataSession
+                                          .healthFacilitiesDaoMapped
+                                          .healthFacilitiesName,
                                       style: primaryTextStyle.copyWith(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
@@ -149,7 +151,10 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
                                         ),
                                         Flexible(
                                           child: Text(
-                                            'Jl. Pramuka No. 1 Rajabasa, Lampung, Indonesia',
+                                            value
+                                                .detailDataSession
+                                                .healthFacilitiesDaoMapped
+                                                .addressHealthFacilities,
                                             style: primaryTextStyle.copyWith(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w400,
@@ -186,7 +191,7 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
                                                 ),
                                               ),
                                               Text(
-                                                'Sinovac - 100 Buah',
+                                                '${value.detailDataSession.vaccineMapped.vaccineName} - ${value.detailDataSession.stock} Buah',
                                                 overflow: TextOverflow.ellipsis,
                                                 style:
                                                     primaryTextStyle.copyWith(
@@ -227,7 +232,7 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
                                                 ),
                                               ),
                                               Text(
-                                                '08.00 WIB - Selesai',
+                                                '${value.detailDataSession.startTime} - Selesai',
                                                 overflow: TextOverflow.ellipsis,
                                                 style:
                                                     primaryTextStyle.copyWith(
@@ -243,230 +248,443 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
                                     const SizedBox(
                                       height: 10,
                                     ),
-                                    Container(
-                                      height: 40,
-                                      width: 280,
-                                      padding: const EdgeInsets.only(
-                                        left: 20.75,
-                                        right: 20.75,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        border: Border.all(
-                                          width: 1,
-                                          color: primaryColor2,
+                                    if (value.famillyName == null) ...{
+                                      Container(
+                                        height: 40,
+                                        width: 280,
+                                        padding: const EdgeInsets.only(
+                                          left: 20.75,
+                                          right: 20.75,
                                         ),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              SvgPicture.asset(
-                                                'assets/familly_blue.svg',
-                                                width: 16.5,
-                                                height: 10.5,
-                                              ),
-                                              const SizedBox(
-                                                width: 10.75,
-                                              ),
-                                              Text(
-                                                'Keluarga ',
-                                                style:
-                                                    primaryTextStyle2.copyWith(
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                            ],
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          border: Border.all(
+                                            width: 1,
+                                            color: primaryColor2,
                                           ),
-                                          GestureDetector(
-                                            onTap: () async {
-                                              NAlertDialog(
-                                                content: Container(
-                                                  height: 200,
-                                                  width: 337,
-                                                  margin: const EdgeInsets.only(
-                                                    top: 10,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                SvgPicture.asset(
+                                                  'assets/familly_blue.svg',
+                                                  width: 16.5,
+                                                  height: 10.5,
+                                                ),
+                                                const SizedBox(
+                                                  width: 10.75,
+                                                ),
+                                                Text(
+                                                  'Keluarga ',
+                                                  style: primaryTextStyle2
+                                                      .copyWith(
+                                                    fontSize: 12,
                                                   ),
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Column(
-                                                        children: [
-                                                          Container(
-                                                            height: 34,
-                                                            width:
-                                                                double.infinity,
-                                                            padding:
+                                                ),
+                                              ],
+                                            ),
+                                            GestureDetector(
+                                              onTap: () async {
+                                                showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return Consumer<
+                                                              VaksinasiViewModel>(
+                                                          builder: (context,
+                                                              paramValueModel,
+                                                              child) {
+                                                        return AlertDialog(
+                                                          actionsPadding:
+                                                              EdgeInsets.zero,
+                                                          buttonPadding:
+                                                              EdgeInsets.zero,
+                                                          content: Container(
+                                                            height: 200,
+                                                            width: 337,
+                                                            margin:
                                                                 const EdgeInsets
-                                                                    .symmetric(
-                                                              vertical: 8,
-                                                              horizontal: 10,
+                                                                    .only(
+                                                              top: 10,
                                                             ),
-                                                            color: const Color(
-                                                              0xffF7F7F7,
-                                                            ),
-                                                            child: Row(
+                                                            child: Column(
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
                                                                       .spaceBetween,
                                                               children: [
-                                                                Text(
-                                                                  'Daftar Keluarga :',
-                                                                  style: secondTextStyle
-                                                                      .copyWith(
-                                                                    fontSize:
-                                                                        12,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                  ),
+                                                                Column(
+                                                                  children: [
+                                                                    Container(
+                                                                      height:
+                                                                          34,
+                                                                      width: double
+                                                                          .infinity,
+                                                                      padding:
+                                                                          const EdgeInsets
+                                                                              .symmetric(
+                                                                        vertical:
+                                                                            8,
+                                                                        horizontal:
+                                                                            10,
+                                                                      ),
+                                                                      color:
+                                                                          const Color(
+                                                                        0xffF7F7F7,
+                                                                      ),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Text(
+                                                                            'Daftar Keluarga :',
+                                                                            style:
+                                                                                secondTextStyle.copyWith(
+                                                                              fontSize: 12,
+                                                                              fontWeight: FontWeight.w500,
+                                                                            ),
+                                                                          ),
+                                                                          GestureDetector(
+                                                                            onTap:
+                                                                                () {
+                                                                              Navigator.pop(context);
+                                                                            },
+                                                                            child:
+                                                                                SvgPicture.asset(
+                                                                              'assets/cancel_x.svg',
+                                                                              width: 20,
+                                                                              height: 20,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      height:
+                                                                          100,
+                                                                      child: ListView
+                                                                          .builder(
+                                                                        itemCount: paramValueModel
+                                                                            .allDataFamillyByUserId
+                                                                            .length,
+                                                                        padding:
+                                                                            EdgeInsets.zero,
+                                                                        itemBuilder:
+                                                                            (context,
+                                                                                index) {
+                                                                          return Row(
+                                                                            children: [
+                                                                              Container(
+                                                                                margin: const EdgeInsets.only(
+                                                                                  left: 5,
+                                                                                  top: 10,
+                                                                                  right: 10,
+                                                                                  bottom: 10,
+                                                                                ),
+                                                                                height: 10,
+                                                                                width: 10,
+                                                                                child: Checkbox(
+                                                                                  shape: RoundedRectangleBorder(
+                                                                                    borderRadius: BorderRadius.circular(2.0),
+                                                                                  ),
+                                                                                  side: MaterialStateBorderSide.resolveWith(
+                                                                                    (states) => BorderSide(width: 1.0, color: greyColor),
+                                                                                  ),
+                                                                                  onChanged: (paramValue) {
+                                                                                    paramValueModel.changeClickBox(paramValue!, index, paramValueModel.allDataFamillyByUserId[index].idFamily, paramValueModel.allDataFamillyByUserId[index].fullName);
+                                                                                  },
+                                                                                  value: paramValueModel.isChecked[index],
+                                                                                  focusColor: greyColor,
+                                                                                ),
+                                                                              ),
+                                                                              Text(
+                                                                                paramValueModel.allDataFamillyByUserId[index].fullName,
+                                                                                style: primaryTextStyle.copyWith(
+                                                                                  fontSize: 12,
+                                                                                ),
+                                                                              )
+                                                                            ],
+                                                                          );
+                                                                        },
+                                                                      ),
+                                                                    )
+                                                                  ],
                                                                 ),
                                                                 GestureDetector(
                                                                   onTap: () {
+                                                                    paramValueModel
+                                                                        .changeFamillyName(
+                                                                            paramValueModel.famillyNameC);
                                                                     Navigator.pop(
                                                                         context);
                                                                   },
                                                                   child:
-                                                                      SvgPicture
-                                                                          .asset(
-                                                                    'assets/cancel_x.svg',
-                                                                    width: 20,
-                                                                    height: 20,
+                                                                      Container(
+                                                                    height: 42,
+                                                                    width: double
+                                                                        .infinity,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: paramValueModel.clickAdd ==
+                                                                              false
+                                                                          ? primaryColor2
+                                                                          : primaryColor2,
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              5),
+                                                                    ),
+                                                                    child:
+                                                                        Center(
+                                                                      child:
+                                                                          Text(
+                                                                        'Tambahkan',
+                                                                        style: secondTextStyle
+                                                                            .copyWith(
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                      ),
+                                                                    ),
                                                                   ),
-                                                                ),
+                                                                )
                                                               ],
                                                             ),
                                                           ),
-                                                          SizedBox(
-                                                            height: 100,
-                                                            child: ListView
-                                                                .builder(
-                                                              itemCount: 3,
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .zero,
-                                                              itemBuilder:
-                                                                  (context,
-                                                                      index) {
-                                                                return Row(
-                                                                  children: [
-                                                                    Container(
-                                                                      margin: const EdgeInsets
-                                                                          .only(
-                                                                        left: 5,
-                                                                        top: 10,
-                                                                        right:
-                                                                            10,
-                                                                        bottom:
-                                                                            10,
-                                                                      ),
+                                                        );
+                                                      });
+                                                    });
+                                              },
+                                              child: SvgPicture.asset(
+                                                'assets/plus_blue.svg',
+                                                width: 11.67,
+                                                height: 11.67,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    },
+                                    if (value.famillyName != null) ...{
+                                      Container(
+                                        height: 40,
+                                        width: 285,
+                                        padding: const EdgeInsets.only(
+                                          left: 20.75,
+                                          right: 20.75,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(5),
+                                          ),
+                                          color: primaryColor2,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                SvgPicture.asset(
+                                                  'assets/familly.svg',
+                                                  width: 16.5,
+                                                  height: 10.5,
+                                                  color: secondColor,
+                                                ),
+                                                const SizedBox(
+                                                  width: 10.75,
+                                                ),
+                                                Text(
+                                                  'Keluarga ',
+                                                  style:
+                                                      secondTextStyle.copyWith(
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {},
+                                              child: SvgPicture.asset(
+                                                'assets/plus.svg',
+                                                width: 9.31,
+                                                height: 10,
+                                                color: secondColor,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 285,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: primaryColor2,
+                                              width: 2,
+                                            ),
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              bottomLeft: Radius.circular(5),
+                                              bottomRight: Radius.circular(5),
+                                            )),
+                                        padding: const EdgeInsets.only(
+                                            top: 20, bottom: 20),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return AlertDialog(
+                                                        actionsPadding:
+                                                            EdgeInsets.zero,
+                                                        buttonPadding:
+                                                            EdgeInsets.zero,
+                                                        actions: [
+                                                          Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: <
+                                                                  Widget>[
+                                                                Expanded(
+                                                                  child:
+                                                                      GestureDetector(
+                                                                    onTap: () {
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                    child:
+                                                                        Container(
                                                                       height:
-                                                                          10,
-                                                                      width: 10,
+                                                                          53,
+                                                                      color: const Color(
+                                                                          0xffF7F7F7),
                                                                       child:
-                                                                          Checkbox(
-                                                                        shape:
-                                                                            RoundedRectangleBorder(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(2.0),
+                                                                          Center(
+                                                                        child:
+                                                                            Text(
+                                                                          'Kembali',
+                                                                          style:
+                                                                              secondTextStyle.copyWith(
+                                                                            fontSize:
+                                                                                14,
+                                                                          ),
                                                                         ),
-                                                                        side: MaterialStateBorderSide
-                                                                            .resolveWith(
-                                                                          (states) => BorderSide(
-                                                                              width: 1.0,
-                                                                              color: greyColor),
-                                                                        ),
-                                                                        onChanged:
-                                                                            (value) {},
-                                                                        value:
-                                                                            false,
-                                                                        focusColor:
-                                                                            greyColor,
                                                                       ),
                                                                     ),
-                                                                    Text(
-                                                                      'Indy Ratna Pratiwi',
-                                                                      style: primaryTextStyle
-                                                                          .copyWith(
-                                                                        fontSize:
-                                                                            12,
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  child:
+                                                                      GestureDetector(
+                                                                    onTap:
+                                                                        () async {
+                                                                      value.deleteFamilly(
+                                                                          context);
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      height:
+                                                                          53,
+                                                                      color:
+                                                                          primaryColor2,
+                                                                      child:
+                                                                          Center(
+                                                                        child:
+                                                                            Text(
+                                                                          'Konfirmasi',
+                                                                          style:
+                                                                              secondTextStyle.copyWith(fontSize: 14),
+                                                                        ),
                                                                       ),
-                                                                    )
-                                                                  ],
-                                                                );
-                                                              },
-                                                            ),
-                                                          )
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ])
                                                         ],
-                                                      ),
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          confirmC
-                                                              .changeClickAdd(
-                                                                  true);
-
-                                                          Timer(
-                                                              const Duration(
-                                                                  milliseconds:
-                                                                      200), () {
-                                                            confirmC
-                                                                .changeClickAdd(
-                                                                    false);
-                                                          });
-                                                        },
-                                                        child: Container(
-                                                          height: 42,
-                                                          width:
-                                                              double.infinity,
+                                                        content: Container(
+                                                          height: 185,
+                                                          width: 337,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: confirmC
-                                                                        .clickAdd ==
-                                                                    false
-                                                                ? primaryColor2
-                                                                : primaryColor2,
+                                                            color: whiteColor,
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
                                                                         5),
                                                           ),
-                                                          child: Center(
-                                                            child: Text(
-                                                              'Tambahkan',
-                                                              style:
-                                                                  secondTextStyle
-                                                                      .copyWith(
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                'Batal Tambah Anggota Keluarga?',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style:
+                                                                    secondTextStyle
+                                                                        .copyWith(
+                                                                  fontSize: 20,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                ),
                                                               ),
-                                                            ),
+                                                            ],
                                                           ),
                                                         ),
-                                                      )
-                                                    ],
-                                                  ),
+                                                      );
+                                                    });
+                                              },
+                                              child: Container(
+                                                width: double.infinity,
+                                                height: 40,
+                                                color: const Color(0xffF7F7F7),
+                                                padding: const EdgeInsets.only(
+                                                  left: 20,
+                                                  right: 20,
                                                 ),
-                                                blur: 2,
-                                              ).show(context,
-                                                  transitionType:
-                                                      DialogTransitionType
-                                                          .Bubble);
-                                            },
-                                            child: SvgPicture.asset(
-                                              'assets/plus_blue.svg',
-                                              width: 11.67,
-                                              height: 11.67,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      value.famillyName ?? '',
+                                                      style: secondTextStyle
+                                                          .copyWith(
+                                                        fontSize: 12,
+                                                      ),
+                                                    ),
+                                                    SvgPicture.asset(
+                                                      'assets/minus.svg',
+                                                      width: 3,
+                                                      height: 2,
+                                                      color: secondColor,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
+                                    },
                                     const SizedBox(
                                       height: 12,
                                     ),
@@ -690,10 +908,14 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           GestureDetector(
-                            onTap: () {
+                            onTap: () async {
                               value.changeClickBookingNow(true);
-                              Navigator.pushReplacementNamed(
-                                  context, '/Invoice');
+                              value.bookingNow(
+                                  value.idFamilly.toString(),
+                                  value.detailDataSession.idSession.toString(),
+                                  23.toString(),
+                                  context);
+
                               Timer(const Duration(milliseconds: 200), () {
                                 value.changeClickBookingNow(false);
                               });

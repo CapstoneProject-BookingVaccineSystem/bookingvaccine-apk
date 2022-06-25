@@ -1,13 +1,36 @@
 import 'dart:async';
 
+import 'package:bookingvaccine/component/loading_screen.dart';
+import 'package:bookingvaccine/constant/state.dart';
 import 'package:bookingvaccine/screen/invoice/invoice_view_model.dart';
 import 'package:bookingvaccine/screen/vaksinasi/vaksinasi_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class InvoiceScreen extends StatelessWidget {
-  const InvoiceScreen({Key? key}) : super(key: key);
+// ignore: must_be_immutable
+class InvoiceScreen extends StatefulWidget {
+  InvoiceScreen({Key? key, required idBooking}) : super(key: key);
+
+  int? idBooking;
+  String tes = 'tes';
+
+  @override
+  State<InvoiceScreen> createState() => _InvoiceScreenState();
+}
+
+class _InvoiceScreenState extends State<InvoiceScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
+      var _viewModel = Provider.of<InvoiceViewModel>(context, listen: false);
+      int id = ModalRoute.of(context)!.settings.arguments as int;
+      await _viewModel.getBookingById(id);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +46,10 @@ class InvoiceScreen extends StatelessWidget {
           ),
           child: Consumer<InvoiceViewModel>(
             builder: (context, value, child) {
+              if (value.state == StatusState.loding) {
+                return const LoadingScreen();
+              }
+
               return ListView(
                 children: [
                   Align(
@@ -102,7 +129,7 @@ class InvoiceScreen extends StatelessWidget {
                         ),
                         Align(
                           child: Text(
-                            'MN091',
+                            value.dataDetailBookingById.idBooking.toString(),
                             style: secondTextStyle.copyWith(
                               fontSize: 48,
                               fontWeight: FontWeight.w600,
@@ -126,7 +153,8 @@ class InvoiceScreen extends StatelessWidget {
                         ),
                         Align(
                           child: Text(
-                            '6 Juni 2022',
+                            DateFormat('d MMM, yyyy').format(value
+                                .dataDetailBookingById.sessionMapped.startDate),
                             style: secondTextStyle.copyWith(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -135,7 +163,7 @@ class InvoiceScreen extends StatelessWidget {
                         ),
                         Align(
                           child: Text(
-                            '08:00 WIB - Selesai',
+                            '${value.dataDetailBookingById.sessionMapped.startTime} - Selesai',
                             style: secondTextStyle.copyWith(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -159,7 +187,8 @@ class InvoiceScreen extends StatelessWidget {
                         ),
                         Align(
                           child: Text(
-                            'Vaksin Sinovac',
+                            value.dataDetailBookingById.sessionMapped
+                                .vaccineMapped.vaccineName,
                             style: secondTextStyle.copyWith(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -185,7 +214,11 @@ class InvoiceScreen extends StatelessWidget {
                               right: 10,
                             ),
                             child: Text(
-                              'Puskesmas Raja Basa Indah',
+                              value
+                                  .dataDetailBookingById
+                                  .sessionMapped
+                                  .healthFacilitiesDaoMapped
+                                  .healthFacilitiesName,
                               style: secondTextStyle.copyWith(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -200,7 +233,11 @@ class InvoiceScreen extends StatelessWidget {
                             right: 30,
                           ),
                           child: Text(
-                            'Jl. Pramuka No. 1 Rajabasa, Lampung, Indonesia',
+                            value
+                                .dataDetailBookingById
+                                .sessionMapped
+                                .healthFacilitiesDaoMapped
+                                .addressHealthFacilities,
                             style: primaryTextStyle.copyWith(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -236,7 +273,7 @@ class InvoiceScreen extends StatelessWidget {
                       ),
                       Flexible(
                         child: Text(
-                          'John Doe',
+                          '${value.dataDetailBookingById.userMapped.firstName} ${value.dataDetailBookingById.userMapped.lastName}',
                           style: secondTextStyle.copyWith(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
@@ -261,7 +298,9 @@ class InvoiceScreen extends StatelessWidget {
                       ),
                       Flexible(
                         child: Text(
-                          '20/09/2000',
+                          value.dataDetailBookingById.userMapped.birthDate
+                              .toString()
+                              .substring(0, 10),
                           style: secondTextStyle.copyWith(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
@@ -286,7 +325,7 @@ class InvoiceScreen extends StatelessWidget {
                       ),
                       Flexible(
                         child: Text(
-                          '19010002000200',
+                          value.dataDetailBookingById.userMapped.username,
                           style: secondTextStyle.copyWith(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,

@@ -1,4 +1,7 @@
-import 'package:bookingvaccine/model/session_model.dart';
+import 'package:bookingvaccine/model/api/familly_api.dart';
+import 'package:bookingvaccine/model/familly_model/familly_model.dart';
+import 'package:bookingvaccine/model/session_model/session_detail_model.dart';
+import 'package:bookingvaccine/model/session_model/session_model.dart';
 import 'package:dio/dio.dart';
 
 class SessionApi {
@@ -25,6 +28,14 @@ class SessionApi {
   Future getDetailDataSessionById(int id) async {
     try {
       final _response = await Dio().get(_baseUrl + id.toString());
+
+      DetailSessionModel _detailDataSession =
+          DetailSessionModel.fromJson(_response.data['data']);
+
+      List<FamillyModel> _responseDataFamilly =
+          await FamillyApi().getDataFamillyByUserId(23);
+
+      return [_detailDataSession, _responseDataFamilly];
     } catch (e) {}
   }
 }

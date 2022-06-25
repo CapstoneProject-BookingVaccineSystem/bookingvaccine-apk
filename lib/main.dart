@@ -22,7 +22,7 @@ import 'package:bookingvaccine/screen/profil/profil_screen.dart';
 import 'package:bookingvaccine/screen/profil/profil_view_model.dart';
 import 'package:bookingvaccine/screen/splash_screen.dart';
 import 'package:bookingvaccine/screen/vaksinasi/confirm_vaksinasi_screen.dart';
-import 'package:bookingvaccine/screen/vaksinasi/confirm_vaksinasi_view_model.dart';
+
 import 'package:bookingvaccine/screen/vaksinasi/vaksinasi_screen.dart';
 import 'package:bookingvaccine/screen/vaksinasi/vaksinasi_view_model.dart';
 import 'package:flutter/material.dart';
@@ -45,9 +45,6 @@ void main() {
       ),
       ChangeNotifierProvider<HomeViewModel>(
         create: (context) => HomeViewModel(),
-      ),
-      ChangeNotifierProvider<ConfirmVaksinasiViewModel>(
-        create: (context) => ConfirmVaksinasiViewModel(),
       ),
       ChangeNotifierProvider<InvoiceViewModel>(
         create: (context) => InvoiceViewModel(),
@@ -80,7 +77,9 @@ class MyApp extends StatelessWidget {
         '/edit-familly': (context) => EditFamillyScreen(),
         '/vaksinasni': (context) => const VaksinasiScreen(),
         '/vaksinasi-confirm': (context) => const ConfirmVaksinasiScreen(),
-        '/Invoice': (context) => const InvoiceScreen(),
+        '/Invoice': (context) => InvoiceScreen(
+              idBooking: null,
+            ),
         '/list-invoice': (context) => const ListInvoiceScreen(),
         '/profile': (context) => const ProfilScreen(),
         '/edit-profile': (context) => EditProfilScreen(),

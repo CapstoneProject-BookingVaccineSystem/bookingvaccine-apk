@@ -19,6 +19,7 @@ class _FamillyScreenState extends State<FamillyScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
       var _viewModel = Provider.of<FamillyViewModel>(context, listen: false);
       await _viewModel.getDataFamillyByUserId(23);

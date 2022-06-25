@@ -1,19 +1,20 @@
 // To parse this JSON data, do
 //
-//     final sessionDetailModel = sessionDetailModelFromJson(jsonString);
+//     final detailSessionModel = detailSessionModelFromJson(jsonString);
 
 import 'dart:convert';
 
-SessionDetailModel sessionDetailModelFromJson(String str) =>
-    SessionDetailModel.fromJson(json.decode(str));
+DetailSessionModel detailSessionModelFromJson(String str) =>
+    DetailSessionModel.fromJson(json.decode(str));
 
-String sessionDetailModelToJson(SessionDetailModel data) =>
+String detailSessionModelToJson(DetailSessionModel data) =>
     json.encode(data.toJson());
 
-class SessionDetailModel {
-  SessionDetailModel({
+class DetailSessionModel {
+  DetailSessionModel({
     required this.createdAt,
     required this.createdBy,
+    required this.updatedAt,
     required this.isDeleted,
     required this.idSession,
     required this.stock,
@@ -26,23 +27,25 @@ class SessionDetailModel {
 
   DateTime createdAt;
   String createdBy;
+  dynamic updatedAt;
   bool isDeleted;
   int idSession;
   int stock;
-  String startDate;
+  DateTime startDate;
   String startTime;
   AreaMapped areaMapped;
   VaccineMapped vaccineMapped;
   HealthFacilitiesDaoMapped healthFacilitiesDaoMapped;
 
-  factory SessionDetailModel.fromJson(Map<String, dynamic> json) =>
-      SessionDetailModel(
+  factory DetailSessionModel.fromJson(Map<String, dynamic> json) =>
+      DetailSessionModel(
         createdAt: DateTime.parse(json["created_at"]),
         createdBy: json["created_by"],
+        updatedAt: json["updated_at"],
         isDeleted: json["is_deleted"],
         idSession: json["id_session"],
         stock: json["stock"],
-        startDate: json["start_date"],
+        startDate: DateTime.parse(json["start_date"]),
         startTime: json["start_time"],
         areaMapped: AreaMapped.fromJson(json["area_mapped"]),
         vaccineMapped: VaccineMapped.fromJson(json["vaccine_mapped"]),
@@ -53,10 +56,12 @@ class SessionDetailModel {
   Map<String, dynamic> toJson() => {
         "created_at": createdAt.toIso8601String(),
         "created_by": createdBy,
+        "updated_at": updatedAt,
         "is_deleted": isDeleted,
         "id_session": idSession,
         "stock": stock,
-        "start_date": startDate,
+        "start_date":
+            "${startDate.year.toString().padLeft(4, '0')}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}",
         "start_time": startTime,
         "area_mapped": areaMapped.toJson(),
         "vaccine_mapped": vaccineMapped.toJson(),
@@ -68,6 +73,7 @@ class AreaMapped {
   AreaMapped({
     required this.createdAt,
     required this.createdBy,
+    required this.updatedAt,
     required this.isDeleted,
     required this.idArea,
     required this.areaName,
@@ -75,6 +81,7 @@ class AreaMapped {
 
   DateTime createdAt;
   String createdBy;
+  dynamic updatedAt;
   bool isDeleted;
   int idArea;
   String areaName;
@@ -82,6 +89,7 @@ class AreaMapped {
   factory AreaMapped.fromJson(Map<String, dynamic> json) => AreaMapped(
         createdAt: DateTime.parse(json["created_at"]),
         createdBy: json["created_by"],
+        updatedAt: json["updated_at"],
         isDeleted: json["is_deleted"],
         idArea: json["id_area"],
         areaName: json["area_name"],
@@ -90,6 +98,7 @@ class AreaMapped {
   Map<String, dynamic> toJson() => {
         "created_at": createdAt.toIso8601String(),
         "created_by": createdBy,
+        "updated_at": updatedAt,
         "is_deleted": isDeleted,
         "id_area": idArea,
         "area_name": areaName,
@@ -100,6 +109,7 @@ class HealthFacilitiesDaoMapped {
   HealthFacilitiesDaoMapped({
     required this.createdAt,
     required this.createdBy,
+    required this.updatedAt,
     required this.isDeleted,
     required this.idHealthFacilities,
     required this.healthFacilitiesName,
@@ -113,6 +123,7 @@ class HealthFacilitiesDaoMapped {
 
   DateTime createdAt;
   String createdBy;
+  dynamic updatedAt;
   bool isDeleted;
   int idHealthFacilities;
   String healthFacilitiesName;
@@ -127,6 +138,7 @@ class HealthFacilitiesDaoMapped {
       HealthFacilitiesDaoMapped(
         createdAt: DateTime.parse(json["created_at"]),
         createdBy: json["created_by"],
+        updatedAt: json["updated_at"],
         isDeleted: json["is_deleted"],
         idHealthFacilities: json["id_health_facilities"],
         healthFacilitiesName: json["health_facilities_name"],
@@ -141,6 +153,7 @@ class HealthFacilitiesDaoMapped {
   Map<String, dynamic> toJson() => {
         "created_at": createdAt.toIso8601String(),
         "created_by": createdBy,
+        "updated_at": updatedAt,
         "is_deleted": isDeleted,
         "id_health_facilities": idHealthFacilities,
         "health_facilities_name": healthFacilitiesName,
@@ -157,6 +170,7 @@ class CategoryMapped {
   CategoryMapped({
     required this.createdAt,
     required this.createdBy,
+    required this.updatedAt,
     required this.isDeleted,
     required this.idCategoryFacilities,
     required this.categoryFacilitiesName,
@@ -164,6 +178,7 @@ class CategoryMapped {
 
   DateTime createdAt;
   String createdBy;
+  dynamic updatedAt;
   bool isDeleted;
   int idCategoryFacilities;
   String categoryFacilitiesName;
@@ -171,6 +186,7 @@ class CategoryMapped {
   factory CategoryMapped.fromJson(Map<String, dynamic> json) => CategoryMapped(
         createdAt: DateTime.parse(json["created_at"]),
         createdBy: json["created_by"],
+        updatedAt: json["updated_at"],
         isDeleted: json["is_deleted"],
         idCategoryFacilities: json["id_category_facilities"],
         categoryFacilitiesName: json["category_facilities_name"],
@@ -179,6 +195,7 @@ class CategoryMapped {
   Map<String, dynamic> toJson() => {
         "created_at": createdAt.toIso8601String(),
         "created_by": createdBy,
+        "updated_at": updatedAt,
         "is_deleted": isDeleted,
         "id_category_facilities": idCategoryFacilities,
         "category_facilities_name": categoryFacilitiesName,
@@ -189,6 +206,7 @@ class UserMapped {
   UserMapped({
     required this.createdAt,
     required this.createdBy,
+    required this.updatedAt,
     required this.isDeleted,
     required this.idUser,
     required this.username,
@@ -204,6 +222,7 @@ class UserMapped {
 
   DateTime createdAt;
   String createdBy;
+  dynamic updatedAt;
   bool isDeleted;
   int idUser;
   String username;
@@ -219,6 +238,7 @@ class UserMapped {
   factory UserMapped.fromJson(Map<String, dynamic> json) => UserMapped(
         createdAt: DateTime.parse(json["created_at"]),
         createdBy: json["created_by"],
+        updatedAt: json["updated_at"],
         isDeleted: json["is_deleted"],
         idUser: json["id_user"],
         username: json["username"],
@@ -235,6 +255,7 @@ class UserMapped {
   Map<String, dynamic> toJson() => {
         "created_at": createdAt.toIso8601String(),
         "created_by": createdBy,
+        "updated_at": updatedAt,
         "is_deleted": isDeleted,
         "id_user": idUser,
         "username": username,
@@ -254,6 +275,7 @@ class VaccineMapped {
   VaccineMapped({
     required this.createdAt,
     required this.createdBy,
+    required this.updatedAt,
     required this.isDeleted,
     required this.idVaccine,
     required this.vaccineName,
@@ -261,6 +283,7 @@ class VaccineMapped {
 
   DateTime createdAt;
   String createdBy;
+  dynamic updatedAt;
   bool isDeleted;
   int idVaccine;
   String vaccineName;
@@ -268,6 +291,7 @@ class VaccineMapped {
   factory VaccineMapped.fromJson(Map<String, dynamic> json) => VaccineMapped(
         createdAt: DateTime.parse(json["created_at"]),
         createdBy: json["created_by"],
+        updatedAt: json["updated_at"],
         isDeleted: json["is_deleted"],
         idVaccine: json["id_vaccine"],
         vaccineName: json["vaccine_name"],
@@ -276,6 +300,7 @@ class VaccineMapped {
   Map<String, dynamic> toJson() => {
         "created_at": createdAt.toIso8601String(),
         "created_by": createdBy,
+        "updated_at": updatedAt,
         "is_deleted": isDeleted,
         "id_vaccine": idVaccine,
         "vaccine_name": vaccineName,

@@ -12,6 +12,7 @@ class AreaModel {
   AreaModel({
     required this.createdAt,
     required this.createdBy,
+    required this.updatedAt,
     required this.isDeleted,
     required this.idArea,
     required this.areaName,
@@ -19,6 +20,7 @@ class AreaModel {
 
   DateTime createdAt;
   String createdBy;
+  dynamic updatedAt;
   bool isDeleted;
   int idArea;
   String areaName;
@@ -26,6 +28,7 @@ class AreaModel {
   factory AreaModel.fromJson(Map<String, dynamic> json) => AreaModel(
         createdAt: DateTime.parse(json["created_at"]),
         createdBy: json["created_by"],
+        updatedAt: json["updated_at"],
         isDeleted: json["is_deleted"],
         idArea: json["id_area"],
         areaName: json["area_name"],
@@ -34,6 +37,7 @@ class AreaModel {
   Map<String, dynamic> toJson() => {
         "created_at": createdAt.toIso8601String(),
         "created_by": createdBy,
+        "updated_at": updatedAt,
         "is_deleted": isDeleted,
         "id_area": idArea,
         "area_name": areaName,
