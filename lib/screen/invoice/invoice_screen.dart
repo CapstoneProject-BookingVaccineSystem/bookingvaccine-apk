@@ -8,6 +8,7 @@ import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:jiffy/jiffy.dart';
 
 // ignore: must_be_immutable
 class InvoiceScreen extends StatefulWidget {
@@ -29,6 +30,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
       var _viewModel = Provider.of<InvoiceViewModel>(context, listen: false);
       int id = ModalRoute.of(context)!.settings.arguments as int;
       await _viewModel.getBookingById(id);
+      await Jiffy.locale("id");
     });
   }
 
@@ -153,8 +155,11 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                         ),
                         Align(
                           child: Text(
-                            DateFormat('d MMM, yyyy').format(value
-                                .dataDetailBookingById.sessionMapped.startDate),
+                            Jiffy(
+                                    value.dataDetailBookingById.sessionMapped
+                                        .startDate,
+                                    "MM, dd yyyy")
+                                .yMMMMd,
                             style: secondTextStyle.copyWith(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
