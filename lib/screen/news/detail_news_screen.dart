@@ -1,13 +1,27 @@
 import 'package:bookingvaccine/screen/news/news_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
-
+import 'package:jiffy/jiffy.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class DetailNewsScreen extends StatelessWidget {
+class DetailNewsScreen extends StatefulWidget {
   const DetailNewsScreen({Key? key}) : super(key: key);
+
+  @override
+  State<DetailNewsScreen> createState() => _DetailNewsScreenState();
+}
+
+class _DetailNewsScreenState extends State<DetailNewsScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
+      await Jiffy.locale("id");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,9 +80,11 @@ class DetailNewsScreen extends StatelessWidget {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    '${DateFormat(
-                      'EEEE, d MMM, yyyy',
-                    ).format(value.detailDataNews.createdAt)} / ${value.detailDataNews.createdAt.toString().substring(11, 16)}',
+                    '${Jiffy(
+                      "2021-5-25",
+                    ).MMMMEEEEd} ${Jiffy(
+                      "2021-5-25",
+                    ).year} / ${value.detailDataNews.createdAt.toString().substring(11, 16)}',
                     style: secondTextStyle.copyWith(
                       fontSize: 10,
                       fontWeight: FontWeight.w400,
