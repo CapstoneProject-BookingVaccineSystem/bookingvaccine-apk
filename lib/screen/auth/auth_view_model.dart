@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:bookingvaccine/model/api/auth_api.dart';
 import 'package:bookingvaccine/model/register_model.dart';
+import 'package:bookingvaccine/screen/prompt/prompt.dart';
 import 'package:flutter/cupertino.dart';
 
 class SignInViewModel extends ChangeNotifier {
@@ -107,9 +110,17 @@ class SignUpViewModel extends ChangeNotifier {
     }
   }
 
-  registerUser(RegisterModel RegisterModel) async {
+  registerUser(RegisterModel registerModel, BuildContext context) async {
     try {
-      await AuthApi().registerUser(RegisterModel);
+      await AuthApi().registerUser(registerModel);
+
+      Prompt().promptSucces(context, 'Berhasil Daftar Akun, Silahkan Login');
+      Timer(
+        const Duration(seconds: 3),
+        () {
+          Navigator.of(context).pop();
+        },
+      );
     } catch (e) {}
   }
 }

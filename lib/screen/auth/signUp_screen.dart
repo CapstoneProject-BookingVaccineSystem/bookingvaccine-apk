@@ -567,15 +567,17 @@ class SignUpScreen extends StatelessWidget {
             paramValue.changeClickRegister(false);
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
-              await paramValue.registerUser(RegisterModel(
-                  username: paramValue.nikC.text,
-                  password: paramValue.passwordC.text,
-                  firstName: paramValue.firstNameC.text,
-                  lastName: paramValue.lastNameC.text,
-                  birthDate: DateTime.parse(paramValue.date),
-                  gender: selectedValue!,
-                  email: paramValue.emailC.text,
-                  noPhone: paramValue.numberC.text));
+              await paramValue.registerUser(
+                  RegisterModel(
+                      username: paramValue.nikC.text,
+                      password: paramValue.passwordC.text,
+                      firstName: paramValue.firstNameC.text,
+                      lastName: paramValue.lastNameC.text,
+                      birthDate: DateTime.parse(paramValue.date),
+                      gender: selectedValue!,
+                      email: paramValue.emailC.text,
+                      noPhone: paramValue.numberC.text),
+                  context);
               if (paramValue.agree == false) {
                 paramValue.changestatusCheckbox(paramValue.agree);
               }
