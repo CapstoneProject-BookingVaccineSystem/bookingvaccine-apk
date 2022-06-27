@@ -5,8 +5,6 @@ import 'package:dio/dio.dart';
 
 class BookingApi {
   final _baseUrl = 'http://35.247.142.238/api/v1/booking/';
-<<<<<<< HEAD
-=======
 
   Future getAllDataBookingByUserId(int id) async {
     try {
@@ -24,7 +22,6 @@ class BookingApi {
       throw Exception('Failed to get data booking by user id');
     }
   }
->>>>>>> featureInvoice
 
   Future addBookingApi(
       String idFamilly, String idSession, String idUser) async {
