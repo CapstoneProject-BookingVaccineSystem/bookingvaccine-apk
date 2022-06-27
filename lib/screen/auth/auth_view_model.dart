@@ -119,6 +119,13 @@ class SignUpViewModel extends ChangeNotifier {
         const Duration(seconds: 3),
         () {
           Navigator.of(context).pop();
+          firstNameC.clear();
+          lastNameC.clear();
+          emailC.clear();
+          passwordC.clear();
+          nikC.clear();
+          numberC.clear();
+          dateC.clear();
         },
       );
     } catch (e) {}
