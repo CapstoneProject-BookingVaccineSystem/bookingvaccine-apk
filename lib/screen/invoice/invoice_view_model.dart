@@ -1,6 +1,7 @@
 import 'package:bookingvaccine/constant/state.dart';
 import 'package:bookingvaccine/model/api/booking_api.dart';
 import 'package:bookingvaccine/model/detail_booking_model.dart';
+import 'package:bookingvaccine/model/list_booking.dart';
 import 'package:flutter/cupertino.dart';
 
 class InvoiceViewModel extends ChangeNotifier {
@@ -8,6 +9,7 @@ class InvoiceViewModel extends ChangeNotifier {
   int clickCardListBooking = 0;
 
   late DetailBookingModel dataDetailBookingById;
+  List<BookingModel> allDataBooking = [];
 
   StatusState state = StatusState.loding;
 
@@ -23,6 +25,14 @@ class InvoiceViewModel extends ChangeNotifier {
 
   changeClickCardListBooking(int paramClickCardListBooking) {
     clickCardListBooking = paramClickCardListBooking;
+    notifyListeners();
+  }
+
+  getAllDataBookingByUserId() async {
+    List<BookingModel> _getDataBookingByUserId =
+        await BookingApi().getAllDataBookingByUserId(8);
+
+    allDataBooking = _getDataBookingByUserId;
     notifyListeners();
   }
 

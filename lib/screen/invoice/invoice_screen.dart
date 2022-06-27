@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bookingvaccine/component/loading_screen.dart';
 import 'package:bookingvaccine/constant/state.dart';
+import 'package:bookingvaccine/model/detail_booking_model.dart';
 import 'package:bookingvaccine/screen/invoice/invoice_view_model.dart';
 import 'package:bookingvaccine/screen/vaksinasi/vaksinasi_view_model.dart';
 import 'package:bookingvaccine/theme.dart';

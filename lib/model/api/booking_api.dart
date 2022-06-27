@@ -1,11 +1,30 @@
 import 'dart:async';
-
 import 'package:bookingvaccine/model/detail_booking_model.dart';
-import 'package:bookingvaccine/model/familly_model/detail_familly.dart';
+import 'package:bookingvaccine/model/list_booking.dart';
 import 'package:dio/dio.dart';
 
 class BookingApi {
   final _baseUrl = 'http://35.247.142.238/api/v1/booking/';
+<<<<<<< HEAD
+=======
+
+  Future getAllDataBookingByUserId(int id) async {
+    try {
+      final _response = await Dio().get(_baseUrl + 'user/' + 8.toString());
+
+      List<dynamic> _getAllDataBookingByUserId = _response.data['data'];
+      List<BookingModel> _dataBookingByUserId = [];
+
+      for (var element in _getAllDataBookingByUserId) {
+        _dataBookingByUserId.add(BookingModel.fromJson(element));
+      }
+
+      return _dataBookingByUserId;
+    } catch (e) {
+      throw Exception('Failed to get data booking by user id');
+    }
+  }
+>>>>>>> featureInvoice
 
   Future addBookingApi(
       String idFamilly, String idSession, String idUser) async {
@@ -30,6 +49,8 @@ class BookingApi {
           DetailBookingModel.fromJson(_response.data['data']);
 
       return _getDetailBookingById;
-    } catch (e) {}
+    } catch (e) {
+      throw Exception('Failed to get data detail');
+    }
   }
 }

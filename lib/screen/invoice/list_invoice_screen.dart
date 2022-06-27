@@ -3,12 +3,28 @@ import 'dart:async';
 import 'package:bookingvaccine/screen/invoice/invoice_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
-
+import 'package:jiffy/jiffy.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-class ListInvoiceScreen extends StatelessWidget {
+class ListInvoiceScreen extends StatefulWidget {
   const ListInvoiceScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ListInvoiceScreen> createState() => _ListInvoiceScreenState();
+}
+
+class _ListInvoiceScreenState extends State<ListInvoiceScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
+      var _viewModel = Provider.of<InvoiceViewModel>(context, listen: false);
+      await _viewModel.getAllDataBookingByUserId();
+      await Jiffy.locale("id");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,13 +83,14 @@ class ListInvoiceScreen extends StatelessWidget {
               builder: (context, value, child) {
                 return ListView.builder(
                   padding: const EdgeInsets.only(bottom: 20),
-                  itemCount: 4,
+                  itemCount: value.allDataBooking.length,
                   itemBuilder: (context, index) {
                     int countIndex = index + 1;
                     return GestureDetector(
                       onTap: () {
                         value.changeClickCardListBooking(countIndex);
-                        Navigator.pushNamed(context, '/Invoice');
+                        Navigator.pushNamed(context, '/Invoice',
+                            arguments: value.allDataBooking[index].idBooking);
                         Timer(
                           const Duration(milliseconds: 200),
                           () {
@@ -126,7 +143,7 @@ class ListInvoiceScreen extends StatelessWidget {
                               height: 8,
                             ),
                             Text(
-                              'MN091',
+                              value.allDataBooking[index].idBooking.toString(),
                               style: secondTextStyle.copyWith(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
@@ -148,7 +165,11 @@ class ListInvoiceScreen extends StatelessWidget {
                                 ),
                                 Flexible(
                                   child: Text(
-                                    'Puskesmas Raja Basa Indah Puskesmas Raja Basa Indah Puskesmas Raja Basa Indah',
+                                    value
+                                        .allDataBooking[index]
+                                        .sessionMapped
+                                        .healthFacilitiesDaoMapped
+                                        .addressHealthFacilities,
                                     style: primaryTextStyle.copyWith(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w500,
@@ -173,7 +194,7 @@ class ListInvoiceScreen extends StatelessWidget {
                                 ),
                                 Flexible(
                                   child: Text(
-                                    '6 Juni 2022, 08:00 WIB',
+                                    '${Jiffy(value.allDataBooking[index].sessionMapped.startDate, "MM, dd yyyy").yMMMMd}, ${value.allDataBooking[index].sessionMapped.startTime}',
                                     style: primaryTextStyle.copyWith(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w500,
