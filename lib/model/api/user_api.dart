@@ -2,7 +2,7 @@ import 'package:bookingvaccine/model/user_model.dart';
 import 'package:dio/dio.dart';
 
 class UserApi {
-  final _baseUrl = 'http://34.142.219.145/api/v1/users/';
+  final _baseUrl = 'http://35.247.142.238/api/v1/users/';
 
   getUserById(int id) async {
     try {
@@ -17,7 +17,7 @@ class UserApi {
 
   editUserByid(UserModel user) async {
     try {
-      await Dio().put(_baseUrl + 23.toString(),
+      await Dio().put(_baseUrl + 8.toString(),
           data: UserModel(
               createdAt: user.createdAt,
               createdBy: user.createdBy,

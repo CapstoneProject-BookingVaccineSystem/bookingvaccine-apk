@@ -22,7 +22,7 @@ class _FamillyScreenState extends State<FamillyScreen> {
 
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
       var _viewModel = Provider.of<FamillyViewModel>(context, listen: false);
-      await _viewModel.getDataFamillyByUserId(23);
+      await _viewModel.getDataFamillyByUserId(8);
     });
   }
 

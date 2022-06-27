@@ -4,7 +4,7 @@ import 'package:bookingvaccine/model/familly_model/familly_model.dart';
 import 'package:dio/dio.dart';
 
 class FamillyApi {
-  final _baseUrl = 'http://34.142.219.145/api/v1/family/';
+  final _baseUrl = 'http://35.247.142.238/api/v1/family/';
 
   Future getDataFamillyByUserId(int id) async {
     try {
@@ -41,7 +41,7 @@ class FamillyApi {
     try {
       await Dio().post(_baseUrl,
           data: AddFamillyModel(
-              fullName: familly.fullName, idUser: 23, nik: familly.nik));
+              fullName: familly.fullName, idUser: 8, nik: familly.nik));
     } catch (e) {}
   }
 

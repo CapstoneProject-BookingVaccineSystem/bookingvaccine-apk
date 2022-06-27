@@ -4,7 +4,7 @@ import 'package:bookingvaccine/model/register_model.dart';
 import 'package:dio/dio.dart';
 
 class AuthApi {
-  final String _baseUrl = 'http://34.142.219.145/api/v1/users';
+  final String _baseUrl = 'http://35.247.142.238/api/v1/users';
   Future registerUser(RegisterModel paramRegisterModel) async {
     var _response = await Dio().post(
       _baseUrl,

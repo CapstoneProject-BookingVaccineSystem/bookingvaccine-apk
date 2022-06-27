@@ -913,7 +913,7 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
                               value.bookingNow(
                                   value.idFamilly.toString(),
                                   value.detailDataSession.idSession.toString(),
-                                  23.toString(),
+                                  8.toString(),
                                   context);
 
                               Timer(const Duration(milliseconds: 200), () {

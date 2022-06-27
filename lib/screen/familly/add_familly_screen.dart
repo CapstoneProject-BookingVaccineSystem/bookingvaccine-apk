@@ -29,7 +29,7 @@ class AddFamillyScreen extends StatelessWidget {
                 onPressed: () async {
                   var _viewModel =
                       Provider.of<FamillyViewModel>(context, listen: false);
-                  await _viewModel.getDataFamillyByUserId(23);
+                  await _viewModel.getDataFamillyByUserId(8);
                   Navigator.pop(context);
                 },
                 padding: const EdgeInsets.only(top: 15),

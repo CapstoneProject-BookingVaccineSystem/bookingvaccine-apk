@@ -25,7 +25,7 @@ class ProfilViewModel extends ChangeNotifier {
   StatusState state = StatusState.loding;
 
   getDataUser() async {
-    UserModel _getDataUser = await UserApi().getUserById(23);
+    UserModel _getDataUser = await UserApi().getUserById(8);
 
     user = _getDataUser;
     final prefs = await SharedPreferences.getInstance();

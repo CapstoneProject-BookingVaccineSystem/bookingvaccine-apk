@@ -5,7 +5,7 @@ import 'package:bookingvaccine/model/session_model/session_model.dart';
 import 'package:dio/dio.dart';
 
 class SessionApi {
-  final _baseUrl = 'http://34.142.219.145/api/v1/session/';
+  final _baseUrl = 'http://35.247.142.238/api/v1/session/';
 
   Future getDataSessionByAreaId(int id) async {
     final _response = await Dio().get(_baseUrl + 'area/' + id.toString());
@@ -33,7 +33,7 @@ class SessionApi {
           DetailSessionModel.fromJson(_response.data['data']);
 
       List<FamillyModel> _responseDataFamilly =
-          await FamillyApi().getDataFamillyByUserId(23);
+          await FamillyApi().getDataFamillyByUserId(8);
 
       return [_detailDataSession, _responseDataFamilly];
     } catch (e) {}

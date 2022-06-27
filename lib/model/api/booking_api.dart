@@ -5,7 +5,7 @@ import 'package:bookingvaccine/model/familly_model/detail_familly.dart';
 import 'package:dio/dio.dart';
 
 class BookingApi {
-  final _baseUrl = 'http://34.142.219.145/api/v1/booking/';
+  final _baseUrl = 'http://35.247.142.238/api/v1/booking/';
 
   Future addBookingApi(
       String idFamilly, String idSession, String idUser) async {

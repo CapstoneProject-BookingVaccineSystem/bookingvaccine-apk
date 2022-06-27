@@ -2,7 +2,7 @@ import 'package:bookingvaccine/model/news_model/news_model.dart';
 import 'package:dio/dio.dart';
 
 class NewsApi {
-  final _baseUrl = 'http://34.142.219.145/api/v1/news/';
+  final _baseUrl = 'http://35.247.142.238/api/v1/news/';
 
   getAllDataNews() async {
     try {

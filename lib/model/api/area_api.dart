@@ -3,7 +3,7 @@ import 'package:bookingvaccine/model/area_model.dart';
 import 'package:dio/dio.dart';
 
 class AreaApi {
-  final String _baseUrl = 'http://34.142.219.145/api/v1/area';
+  final String _baseUrl = 'http://35.247.142.238/api/v1/area';
 
   Future getAllDataArea() async {
     final _response = await Dio().get(_baseUrl);
