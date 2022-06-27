@@ -125,7 +125,6 @@ class SignUpViewModel extends ChangeNotifier {
           passwordC.clear();
           nikC.clear();
           numberC.clear();
-          dateC.clear();
         },
       );
     } catch (e) {}
