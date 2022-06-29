@@ -108,6 +108,10 @@ class SignUpScreen extends StatelessWidget {
             right: 18,
           ),
           child: TextFormField(
+            keyboardType: TextInputType.text,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.deny(RegExp(r'[0-9]')),
+            ],
             controller: paramValue.firstNameC,
             textInputAction: TextInputAction.next,
             style: const TextStyle(color: Colors.grey),
@@ -147,6 +151,9 @@ class SignUpScreen extends StatelessWidget {
           ),
           child: TextFormField(
             controller: paramValue.lastNameC,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.deny(RegExp(r'[0-9]')),
+            ],
             textInputAction: TextInputAction.next,
             style: const TextStyle(color: Colors.grey),
             decoration: InputDecoration(
@@ -190,7 +197,7 @@ class SignUpScreen extends StatelessWidget {
                   context: context,
                   initialDate: DateTime.now(),
                   firstDate: DateTime(1900),
-                  lastDate: DateTime(2025)));
+                  lastDate: DateTime.now()));
               if (date != null) {
                 String dateFormat = DateFormat('yyyy-MM-dd').format(date);
                 paramValue.changeDate(dateFormat);
