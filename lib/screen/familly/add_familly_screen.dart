@@ -155,6 +155,10 @@ class AddFamillyScreen extends StatelessWidget {
                                 ),
                                 TextFormField(
                                   controller: value.fullNameC,
+                                  inputFormatters: <TextInputFormatter>[
+                                    FilteringTextInputFormatter.deny(
+                                        RegExp(r'[0-9]')),
+                                  ],
                                   textInputAction: TextInputAction.done,
                                   style: const TextStyle(color: Colors.grey),
                                   decoration: InputDecoration(

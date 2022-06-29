@@ -155,6 +155,10 @@ class EditFamillyScreen extends StatelessWidget {
                               ),
                               TextFormField(
                                 controller: value.fullNameC,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.deny(
+                                      RegExp(r'[0-9]')),
+                                ],
                                 textInputAction: TextInputAction.next,
                                 style: const TextStyle(color: Colors.grey),
                                 decoration: InputDecoration(

@@ -7,6 +7,7 @@ import 'package:bookingvaccine/screen/prompt/prompt.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -163,6 +164,9 @@ class EditProfilScreen extends StatelessWidget {
                         ),
                         TextFormField(
                           controller: paramValue.firstNameC,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.deny(RegExp(r'[0-9]')),
+                          ],
                           style: secondTextStyle.copyWith(
                             fontSize: 14,
                           ),
@@ -200,6 +204,9 @@ class EditProfilScreen extends StatelessWidget {
                         ),
                         TextFormField(
                           controller: paramValue.lastNameC,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.deny(RegExp(r'[0-9]')),
+                          ],
                           style: secondTextStyle.copyWith(
                             fontSize: 14,
                           ),
@@ -245,7 +252,7 @@ class EditProfilScreen extends StatelessWidget {
                                 context: context,
                                 initialDate: DateTime.now(),
                                 firstDate: DateTime(1900),
-                                lastDate: DateTime(2025)));
+                                lastDate: DateTime.now()));
                             if (date != null) {
                               String dateFormat =
                                   DateFormat('yyyy-MM-dd').format(date);
