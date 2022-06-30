@@ -169,6 +169,91 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
                                     Row(
                                       children: [
                                         SvgPicture.asset(
+                                          'assets/telphone.svg',
+                                          width: 13,
+                                          height: 13,
+                                        ),
+                                        const SizedBox(
+                                          width: 9.41,
+                                        ),
+                                        Flexible(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'No. Telp',
+                                                overflow: TextOverflow.ellipsis,
+                                                style:
+                                                    primaryTextStyle2.copyWith(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                              Text(
+                                                value
+                                                    .detailDataSession
+                                                    .healthFacilitiesDaoMapped
+                                                    .phoneFacilities,
+                                                overflow: TextOverflow.ellipsis,
+                                                style:
+                                                    primaryTextStyle.copyWith(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 9,
+                                    ),
+                                    Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          'assets/type_of_vaksin.svg',
+                                          width: 13,
+                                          height: 13,
+                                        ),
+                                        const SizedBox(
+                                          width: 9.41,
+                                        ),
+                                        Flexible(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Jenis Vaksin dan Stok :',
+                                                overflow: TextOverflow.ellipsis,
+                                                style:
+                                                    primaryTextStyle2.copyWith(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                              Text(
+                                                '${value.detailDataSession.vaccineMapped.vaccineName} - ${value.detailDataSession.stock} Buah',
+                                                overflow: TextOverflow.ellipsis,
+                                                style:
+                                                    primaryTextStyle.copyWith(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 9,
+                                    ),
+                                    Row(
+                                      children: [
+                                        SvgPicture.asset(
                                           'assets/type_of_vaksin.svg',
                                           width: 13,
                                           height: 13,
