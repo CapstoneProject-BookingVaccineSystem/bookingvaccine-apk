@@ -101,8 +101,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
                     color: Colors.grey,
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
-                        image:
-                            NetworkImage(value.detailDataNews.imageNewsVaccine),
+                        image: NetworkImage(value.detailDataNews.image ?? ''),
                         fit: BoxFit.fill),
                   ),
                 ),

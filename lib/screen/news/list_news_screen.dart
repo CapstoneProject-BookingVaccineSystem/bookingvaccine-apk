@@ -105,8 +105,8 @@ class _ListNewsScreenState extends State<ListNewsScreen> {
                                   color: Colors.grey,
                                   borderRadius: BorderRadius.circular(10),
                                   image: DecorationImage(
-                                    image: NetworkImage(value
-                                        .allDataNews[index].imageNewsVaccine),
+                                    image: NetworkImage(
+                                        value.allDataNews[index].image ?? ''),
                                     fit: BoxFit.fill,
                                   )),
                             ),
