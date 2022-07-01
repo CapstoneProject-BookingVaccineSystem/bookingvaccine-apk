@@ -122,32 +122,36 @@ class HomeScreen extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        Container(
-                          width: 114,
-                          height: 32,
-                          decoration: BoxDecoration(
-                            color: whiteColor,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Baca Selengkapnya',
-                                  style: secondTextStyle2.copyWith(
-                                    fontSize: 8,
+                        GestureDetector(
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/type_of_vaccine'),
+                          child: Container(
+                            width: 114,
+                            height: 32,
+                            decoration: BoxDecoration(
+                              color: whiteColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Baca Selengkapnya',
+                                    style: secondTextStyle2.copyWith(
+                                      fontSize: 8,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  width: 7.63,
-                                ),
-                                SvgPicture.asset(
-                                  'assets/arrow_right.svg',
-                                  width: 2.74,
-                                  height: 4.65,
-                                ),
-                              ],
+                                  const SizedBox(
+                                    width: 7.63,
+                                  ),
+                                  SvgPicture.asset(
+                                    'assets/arrow_right.svg',
+                                    width: 2.74,
+                                    height: 4.65,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         )
