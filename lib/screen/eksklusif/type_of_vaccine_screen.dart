@@ -96,14 +96,14 @@ class TypeOfVaccineScreen extends StatelessWidget {
                   height: 10,
                 ),
                 const Content(
-                  vaccineName: 'Sinovac',
+                  vaccineName: 'Aztrazeneca',
                   description:
-                      'COVID-19 Vaccine (Vero Cell) Inactivated, CoronaVac® adalah sebuah vaksin inaktivasi terhadap COVID-19 yang menstimulasi sistem kekebalan tubuh tanpa risiko menyebabkan penyakit. Vaksin ini mengandung ajuvan (aluminium hidroksida), untuk memperkuat respons sistem kekebalan.',
+                      'Vaksin ChAdOx1-S/nCoV-19 adalah vaksin vektor adenovirus non-replikasi untuk COVID-19. BPOM memberikan izin penggunaan darurat untuk AstraZeneca usai melakukan evaluasi bersama Komite Nasional Penilai Obat dan pihak lainnya. Vaksin Covid-19 yang dikembangkan oleh AstraZeneca dan University of Oxford ini memiliki efikasi sebesar 62,1 persen.',
                   rekomendasi:
                       '18 tahun dan lebih, termasuk usia 65 tahun dan lebih',
                   jadwalOne: 'Dosis 1  : tanggal pemberian awal',
                   jadwalTwo:
-                      'Dosis 2 : 14 hingga 28 hari setelah dosis pertama.',
+                      'Dosis 2 : 8 hingga 12 minggu setelah dosis pertama.',
                   content: 'contenTwo',
                 ),
                 const SizedBox(

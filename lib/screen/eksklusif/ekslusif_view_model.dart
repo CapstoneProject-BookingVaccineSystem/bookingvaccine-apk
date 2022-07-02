@@ -28,7 +28,6 @@ class EkslusifViewModel extends ChangeNotifier {
   }
 
   changeContenFive(bool paramcontenFive) {
-    print(paramcontenFive);
     contenFive = paramcontenFive;
     notifyListeners();
   }
