@@ -2,6 +2,7 @@ import 'package:bookingvaccine/screen/auth/auth_view_model.dart';
 import 'package:bookingvaccine/screen/auth/signIn_screen.dart';
 import 'package:bookingvaccine/screen/auth/signUp_screen.dart';
 import 'package:bookingvaccine/screen/eksklusif/ekslusif_view_model.dart';
+import 'package:bookingvaccine/screen/eksklusif/prevention_screen.dart';
 import 'package:bookingvaccine/screen/eksklusif/type_of_vaccine_screen.dart';
 import 'package:bookingvaccine/screen/familly/add_familly_screen.dart';
 import 'package:bookingvaccine/screen/familly/edit_familly_screen.dart';
@@ -78,6 +79,7 @@ class MyApp extends StatelessWidget {
         '/signUp': (context) => SignUpScreen(),
         '/home': (context) => const HomeScreen(),
         '/type_of_vaccine': (context) => const TypeOfVaccineScreen(),
+        '/Prevention': (context) => const PreventionScreen(),
         '/familly': (context) => const FamillyScreen(),
         '/add-familly': (context) => AddFamillyScreen(),
         '/edit-familly': (context) => EditFamillyScreen(),
