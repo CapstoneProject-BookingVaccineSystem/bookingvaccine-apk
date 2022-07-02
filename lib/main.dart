@@ -79,7 +79,7 @@ class MyApp extends StatelessWidget {
         '/signUp': (context) => SignUpScreen(),
         '/home': (context) => const HomeScreen(),
         '/type_of_vaccine': (context) => const TypeOfVaccineScreen(),
-        '/Prevention': (context) => const PreventionScreen(),
+        '/prevention': (context) => const PreventionScreen(),
         '/familly': (context) => const FamillyScreen(),
         '/add-familly': (context) => AddFamillyScreen(),
         '/edit-familly': (context) => EditFamillyScreen(),

@@ -225,7 +225,7 @@ class HomeScreen extends StatelessWidget {
                         SizedBox(
                           width: 150,
                           child: Text(
-                            'Berbagai Macam Vaksin Covid - 19 yang Digunakan di Indonesia',
+                            'Cara Pencegahan Virus Covid - 19 dan Gejala yang Wajib Diketahui',
                             style: whiteTextStyle.copyWith(
                               fontSize: 12,
                             ),
@@ -236,32 +236,36 @@ class HomeScreen extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        Container(
-                          width: 114,
-                          height: 32,
-                          decoration: BoxDecoration(
-                            color: whiteColor,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Baca Selengkapnya',
-                                  style: secondTextStyle2.copyWith(
-                                    fontSize: 8,
+                        GestureDetector(
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/prevention'),
+                          child: Container(
+                            width: 114,
+                            height: 32,
+                            decoration: BoxDecoration(
+                              color: whiteColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Baca Selengkapnya',
+                                    style: secondTextStyle2.copyWith(
+                                      fontSize: 8,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  width: 7.63,
-                                ),
-                                SvgPicture.asset(
-                                  'assets/arrow_right.svg',
-                                  width: 2.74,
-                                  height: 4.65,
-                                ),
-                              ],
+                                  const SizedBox(
+                                    width: 7.63,
+                                  ),
+                                  SvgPicture.asset(
+                                    'assets/arrow_right.svg',
+                                    width: 2.74,
+                                    height: 4.65,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         )
