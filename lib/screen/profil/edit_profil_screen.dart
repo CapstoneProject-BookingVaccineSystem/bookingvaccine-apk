@@ -279,6 +279,12 @@ class EditProfilScreen extends StatelessWidget {
                             ),
                           ),
                           validator: (value) {
+                            int validate = DateTime.now().year -
+                                int.parse(value!.substring(0, 4));
+
+                            if (validate < 18) {
+                              return 'Umur belum cukup';
+                            }
                             if (value == '') {
                               return 'Tanggal lahir tidak boleh kosong';
                             }
