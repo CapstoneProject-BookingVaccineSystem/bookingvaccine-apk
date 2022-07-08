@@ -53,6 +53,8 @@ class SignInViewModel extends ChangeNotifier {
         _decodedToken['id_user'],
       );
 
+      nikC.clear();
+      passwordC.clear();
       Navigator.pushReplacementNamed(context, '/home');
     } catch (e) {
       AwesomeDialog(
