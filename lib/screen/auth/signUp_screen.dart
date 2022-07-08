@@ -226,6 +226,9 @@ class SignUpScreen extends StatelessWidget {
               ),
             ),
             validator: (value) {
+              if (value == '') {
+                return 'Tanggal lahir tidak boleh kosong';
+              }
               int validate =
                   DateTime.now().year - int.parse(value!.substring(0, 4));
 
@@ -233,9 +236,6 @@ class SignUpScreen extends StatelessWidget {
                 return 'Umur belum cukup';
               }
 
-              if (value == '') {
-                return 'Tanggal lahir tidak boleh kosong';
-              }
               return null;
             },
           ));

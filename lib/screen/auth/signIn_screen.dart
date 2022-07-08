@@ -283,7 +283,8 @@ class SignInScreen extends StatelessWidget {
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
               paramValue.changeClickEnter(false);
-              Navigator.pushReplacementNamed(context, '/home');
+              paramValue.loginUser(
+                  paramValue.nikC.text, paramValue.passwordC.text, context);
             }
             Timer(
               const Duration(milliseconds: 200),

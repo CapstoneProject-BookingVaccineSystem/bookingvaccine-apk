@@ -1,9 +1,11 @@
 import 'dart:async';
-
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:bookingvaccine/model/api/auth_api.dart';
 import 'package:bookingvaccine/model/register_model.dart';
 import 'package:bookingvaccine/screen/prompt/prompt.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 class SignInViewModel extends ChangeNotifier {
   bool isHidden = true;
@@ -24,6 +26,43 @@ class SignInViewModel extends ChangeNotifier {
   changeClickEnter(bool paramClickEnter) {
     clickEnter = paramClickEnter;
     notifyListeners();
+  }
+
+  loginUser(
+      String paramUsernamse, String paramPassword, BuildContext context) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final _token = await AuthApi().loginUser(paramUsernamse, paramPassword);
+
+      await prefs.setString(
+        'token',
+        _token['token'],
+      );
+
+      Map<String, dynamic> _decodedToken = JwtDecoder.decode(_token.toString());
+
+      String _fullName = _decodedToken['firstName'] + _decodedToken['lastName'];
+
+      await prefs.setString(
+        'fullName',
+        _fullName,
+      );
+
+      await prefs.setInt(
+        'idUser',
+        _decodedToken['id_user'],
+      );
+
+      Navigator.pushReplacementNamed(context, '/home');
+    } catch (e) {
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.ERROR,
+        animType: AnimType.BOTTOMSLIDE,
+        title: 'Nik Atau Password Salah',
+        btnOkOnPress: () {},
+      ).show();
+    }
   }
 }
 
