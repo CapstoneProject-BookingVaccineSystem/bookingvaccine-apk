@@ -4,6 +4,10 @@ import 'package:bookingvaccine/model/news_model/news_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../model/api/user_api.dart';
+import '../../model/user_model.dart';
+import '../storage/storage.dart';
+
 class HomeViewModel extends ChangeNotifier {
   bool clickButtonRegisterNow = false;
   bool clickButtonMore = false;
@@ -23,16 +27,17 @@ class HomeViewModel extends ChangeNotifier {
     changeStatusState(StatusState.loding);
 
     final prefs = await SharedPreferences.getInstance();
+    final int idUser = await Storage().idUser();
+    UserModel _dataUser = await UserApi().getUserById(idUser);
 
     List<NewsModel> _data = await NewsApi().getFiveDataNews();
 
     dataNews = _data;
 
-    final String? _fullName = prefs.getString('fullName');
-    final String? _filePath = prefs.getString('imageProfil');
-    fullName = _fullName!;
+    final String _fullName = '${_dataUser.firstName} ${_dataUser.lastName}';
+    fullName = _fullName;
 
-    print(dataNews[0].image);
+    final String? _filePath = prefs.getString('imageProfil');
     imageProfil = _filePath ?? 'assets/default_profil.png';
     notifyListeners();
     changeStatusState(StatusState.none);

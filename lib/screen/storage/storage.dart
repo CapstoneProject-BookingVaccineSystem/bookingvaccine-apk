@@ -12,4 +12,10 @@ class Storage {
     final int? _idUser = prefs.getInt('idUser');
     return _idUser;
   }
+
+  Future fullName() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? _fullName = prefs.getString('fullName');
+    return _fullName;
+  }
 }

@@ -1,10 +1,15 @@
 import 'package:bookingvaccine/constant/state.dart';
+import 'package:bookingvaccine/model/api/auth_api.dart';
 import 'package:bookingvaccine/model/api/user_api.dart';
 import 'package:bookingvaccine/model/user_model.dart';
 import 'package:bookingvaccine/screen/prompt/prompt.dart';
+import 'package:bookingvaccine/screen/storage/storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../home/home_view_model.dart';
 
 class ProfilViewModel extends ChangeNotifier {
   String date = '';
@@ -24,8 +29,15 @@ class ProfilViewModel extends ChangeNotifier {
 
   StatusState state = StatusState.loding;
 
+  changeStatusState(StatusState s) {
+    state = s;
+    notifyListeners();
+  }
+
   getDataUser() async {
-    UserModel _getDataUser = await UserApi().getUserById(8);
+    changeStatusState(StatusState.loding);
+    int _idUser = await Storage().idUser();
+    UserModel _getDataUser = await UserApi().getUserById(_idUser);
 
     user = _getDataUser;
     final prefs = await SharedPreferences.getInstance();
@@ -53,17 +65,27 @@ class ProfilViewModel extends ChangeNotifier {
     }
 
     notifyListeners();
+    changeStatusState(StatusState.none);
   }
 
   editUserById(UserModel paramUser, BuildContext paramContext) async {
     await UserApi().editUserByid(paramUser);
+
     Prompt().promptSucces(paramContext, 'Profil Berhasil Diperbarui');
   }
 
   editInformationUserById(
       UserModel paramUser, BuildContext paramContext) async {
+    final prefs = await SharedPreferences.getInstance();
     await UserApi().editUserByid(paramUser);
     Prompt().promptSucces(paramContext, 'Informasi Akun Berhasil Diperbarui');
+
+    final _token = await AuthApi().loginUser(nikC.text, 'Akil1221');
+
+    await prefs.setString(
+      'token',
+      _token['token'],
+    );
   }
 
   changePasswordUserId(UserModel paramUser, BuildContext paramContext) async {
@@ -95,5 +117,11 @@ class ProfilViewModel extends ChangeNotifier {
       await prefs.setString('imageProfil', file.path!);
       notifyListeners();
     }
+  }
+
+  getDataHome(BuildContext context) async {
+    var _viewModel = Provider.of<HomeViewModel>(context, listen: false);
+    await _viewModel.getDataHome();
+    Navigator.pop(context);
   }
 }

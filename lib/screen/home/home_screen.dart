@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:io';
 import 'package:bookingvaccine/component/loading_screen.dart';
 import 'package:bookingvaccine/constant/state.dart';
 import 'package:bookingvaccine/screen/home/home_view_model.dart';
@@ -493,7 +493,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderRadius: BorderRadius.circular(20),
                         color: greyColor,
                         image: DecorationImage(
-                          image: AssetImage(value.imageProfil),
+                          image: value.imageProfil != ''
+                              ? FileImage(File(value.imageProfil))
+                              : const AssetImage('assets/default_profil.png')
+                                  as ImageProvider,
                           fit: BoxFit.fill,
                         ),
                       ),

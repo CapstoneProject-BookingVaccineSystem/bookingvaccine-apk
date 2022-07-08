@@ -48,6 +48,11 @@ class SignInViewModel extends ChangeNotifier {
         _fullName,
       );
 
+      await prefs.setString(
+        'password',
+        passwordC.text,
+      );
+
       await prefs.setInt(
         'idUser',
         _decodedToken['id_user'],
