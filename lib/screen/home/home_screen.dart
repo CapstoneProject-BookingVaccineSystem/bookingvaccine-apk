@@ -1,15 +1,35 @@
 import 'dart:async';
 
+import 'package:bookingvaccine/component/loading_screen.dart';
+import 'package:bookingvaccine/constant/state.dart';
 import 'package:bookingvaccine/screen/home/home_view_model.dart';
+import 'package:bookingvaccine/screen/news/news_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:provider/provider.dart';
 
 import '../profil/profil_view_model.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
+      var _viewModel = Provider.of<HomeViewModel>(context, listen: false);
+      await _viewModel.getDataHome();
+      await Jiffy.locale("id");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -330,7 +350,7 @@ class HomeScreen extends StatelessWidget {
       );
     }
 
-    Widget newsContent() {
+    Widget newsContent(HomeViewModel paramValue) {
       return Container(
         height: 238,
         margin: const EdgeInsets.only(
@@ -340,79 +360,94 @@ class HomeScreen extends StatelessWidget {
         ),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: 3,
+          itemCount: paramValue.dataNews.length,
           itemBuilder: (context, index) {
-            return Container(
-              margin: const EdgeInsets.only(
-                right: 10,
-              ),
-              height: 245,
-              width: 208,
-              decoration: BoxDecoration(
-                  color: whiteColor,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: primaryColor2,
-                    width: 1,
-                  )),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 160,
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10),
+            return GestureDetector(
+              onTap: () async {
+                var _newModel =
+                    Provider.of<NewsViewModel>(context, listen: false);
+
+                _newModel.getDetailDataNewsById(
+                    paramValue.dataNews[index].idNewsVaccine);
+
+                Navigator.pushNamed(context, '/detail-news');
+              },
+              child: Container(
+                margin: const EdgeInsets.only(
+                  right: 10,
+                ),
+                height: 245,
+                width: 208,
+                decoration: BoxDecoration(
+                    color: whiteColor,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: primaryColor2,
+                      width: 1,
+                    )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 160,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10),
+                        ),
+                        image: DecorationImage(
+                            image:
+                                NetworkImage(paramValue.dataNews[index].image!),
+                            fit: BoxFit.fill),
                       ),
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              'https://picsum.photos/id/237/200/300'),
-                          fit: BoxFit.fill),
                     ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(
-                      left: 10,
-                      top: 10,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Satgas Covid-19 Pemerintah Masih Terapkan PPKM Masih Terapkan PPKM Masih Terapkan PPKM',
-                          style: secondTextStyle2.copyWith(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500,
+                    Container(
+                      padding: const EdgeInsets.only(
+                        left: 10,
+                        top: 10,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            paramValue.dataNews[index].titleNewsVaccine,
+                            style: secondTextStyle2.copyWith(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            maxLines: 2,
                           ),
-                          maxLines: 2,
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/date.svg',
-                              width: 6.67,
-                              height: 7.33,
-                            ),
-                            const SizedBox(
-                              width: 2.67,
-                            ),
-                            Text(
-                              'Kamis, 02 Juni 2022 / 18:10 WIB',
-                              style: secondTextStyle.copyWith(
-                                fontSize: 10,
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: [
+                              SvgPicture.asset(
+                                'assets/date.svg',
+                                width: 6.67,
+                                height: 7.33,
                               ),
-                            ),
-                          ],
-                        )
-                      ],
+                              const SizedBox(
+                                width: 2.67,
+                              ),
+                              Text(
+                                '${Jiffy(
+                                  "2021-5-25",
+                                ).MMMMEEEEd} ${Jiffy(
+                                  "2021-5-25",
+                                ).year} / ${paramValue.dataNews[index].createdAt.toString().substring(11, 16)}',
+                                style: secondTextStyle.copyWith(
+                                  fontSize: 10,
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           },
@@ -445,23 +480,25 @@ class HomeScreen extends StatelessWidget {
                     await _viewModel.getDataUser();
                     Navigator.pushNamed(context, '/profile');
                   },
-                  child: Container(
-                    margin: const EdgeInsets.only(
-                      top: 15,
-                      right: 17,
-                    ),
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: greyColor,
-                      image: const DecorationImage(
-                        image: NetworkImage(
-                            'https://picsum.photos/200/300?random=2'),
-                        fit: BoxFit.fill,
+                  child:
+                      Consumer<HomeViewModel>(builder: (context, value, child) {
+                    return Container(
+                      margin: const EdgeInsets.only(
+                        top: 15,
+                        right: 17,
                       ),
-                    ),
-                  ),
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: greyColor,
+                        image: DecorationImage(
+                          image: AssetImage(value.imageProfil),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    );
+                  }),
                 )
               ],
             ),
@@ -724,6 +761,9 @@ class HomeScreen extends StatelessWidget {
           ),
           body: Consumer<HomeViewModel>(
             builder: (context, value, child) {
+              if (value.state == StatusState.loding) {
+                return LoadingScreen();
+              }
               return ListView(
                 children: [
                   Stack(
@@ -744,10 +784,11 @@ class HomeScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Halo, John Doe!',
+                              'Halo ${value.fullName}',
                               style: whiteTextStyle.copyWith(
                                 fontSize: 16,
                               ),
+                              maxLines: 1,
                             ),
                             Text(
                               'Selamat Datang Kembali!',
@@ -941,7 +982,7 @@ class HomeScreen extends StatelessWidget {
                   exclusiveTitle(),
                   exclusiveContent(),
                   newsTitle(value),
-                  newsContent(),
+                  newsContent(value),
                 ],
               );
             },
