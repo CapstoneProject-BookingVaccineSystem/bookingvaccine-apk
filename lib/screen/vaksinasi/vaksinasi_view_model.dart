@@ -89,7 +89,6 @@ class VaksinasiViewModel extends ChangeNotifier {
   }
 
   getDataSessionByAreaId(int paramId) async {
-    print(paramId);
     List<SessionModel> _allDataSessionByAreaId =
         await SessionApi().getDataSessionByAreaId(paramId);
 
@@ -98,7 +97,7 @@ class VaksinasiViewModel extends ChangeNotifier {
   }
 
   getDetailDataSessionById(int paramId) async {
-    List<dynamic> _getDetailDataSessionAndFamilly =
+    List _getDetailDataSessionAndFamilly =
         await SessionApi().getDetailDataSessionById(paramId);
 
     DetailSessionModel _detailDataSession = _getDetailDataSessionAndFamilly[0];
@@ -114,10 +113,17 @@ class VaksinasiViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bookingNow(String paramIdFamilly, String paramIdSession, String paramIdUser,
+  bookingNowUserWithFamilly(String paramIdFamilly, String paramIdSession,
       BuildContext context) async {
     int _idBooking = await BookingApi()
-        .addBookingApi(paramIdFamilly, paramIdSession, paramIdUser);
+        .addBookingApiWithFamilly(paramIdFamilly, paramIdSession);
+
+    Navigator.pushNamed(context, '/Invoice', arguments: _idBooking);
+  }
+
+  bookingNowJustUser(String paramIdSession, BuildContext context) async {
+    int _idBooking =
+        await BookingApi().addBookingApiWithJustUser(paramIdSession);
 
     Navigator.pushNamed(context, '/Invoice', arguments: _idBooking);
   }

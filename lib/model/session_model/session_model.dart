@@ -192,7 +192,7 @@ class UserMapped {
     required this.username,
     required this.password,
     required this.firstName,
-    required this.lastName,
+    this.lastName,
     required this.birthDate,
     required this.gender,
     required this.email,
@@ -207,7 +207,7 @@ class UserMapped {
   String username;
   String password;
   String firstName;
-  String lastName;
+  String? lastName;
   DateTime birthDate;
   String gender;
   String email;

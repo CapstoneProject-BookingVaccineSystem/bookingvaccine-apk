@@ -30,7 +30,7 @@ class InvoiceViewModel extends ChangeNotifier {
 
   getAllDataBookingByUserId() async {
     List<BookingModel> _getDataBookingByUserId =
-        await BookingApi().getAllDataBookingByUserId(8);
+        await BookingApi().getAllDataBookingByUserId();
 
     allDataBooking = _getDataBookingByUserId;
     notifyListeners();

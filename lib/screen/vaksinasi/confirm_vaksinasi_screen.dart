@@ -104,13 +104,13 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
                             children: [
                               Container(
                                 height: 250,
-                                decoration: const BoxDecoration(
+                                decoration: BoxDecoration(
                                   color: Colors.grey,
                                   image: DecorationImage(
                                       image: NetworkImage(
-                                          'https://picsum.photos/200/300?grayscale'),
+                                          value.detailDataSession.image),
                                       fit: BoxFit.fill),
-                                  borderRadius: BorderRadius.only(
+                                  borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(5),
                                     topRight: Radius.circular(
                                       5,
@@ -995,11 +995,19 @@ class ConfirmVaksinasiScreen extends StatelessWidget {
                           GestureDetector(
                             onTap: () async {
                               value.changeClickBookingNow(true);
-                              value.bookingNow(
-                                  value.idFamilly.toString(),
-                                  value.detailDataSession.idSession.toString(),
-                                  8.toString(),
-                                  context);
+
+                              if (value.idFamilly != 0) {
+                                value.bookingNowUserWithFamilly(
+                                    value.idFamilly.toString(),
+                                    value.detailDataSession.idSession
+                                        .toString(),
+                                    context);
+                              } else {
+                                value.bookingNowJustUser(
+                                    value.detailDataSession.idSession
+                                        .toString(),
+                                    context);
+                              }
 
                               Timer(const Duration(milliseconds: 200), () {
                                 value.changeClickBookingNow(false);

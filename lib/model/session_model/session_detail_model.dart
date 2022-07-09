@@ -20,6 +20,9 @@ class DetailSessionModel {
     required this.stock,
     required this.startDate,
     required this.startTime,
+    required this.image,
+    required this.fileName,
+    required this.size,
     required this.areaMapped,
     required this.vaccineMapped,
     required this.healthFacilitiesDaoMapped,
@@ -27,12 +30,15 @@ class DetailSessionModel {
 
   DateTime createdAt;
   String createdBy;
-  dynamic updatedAt;
+  DateTime updatedAt;
   bool isDeleted;
   int idSession;
   int stock;
   DateTime startDate;
   String startTime;
+  String image;
+  String fileName;
+  int size;
   AreaMapped areaMapped;
   VaccineMapped vaccineMapped;
   HealthFacilitiesDaoMapped healthFacilitiesDaoMapped;
@@ -41,12 +47,15 @@ class DetailSessionModel {
       DetailSessionModel(
         createdAt: DateTime.parse(json["created_at"]),
         createdBy: json["created_by"],
-        updatedAt: json["updated_at"],
+        updatedAt: DateTime.parse(json["updated_at"]),
         isDeleted: json["is_deleted"],
         idSession: json["id_session"],
         stock: json["stock"],
         startDate: DateTime.parse(json["start_date"]),
         startTime: json["start_time"],
+        image: json["image"],
+        fileName: json["file_name"],
+        size: json["size"],
         areaMapped: AreaMapped.fromJson(json["area_mapped"]),
         vaccineMapped: VaccineMapped.fromJson(json["vaccine_mapped"]),
         healthFacilitiesDaoMapped: HealthFacilitiesDaoMapped.fromJson(
@@ -54,15 +63,20 @@ class DetailSessionModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "created_at": createdAt.toIso8601String(),
+        "created_at":
+            "${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}",
         "created_by": createdBy,
-        "updated_at": updatedAt,
+        "updated_at":
+            "${updatedAt.year.toString().padLeft(4, '0')}-${updatedAt.month.toString().padLeft(2, '0')}-${updatedAt.day.toString().padLeft(2, '0')}",
         "is_deleted": isDeleted,
         "id_session": idSession,
         "stock": stock,
         "start_date":
             "${startDate.year.toString().padLeft(4, '0')}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}",
         "start_time": startTime,
+        "image": image,
+        "file_name": fileName,
+        "size": size,
         "area_mapped": areaMapped.toJson(),
         "vaccine_mapped": vaccineMapped.toJson(),
         "health_facilities_dao_mapped": healthFacilitiesDaoMapped.toJson(),
@@ -96,7 +110,8 @@ class AreaMapped {
       );
 
   Map<String, dynamic> toJson() => {
-        "created_at": createdAt.toIso8601String(),
+        "created_at":
+            "${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}",
         "created_by": createdBy,
         "updated_at": updatedAt,
         "is_deleted": isDeleted,
@@ -151,7 +166,8 @@ class HealthFacilitiesDaoMapped {
       );
 
   Map<String, dynamic> toJson() => {
-        "created_at": createdAt.toIso8601String(),
+        "created_at":
+            "${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}",
         "created_by": createdBy,
         "updated_at": updatedAt,
         "is_deleted": isDeleted,
@@ -193,7 +209,8 @@ class CategoryMapped {
       );
 
   Map<String, dynamic> toJson() => {
-        "created_at": createdAt.toIso8601String(),
+        "created_at":
+            "${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}",
         "created_by": createdBy,
         "updated_at": updatedAt,
         "is_deleted": isDeleted,
@@ -217,7 +234,14 @@ class UserMapped {
     required this.gender,
     required this.email,
     required this.noPhone,
+    required this.address,
     required this.roles,
+    required this.active,
+    required this.enabled,
+    required this.authorities,
+    required this.accountNonExpired,
+    required this.accountNonLocked,
+    required this.credentialsNonExpired,
   });
 
   DateTime createdAt;
@@ -228,12 +252,19 @@ class UserMapped {
   String username;
   String password;
   String firstName;
-  String lastName;
+  dynamic lastName;
   DateTime birthDate;
   String gender;
   String email;
   String noPhone;
+  String address;
   String roles;
+  bool active;
+  bool enabled;
+  List<Authority> authorities;
+  bool accountNonExpired;
+  bool accountNonLocked;
+  bool credentialsNonExpired;
 
   factory UserMapped.fromJson(Map<String, dynamic> json) => UserMapped(
         createdAt: DateTime.parse(json["created_at"]),
@@ -249,11 +280,20 @@ class UserMapped {
         gender: json["gender"],
         email: json["email"],
         noPhone: json["no_phone"],
+        address: json["address"],
         roles: json["roles"],
+        active: json["active"],
+        enabled: json["enabled"],
+        authorities: List<Authority>.from(
+            json["authorities"].map((x) => Authority.fromJson(x))),
+        accountNonExpired: json["account_non_expired"],
+        accountNonLocked: json["account_non_locked"],
+        credentialsNonExpired: json["credentials_non_expired"],
       );
 
   Map<String, dynamic> toJson() => {
-        "created_at": createdAt.toIso8601String(),
+        "created_at":
+            "${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}",
         "created_by": createdBy,
         "updated_at": updatedAt,
         "is_deleted": isDeleted,
@@ -267,7 +307,30 @@ class UserMapped {
         "gender": gender,
         "email": email,
         "no_phone": noPhone,
+        "address": address,
         "roles": roles,
+        "active": active,
+        "enabled": enabled,
+        "authorities": List<dynamic>.from(authorities.map((x) => x.toJson())),
+        "account_non_expired": accountNonExpired,
+        "account_non_locked": accountNonLocked,
+        "credentials_non_expired": credentialsNonExpired,
+      };
+}
+
+class Authority {
+  Authority({
+    required this.authority,
+  });
+
+  String authority;
+
+  factory Authority.fromJson(Map<String, dynamic> json) => Authority(
+        authority: json["authority"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "authority": authority,
       };
 }
 
@@ -298,7 +361,8 @@ class VaccineMapped {
       );
 
   Map<String, dynamic> toJson() => {
-        "created_at": createdAt.toIso8601String(),
+        "created_at":
+            "${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}",
         "created_by": createdBy,
         "updated_at": updatedAt,
         "is_deleted": isDeleted,
