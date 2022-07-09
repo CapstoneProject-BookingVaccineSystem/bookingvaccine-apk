@@ -8,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
+import '../storage/storage.dart';
+
 class AddFamillyScreen extends StatelessWidget {
   AddFamillyScreen({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
@@ -29,7 +31,8 @@ class AddFamillyScreen extends StatelessWidget {
                 onPressed: () async {
                   var _viewModel =
                       Provider.of<FamillyViewModel>(context, listen: false);
-                  await _viewModel.getDataFamillyByUserId(8);
+                  int _idUser = await Storage().idUser();
+                  await _viewModel.getDataFamillyByUserId(_idUser);
                   Navigator.pop(context);
                 },
                 padding: const EdgeInsets.only(top: 15),

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bookingvaccine/screen/familly/familly_view_model.dart';
+import 'package:bookingvaccine/screen/storage/storage.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -22,7 +23,8 @@ class _FamillyScreenState extends State<FamillyScreen> {
 
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
       var _viewModel = Provider.of<FamillyViewModel>(context, listen: false);
-      await _viewModel.getDataFamillyByUserId(8);
+      int _idUser = await Storage().idUser();
+      await _viewModel.getDataFamillyByUserId(_idUser);
     });
   }
 

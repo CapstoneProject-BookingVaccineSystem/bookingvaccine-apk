@@ -3,12 +3,20 @@ import 'package:bookingvaccine/model/familly_model/detail_familly.dart';
 import 'package:bookingvaccine/model/familly_model/familly_model.dart';
 import 'package:dio/dio.dart';
 
+import '../../screen/storage/storage.dart';
+
 class FamillyApi {
   final _baseUrl = 'http://35.247.142.238/api/v1/family/';
 
   Future getDataFamillyByUserId(int id) async {
     try {
-      final _response = await Dio().get(_baseUrl + 'user/' + id.toString());
+      final String _token = await Storage().getToken();
+      final _response = await Dio().get(_baseUrl + 'user/' + id.toString(),
+          options: Options(
+            headers: {
+              "authorization": "Bearer $_token",
+            },
+          ));
 
       List<dynamic> _getAllDataFamillyByUserId = _response.data['data'];
       List<FamillyModel> _allDataFamillyByUserId = [];
@@ -17,6 +25,7 @@ class FamillyApi {
         _allDataFamillyByUserId.add(FamillyModel.fromJson(element));
       }
 
+      print(_response.statusCode);
       return _allDataFamillyByUserId;
     } catch (e) {
       List<FamillyModel> _allDataFamillyByUserIdNull = [];
@@ -26,7 +35,15 @@ class FamillyApi {
 
   Future getDataFamillyById(int id) async {
     try {
-      final _response = await Dio().get(_baseUrl + id.toString());
+      final String _token = await Storage().getToken();
+      final _response = await Dio().get(
+        _baseUrl + id.toString(),
+        options: Options(
+          headers: {
+            "authorization": "Bearer $_token",
+          },
+        ),
+      );
 
       Map<String, dynamic> _getDataFamillyById = _response.data['data'];
 
@@ -39,19 +56,34 @@ class FamillyApi {
 
   Future addDataFamilly(AddFamillyModel familly) async {
     try {
-      await Dio().post(_baseUrl,
-          data: AddFamillyModel(
-              fullName: familly.fullName, idUser: 8, nik: familly.nik));
+      final String _token = await Storage().getToken();
+      int _idUser = await Storage().idUser();
+      await Dio().post(
+        _baseUrl,
+        data: AddFamillyModel(
+            fullName: familly.fullName, idUser: _idUser, nik: familly.nik),
+        options: Options(
+          headers: {
+            "authorization": "Bearer $_token",
+          },
+        ),
+      );
     } catch (e) {}
   }
 
   Future detailFamilly(DetailFamillyModel detailFamillyModel) async {
+    final String _token = await Storage().getToken();
     final _response = await Dio().put(
       _baseUrl + detailFamillyModel.idFamily.toString(),
       data: DetailFamillyModel(
           nik: detailFamillyModel.nik,
           fullName: detailFamillyModel.fullName,
           idFamily: detailFamillyModel.idFamily),
+      options: Options(
+        headers: {
+          "authorization": "Bearer $_token",
+        },
+      ),
     );
 
     print(_response.statusCode);
@@ -59,10 +91,18 @@ class FamillyApi {
 
   Future deleteDataFamillyById(int id) async {
     try {
-      await Dio().delete(_baseUrl + id.toString());
+      final String _token = await Storage().getToken();
+      await Dio().delete(
+        _baseUrl + id.toString(),
+        options: Options(
+          headers: {
+            "authorization": "Bearer $_token",
+          },
+        ),
+      );
       return 200;
     } catch (e) {
-      return 200;
+      return null;
     }
   }
 }

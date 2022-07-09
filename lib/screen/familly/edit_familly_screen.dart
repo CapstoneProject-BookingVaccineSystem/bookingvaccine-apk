@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
+import '../storage/storage.dart';
+
 class EditFamillyScreen extends StatelessWidget {
   EditFamillyScreen({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
@@ -30,7 +32,8 @@ class EditFamillyScreen extends StatelessWidget {
                       Provider.of<FamillyViewModel>(context, listen: false);
                   _viewModel.nikC.clear();
                   _viewModel.fullNameC.clear();
-                  await _viewModel.getDataFamillyByUserId(8);
+                  int _idUser = await Storage().idUser();
+                  await _viewModel.getDataFamillyByUserId(_idUser);
                   Navigator.pop(context);
                 },
                 padding: const EdgeInsets.only(top: 15),
