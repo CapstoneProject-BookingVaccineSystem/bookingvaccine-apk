@@ -495,8 +495,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         image: DecorationImage(
                           image: value.imageProfil != ''
                               ? FileImage(File(value.imageProfil))
-                              : const AssetImage('assets/default_profil.png')
-                                  as ImageProvider,
+                              : const AssetImage(
+                                  'assets/default_profil.png',
+                                ) as ImageProvider,
                           fit: BoxFit.fill,
                         ),
                       ),

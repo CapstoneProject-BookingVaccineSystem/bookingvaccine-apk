@@ -16,7 +16,7 @@ class HomeViewModel extends ChangeNotifier {
   List<NewsModel> dataNews = [];
 
   late String fullName;
-  String imageProfil = 'assets/default_profil.png';
+  String imageProfil = '';
 
   changeStatusState(StatusState s) {
     state = s;
@@ -38,7 +38,11 @@ class HomeViewModel extends ChangeNotifier {
     fullName = _fullName;
 
     final String? _filePath = prefs.getString('imageProfil');
-    imageProfil = _filePath ?? 'assets/default_profil.png';
+
+    if (_filePath != null) {
+      imageProfil = _filePath;
+    }
+
     notifyListeners();
     changeStatusState(StatusState.none);
   }
