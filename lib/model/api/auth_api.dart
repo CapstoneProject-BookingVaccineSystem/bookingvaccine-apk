@@ -17,6 +17,7 @@ class AuthApi {
           email: paramRegisterModel.email,
           noPhone: paramRegisterModel.noPhone),
     );
+
     if (_response.statusCode == 200) {
       return _response.data['data'];
     } else {

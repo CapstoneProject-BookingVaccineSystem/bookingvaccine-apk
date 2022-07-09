@@ -43,9 +43,8 @@ class InvoiceViewModel extends ChangeNotifier {
           await BookingApi().getDetailBookingById(paramId);
 
       dataDetailBookingById = _getDetailDataBookingById;
-
       changeState(StatusState.none);
-
+      print("masuk sini");
       notifyListeners();
     } catch (e) {
       print(e);

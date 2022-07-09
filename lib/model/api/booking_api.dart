@@ -27,7 +27,7 @@ class BookingApi {
 
       return _dataBookingByUserId;
     } catch (e) {
-      throw Exception('Failed to get data booking by user id');
+      throw Exception(e);
     }
   }
 
@@ -59,15 +59,14 @@ class BookingApi {
       final int _idUser = await Storage().idUser();
       final _response = await Dio().post(_baseUrl + 'user',
           data: {
-            "id_session": idSession,
             "id_user": _idUser,
+            "id_session": idSession,
           },
           options: Options(
             headers: {
               "authorization": "Bearer $_token",
             },
           ));
-
       return _response.data['data']['id_booking'];
     } catch (e) {
       throw Exception(e);
@@ -87,10 +86,9 @@ class BookingApi {
 
       DetailBookingModel _getDetailBookingById =
           DetailBookingModel.fromJson(_response.data['data']);
-
       return _getDetailBookingById;
     } catch (e) {
-      throw Exception('Failed to get data detail');
+      print(e);
     }
   }
 }

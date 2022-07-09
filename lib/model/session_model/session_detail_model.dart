@@ -30,7 +30,7 @@ class DetailSessionModel {
 
   DateTime createdAt;
   String createdBy;
-  DateTime updatedAt;
+  dynamic updatedAt;
   bool isDeleted;
   int idSession;
   int stock;
@@ -47,7 +47,7 @@ class DetailSessionModel {
       DetailSessionModel(
         createdAt: DateTime.parse(json["created_at"]),
         createdBy: json["created_by"],
-        updatedAt: DateTime.parse(json["updated_at"]),
+        updatedAt: json["updated_at"],
         isDeleted: json["is_deleted"],
         idSession: json["id_session"],
         stock: json["stock"],
@@ -66,8 +66,7 @@ class DetailSessionModel {
         "created_at":
             "${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}",
         "created_by": createdBy,
-        "updated_at":
-            "${updatedAt.year.toString().padLeft(4, '0')}-${updatedAt.month.toString().padLeft(2, '0')}-${updatedAt.day.toString().padLeft(2, '0')}",
+        "updated_at": updatedAt,
         "is_deleted": isDeleted,
         "id_session": idSession,
         "stock": stock,
