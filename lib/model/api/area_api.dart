@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import '../../screen/storage/storage.dart';
 
 class AreaApi {
-  final String _baseUrl = 'http://35.247.142.238/api/v1/area';
+  final String _baseUrl = 'https://bookingvaccine.herokuapp.com/api/v1/area';
 
   Future getAllDataArea() async {
     final String _token = await Storage().getToken();

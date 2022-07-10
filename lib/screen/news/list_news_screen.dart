@@ -1,3 +1,6 @@
+import 'package:bookingvaccine/component/loading_screen.dart';
+import 'package:bookingvaccine/constant/state.dart';
+import 'package:bookingvaccine/screen/news/detail_news_screen.dart';
 import 'package:bookingvaccine/screen/news/news_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
@@ -78,27 +81,31 @@ class _ListNewsScreenState extends State<ListNewsScreen> {
               ),
             ),
             Consumer<NewsViewModel>(builder: (context, value, child) {
+              if (value.state == StatusState.loding) {
+                return const LoadingScreen();
+              }
               return Expanded(
                 child: ListView.builder(
                   itemCount: value.allDataNews.length,
                   itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () async {
-                        await value.getDetailDataNewsById(
-                            value.allDataNews[index].idNewsVaccine);
-                        Navigator.pushNamed(context, '/detail-news');
-                      },
-                      child: Container(
-                        height: 95,
-                        margin: const EdgeInsets.only(
-                          left: 17,
-                          top: 18,
-                          right: 18,
-                        ),
-                        color: Colors.white,
-                        child: Row(
-                          children: [
-                            Container(
+                    return Container(
+                      height: 95,
+                      margin: const EdgeInsets.only(
+                        left: 17,
+                        top: 18,
+                        right: 18,
+                      ),
+                      color: Colors.white,
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () async {
+                              await value.getDetailDataNewsById(
+                                  value.allDataNews[index].idNewsVaccine);
+
+                              Navigator.of(context).pushNamed('/detail-news');
+                            },
+                            child: Container(
                               height: 95,
                               width: 95,
                               decoration: BoxDecoration(
@@ -110,81 +117,80 @@ class _ListNewsScreenState extends State<ListNewsScreen> {
                                     fit: BoxFit.fill,
                                   )),
                             ),
-                            const SizedBox(
-                              width: 10,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                      value.allDataNews[index].titleNewsVaccine,
+                                      style: primaryTextStyle2.copyWith(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.visible),
+                                ),
+                                const SizedBox(
+                                  height: 5.67,
+                                ),
+                                Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/date.svg',
+                                      width: 13.33,
+                                      height: 14.67,
+                                      color: primaryColor,
+                                    ),
+                                    const SizedBox(
+                                      width: 5.33,
+                                    ),
+                                    Text(
+                                      DateFormat(
+                                        'EEEE, d MMM, yyyy',
+                                      ).format(
+                                          value.allDataNews[index].createdAt),
+                                      style: primaryTextStyle.copyWith(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 5.67,
+                                ),
+                                Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/clock.svg',
+                                      width: 13.33,
+                                      height: 14.67,
+                                      color: primaryColor,
+                                    ),
+                                    const SizedBox(
+                                      width: 5.33,
+                                    ),
+                                    Text(
+                                      value.allDataNews[index].createdAt
+                                          .toString()
+                                          .substring(11, 16),
+                                      style: primaryTextStyle.copyWith(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
                             ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Flexible(
-                                    child: Text(
-                                        value.allDataNews[index]
-                                            .titleNewsVaccine,
-                                        style: primaryTextStyle2.copyWith(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.visible),
-                                  ),
-                                  const SizedBox(
-                                    height: 5.67,
-                                  ),
-                                  Row(
-                                    children: [
-                                      SvgPicture.asset(
-                                        'assets/date.svg',
-                                        width: 13.33,
-                                        height: 14.67,
-                                        color: primaryColor,
-                                      ),
-                                      const SizedBox(
-                                        width: 5.33,
-                                      ),
-                                      Text(
-                                        DateFormat(
-                                          'EEEE, d MMM, yyyy',
-                                        ).format(
-                                            value.allDataNews[index].createdAt),
-                                        style: primaryTextStyle.copyWith(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 5.67,
-                                  ),
-                                  Row(
-                                    children: [
-                                      SvgPicture.asset(
-                                        'assets/clock.svg',
-                                        width: 13.33,
-                                        height: 14.67,
-                                        color: primaryColor,
-                                      ),
-                                      const SizedBox(
-                                        width: 5.33,
-                                      ),
-                                      Text(
-                                        value.allDataNews[index].createdAt
-                                            .toString()
-                                            .substring(11, 16),
-                                        style: primaryTextStyle.copyWith(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                          )
+                        ],
                       ),
                     );
                   },

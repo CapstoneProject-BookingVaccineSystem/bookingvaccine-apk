@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import '../../screen/storage/storage.dart';
 
 class FamillyApi {
-  final _baseUrl = 'http://35.247.142.238/api/v1/family/';
+  final _baseUrl = 'https://bookingvaccine.herokuapp.com/api/v1/family/';
 
   Future getDataFamillyByUserId(int id) async {
     try {

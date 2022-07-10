@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class NewsApi {
-  final _baseUrl = 'http://35.247.142.238/api/v1/news/';
+  final _baseUrl = 'https://bookingvaccine.herokuapp.com/api/v1/news/';
 
   Future getAllDataNews() async {
     try {

@@ -6,6 +6,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../component/loading_screen.dart';
+import '../../constant/state.dart';
+
 class DetailNewsScreen extends StatefulWidget {
   const DetailNewsScreen({Key? key}) : super(key: key);
 
@@ -48,6 +51,9 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
           ),
         ),
         body: Consumer<NewsViewModel>(builder: (context, value, child) {
+          if (value.state == StatusState.loding) {
+            return const LoadingScreen();
+          }
           return Container(
             padding: const EdgeInsets.only(
               left: 18,
