@@ -17,6 +17,7 @@ class DetailBookingModel {
     required this.isDeleted,
     required this.idBooking,
     required this.userMapped,
+    this.familyMapped,
     required this.sessionMapped,
   });
 
@@ -25,6 +26,7 @@ class DetailBookingModel {
   bool isDeleted;
   int idBooking;
   UserMapped userMapped;
+  FamilyMapped? familyMapped;
   SessionMapped sessionMapped;
 
   factory DetailBookingModel.fromJson(Map<String, dynamic> json) =>
@@ -34,6 +36,9 @@ class DetailBookingModel {
         isDeleted: json["is_deleted"],
         idBooking: json["id_booking"],
         userMapped: UserMapped.fromJson(json["user_mapped"]),
+        familyMapped: json["family_mapped"] == null
+            ? null
+            : FamilyMapped.fromJson(json["family_mapped"]),
         sessionMapped: SessionMapped.fromJson(json["session_mapped"]),
       );
 
@@ -44,7 +49,45 @@ class DetailBookingModel {
         "is_deleted": isDeleted,
         "id_booking": idBooking,
         "user_mapped": userMapped.toJson(),
+        "family_mapped": familyMapped?.toJson(),
         "session_mapped": sessionMapped.toJson(),
+      };
+}
+
+class FamilyMapped {
+  FamilyMapped({
+    required this.createdAt,
+    required this.createdBy,
+    required this.isDeleted,
+    required this.idFamily,
+    required this.nik,
+    required this.fullName,
+  });
+
+  DateTime createdAt;
+  String createdBy;
+  bool isDeleted;
+  int idFamily;
+  String nik;
+  String fullName;
+
+  factory FamilyMapped.fromJson(Map<String, dynamic> json) => FamilyMapped(
+        createdAt: DateTime.parse(json["created_at"]),
+        createdBy: json["created_by"],
+        isDeleted: json["is_deleted"],
+        idFamily: json["id_family"],
+        nik: json["nik"],
+        fullName: json["full_name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "created_at":
+            "${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}",
+        "created_by": createdBy,
+        "is_deleted": isDeleted,
+        "id_family": idFamily,
+        "nik": nik,
+        "full_name": fullName,
       };
 }
 
@@ -282,7 +325,7 @@ class UserMapped {
     required this.gender,
     required this.email,
     required this.noPhone,
-    required this.address,
+    this.address,
     required this.roles,
     required this.active,
     required this.enabled,

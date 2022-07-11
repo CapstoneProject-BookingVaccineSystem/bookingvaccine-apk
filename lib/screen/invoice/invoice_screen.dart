@@ -279,7 +279,10 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                       ),
                       Flexible(
                         child: Text(
-                          '${value.dataDetailBookingById.userMapped.firstName} ${value.dataDetailBookingById.userMapped.lastName}',
+                          value.dataDetailBookingById.familyMapped == null
+                              ? '${value.dataDetailBookingById.userMapped.firstName} ${value.dataDetailBookingById.userMapped.lastName}'
+                              : value
+                                  .dataDetailBookingById.familyMapped!.fullName,
                           style: secondTextStyle.copyWith(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
