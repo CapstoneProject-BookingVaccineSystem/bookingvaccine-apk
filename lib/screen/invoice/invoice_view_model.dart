@@ -44,10 +44,8 @@ class InvoiceViewModel extends ChangeNotifier {
 
       dataDetailBookingById = _getDetailDataBookingById;
       changeState(StatusState.none);
-      print("masuk sini");
+
       notifyListeners();
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 }

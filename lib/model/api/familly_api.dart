@@ -25,7 +25,6 @@ class FamillyApi {
         _allDataFamillyByUserId.add(FamillyModel.fromJson(element));
       }
 
-      print(_response.statusCode);
       return _allDataFamillyByUserId;
     } catch (e) {
       List<FamillyModel> _allDataFamillyByUserIdNull = [];
@@ -85,8 +84,6 @@ class FamillyApi {
         },
       ),
     );
-
-    print(_response.statusCode);
   }
 
   Future deleteDataFamillyById(int id) async {
