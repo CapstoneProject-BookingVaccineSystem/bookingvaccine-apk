@@ -50,7 +50,9 @@ class FamillyApi {
           DetailFamillyModel.fromJson(_getDataFamillyById);
 
       return detailDataFamilly;
-    } catch (e) {}
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   Future addDataFamilly(AddFamillyModel familly) async {
@@ -67,12 +69,14 @@ class FamillyApi {
           },
         ),
       );
-    } catch (e) {}
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   Future detailFamilly(DetailFamillyModel detailFamillyModel) async {
     final String _token = await Storage().getToken();
-    final _response = await Dio().put(
+    await Dio().put(
       _baseUrl + detailFamillyModel.idFamily.toString(),
       data: DetailFamillyModel(
           nik: detailFamillyModel.nik,

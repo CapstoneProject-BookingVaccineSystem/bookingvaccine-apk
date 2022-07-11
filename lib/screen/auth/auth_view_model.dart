@@ -173,6 +173,8 @@ class SignUpViewModel extends ChangeNotifier {
           numberC.clear();
         },
       );
-    } catch (e) {}
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }

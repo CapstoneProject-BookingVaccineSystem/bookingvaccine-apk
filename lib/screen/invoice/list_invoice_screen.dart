@@ -17,7 +17,6 @@ class ListInvoiceScreen extends StatefulWidget {
 class _ListInvoiceScreenState extends State<ListInvoiceScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
       var _viewModel = Provider.of<InvoiceViewModel>(context, listen: false);

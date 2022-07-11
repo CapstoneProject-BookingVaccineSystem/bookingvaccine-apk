@@ -22,7 +22,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
       var _viewModel = Provider.of<HomeViewModel>(context, listen: false);
@@ -766,7 +765,7 @@ class _HomeScreenState extends State<HomeScreen> {
           body: Consumer<HomeViewModel>(
             builder: (context, value, child) {
               if (value.state == StatusState.loding) {
-                return LoadingScreen();
+                return const LoadingScreen();
               }
               return ListView(
                 children: [

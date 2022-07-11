@@ -5,8 +5,6 @@ import 'package:bookingvaccine/model/area_model.dart';
 import 'package:bookingvaccine/model/familly_model/familly_model.dart';
 import 'package:bookingvaccine/model/session_model/session_detail_model.dart';
 import 'package:bookingvaccine/model/session_model/session_model.dart';
-import 'package:bookingvaccine/screen/invoice/invoice_screen.dart';
-import 'package:bookingvaccine/screen/invoice/invoice_view_model.dart';
 import 'package:flutter/material.dart';
 
 class VaksinasiViewModel extends ChangeNotifier {
@@ -85,7 +83,9 @@ class VaksinasiViewModel extends ChangeNotifier {
       List<AreaModel> _allDataArea = await AreaApi().getAllDataArea();
       dataArea = _allDataArea;
       notifyListeners();
-    } catch (e) {}
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   getDataSessionByAreaId(int paramId) async {

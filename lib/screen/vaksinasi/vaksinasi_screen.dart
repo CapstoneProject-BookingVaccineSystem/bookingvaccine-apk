@@ -17,7 +17,6 @@ class VaksinasiScreen extends StatefulWidget {
 class _VaksinasiScreenState extends State<VaksinasiScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
       var _viewModel = Provider.of<VaksinasiViewModel>(context, listen: false);

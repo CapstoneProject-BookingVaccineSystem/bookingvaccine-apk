@@ -1,6 +1,5 @@
 import 'package:bookingvaccine/model/user_model.dart';
 import 'package:bookingvaccine/screen/profil/profil_view_model.dart';
-import 'package:bookingvaccine/screen/prompt/prompt.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';

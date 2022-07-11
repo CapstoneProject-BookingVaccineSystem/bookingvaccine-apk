@@ -1,9 +1,8 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:io';
 
-import 'package:bookingvaccine/component/loading_screen.dart';
-import 'package:bookingvaccine/constant/state.dart';
 import 'package:bookingvaccine/screen/profil/profil_view_model.dart';
-import 'package:bookingvaccine/screen/prompt/prompt.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';

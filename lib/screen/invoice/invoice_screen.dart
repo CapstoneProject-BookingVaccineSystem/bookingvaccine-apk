@@ -2,12 +2,10 @@ import 'dart:async';
 
 import 'package:bookingvaccine/component/loading_screen.dart';
 import 'package:bookingvaccine/constant/state.dart';
-import 'package:bookingvaccine/model/detail_booking_model.dart';
 import 'package:bookingvaccine/screen/invoice/invoice_view_model.dart';
 import 'package:bookingvaccine/screen/vaksinasi/vaksinasi_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:jiffy/jiffy.dart';
 
@@ -25,7 +23,6 @@ class InvoiceScreen extends StatefulWidget {
 class _InvoiceScreenState extends State<InvoiceScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
       var _viewModel = Provider.of<InvoiceViewModel>(context, listen: false);

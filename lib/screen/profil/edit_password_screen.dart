@@ -1,7 +1,6 @@
 import 'package:bookingvaccine/model/user_model.dart';
 import 'package:bookingvaccine/screen/auth/auth_view_model.dart';
 import 'package:bookingvaccine/screen/profil/profil_view_model.dart';
-import 'package:bookingvaccine/screen/prompt/prompt.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

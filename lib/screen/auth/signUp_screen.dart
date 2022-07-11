@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:async';
 
 import 'package:bookingvaccine/model/register_model.dart';
@@ -26,6 +28,7 @@ class SignUpScreen extends StatelessWidget {
     ];
     String? selectedValue;
 
+    // ignore: unused_local_variable
     bool value = false;
 
     Widget logo() {

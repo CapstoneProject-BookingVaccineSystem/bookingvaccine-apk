@@ -84,7 +84,9 @@ class FamillyViewModel extends ChangeNotifier {
       fullNameC = TextEditingController(text: _detailDataFamilly.fullName);
       idFamilly = _detailDataFamilly.idFamily;
       notifyListeners();
-    } catch (e) {}
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   addDataFamilly(
@@ -94,7 +96,9 @@ class FamillyViewModel extends ChangeNotifier {
       nikC.clear();
       fullNameC.clear();
       Prompt().promptSucces(paramContext, 'Data Berhasil Ditambahkan');
-    } catch (e) {}
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   editDataFamilly(DetailFamillyModel paramDetailFamillyModel,

@@ -46,6 +46,8 @@ class InvoiceViewModel extends ChangeNotifier {
       changeState(StatusState.none);
 
       notifyListeners();
-    } catch (e) {}
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }

@@ -18,7 +18,6 @@ class FamillyScreen extends StatefulWidget {
 class _FamillyScreenState extends State<FamillyScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {

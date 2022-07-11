@@ -87,6 +87,8 @@ class BookingApi {
       DetailBookingModel _getDetailBookingById =
           DetailBookingModel.fromJson(_response.data['data']);
       return _getDetailBookingById;
-    } catch (e) {}
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }

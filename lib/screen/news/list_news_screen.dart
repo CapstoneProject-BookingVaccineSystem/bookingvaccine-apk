@@ -1,6 +1,5 @@
 import 'package:bookingvaccine/component/loading_screen.dart';
 import 'package:bookingvaccine/constant/state.dart';
-import 'package:bookingvaccine/screen/news/detail_news_screen.dart';
 import 'package:bookingvaccine/screen/news/news_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,6 @@ class ListNewsScreen extends StatefulWidget {
 class _ListNewsScreenState extends State<ListNewsScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
       var _viewModel = Provider.of<NewsViewModel>(context, listen: false);

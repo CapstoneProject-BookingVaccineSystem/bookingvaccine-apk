@@ -3,7 +3,6 @@ import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/loading_screen.dart';
@@ -19,7 +18,6 @@ class DetailNewsScreen extends StatefulWidget {
 class _DetailNewsScreenState extends State<DetailNewsScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
       await Jiffy.locale("id");

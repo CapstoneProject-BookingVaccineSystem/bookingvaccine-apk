@@ -1,6 +1,7 @@
 import 'package:bookingvaccine/model/news_model/news_model.dart';
 import 'package:bookingvaccine/screen/storage/storage.dart';
 import 'package:dio/dio.dart';
+// ignore: unused_import
 import 'package:shared_preferences/shared_preferences.dart';
 
 class NewsApi {
