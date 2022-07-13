@@ -5,7 +5,7 @@ import 'package:bookingvaccine/screen/storage/storage.dart';
 import 'package:dio/dio.dart';
 
 class BookingApi {
-  final _baseUrl = 'https://bookingvaccine.herokuapp.com/api/v1/booking/';
+  final _baseUrl = 'http://bookingvaccine.herokuapp.com/api/v1/booking/';
 
   Future getAllDataBookingByUserId() async {
     try {

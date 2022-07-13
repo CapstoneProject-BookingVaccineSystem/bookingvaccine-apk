@@ -7,7 +7,7 @@ import 'package:dio/dio.dart';
 import '../../screen/storage/storage.dart';
 
 class SessionApi {
-  final _baseUrl = 'https://bookingvaccine.herokuapp.com/api/v1/session/';
+  final _baseUrl = 'http://bookingvaccine.herokuapp.com/api/v1/session/';
 
   Future getDataSessionByAreaId(int id) async {
     final String _token = await Storage().getToken();

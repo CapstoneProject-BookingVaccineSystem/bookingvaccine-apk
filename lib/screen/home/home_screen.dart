@@ -578,7 +578,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 8,
                       ),
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async {
+                          var _viewModel = Provider.of<ProfilViewModel>(context,
+                              listen: false);
+                          await _viewModel.getDataUser();
                           Navigator.pushNamed(context, '/profile');
                         },
                         child: Container(

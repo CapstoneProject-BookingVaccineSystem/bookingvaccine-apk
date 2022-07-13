@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import '../../screen/storage/storage.dart';
 
 class UserApi {
-  final _baseUrl = 'https://bookingvaccine.herokuapp.com/api/v1/users/';
+  final _baseUrl = 'http://bookingvaccine.herokuapp.com/api/v1/users/';
 
   getUserById(int id) async {
     try {

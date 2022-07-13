@@ -2,7 +2,7 @@ import 'package:bookingvaccine/model/register_model.dart';
 import 'package:dio/dio.dart';
 
 class AuthApi {
-  final String _baseUrl = 'https://bookingvaccine.herokuapp.com/api/v1/auth/';
+  final String _baseUrl = 'http://bookingvaccine.herokuapp.com/api/v1/auth/';
 
   Future registerUser(RegisterModel paramRegisterModel) async {
     var _response = await Dio().post(

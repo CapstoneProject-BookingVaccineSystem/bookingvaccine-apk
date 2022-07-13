@@ -238,21 +238,6 @@ class SignInScreen extends StatelessWidget {
               const SizedBox(
                 height: 8,
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/forget-pw');
-                  },
-                  child: Text(
-                    'Lupa Password?',
-                    style: secondTextStyle.copyWith(
-                      fontSize: 10,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ),
-              ),
             ],
           ));
     }
