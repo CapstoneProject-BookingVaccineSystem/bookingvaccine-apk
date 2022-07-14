@@ -5,6 +5,7 @@ import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class EditPasswordScreen extends StatelessWidget {
@@ -115,7 +116,7 @@ class EditPasswordScreen extends StatelessWidget {
                             return 'Password lama tidak boleh kosong';
                           }
 
-                          if (value != paramValue.user.password) {
+                          if (value != paramValue.validatePassword) {
                             return 'Password lama salah';
                           }
 

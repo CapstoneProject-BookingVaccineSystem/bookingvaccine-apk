@@ -15,6 +15,7 @@ class ProfilViewModel extends ChangeNotifier {
   String date = '';
   String imageProfil = '';
   String gender = '';
+  String validatePassword = '';
   late UserModel user;
 
   TextEditingController dateC = TextEditingController();
@@ -42,7 +43,9 @@ class ProfilViewModel extends ChangeNotifier {
     user = _getDataUser;
     final prefs = await SharedPreferences.getInstance();
     final String? filePath = prefs.getString('imageProfil');
+    final String? _validatePassword = prefs.getString('password');
 
+    validatePassword = _validatePassword!;
     gender = user.gender;
     date = user.birthDate.toString().substring(0, 10);
     dateC =
