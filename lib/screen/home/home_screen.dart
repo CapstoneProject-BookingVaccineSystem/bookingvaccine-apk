@@ -87,9 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           decoration: const BoxDecoration(
                               image: DecorationImage(
                                   fit: BoxFit.fill,
-                                  image: NetworkImage(
-                                    'https://picsum.photos/id/237/200/300',
-                                  )),
+                                  image: AssetImage('assets/symptom.png')),
                               color: Colors.grey,
                               borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(10),
@@ -201,9 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           decoration: const BoxDecoration(
                               image: DecorationImage(
                                   fit: BoxFit.fill,
-                                  image: NetworkImage(
-                                    'https://picsum.photos/id/237/200/300',
-                                  )),
+                                  image: AssetImage('assets/vaksinasi.png')),
                               color: Colors.brown,
                               borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(10),
