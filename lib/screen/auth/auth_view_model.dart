@@ -1,4 +1,7 @@
 import 'dart:async';
+import 'package:bookingvaccine/component/loading_screen.dart';
+import 'package:bookingvaccine/theme.dart';
+import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:bookingvaccine/model/api/auth_api.dart';
 import 'package:bookingvaccine/model/register_model.dart';
@@ -60,8 +63,10 @@ class SignInViewModel extends ChangeNotifier {
 
       nikC.clear();
       passwordC.clear();
+      Navigator.pop(context);
       Navigator.pushReplacementNamed(context, '/home');
     } catch (e) {
+      Navigator.pop(context);
       AwesomeDialog(
         context: context,
         dialogType: DialogType.ERROR,
@@ -70,6 +75,15 @@ class SignInViewModel extends ChangeNotifier {
         btnOkOnPress: () {},
       ).show();
     }
+  }
+
+  showLoaderDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (_) => const Dialog(
+              backgroundColor: Colors.transparent,
+              child: LoadingScreen(),
+            ));
   }
 }
 

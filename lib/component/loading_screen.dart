@@ -6,10 +6,10 @@ class LoadingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Lottie.network(
-          'https://assets1.lottiefiles.com/packages/lf20_usmfx6bp.json',
-          width: 200),
-    );
+    return Container(
+        alignment: FractionalOffset.center,
+        height: 80.0,
+        padding: const EdgeInsets.all(20.0),
+        child: const CircularProgressIndicator());
   }
 }

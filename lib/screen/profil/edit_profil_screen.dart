@@ -400,6 +400,7 @@ class EditProfilScreen extends StatelessWidget {
                                                 child: GestureDetector(
                                                   onTap: () async {
                                                     Navigator.pop(context);
+                                                    paramValue.showLoaderDialog(context);
                                                     await paramValue.editUserById(
                                                         UserModel(
                                                             createdAt: paramValue

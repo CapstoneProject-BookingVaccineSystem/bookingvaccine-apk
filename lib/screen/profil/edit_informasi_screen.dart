@@ -317,6 +317,8 @@ class EditInformasiScreen extends StatelessWidget {
                                               child: GestureDetector(
                                                 onTap: () async {
                                                   Navigator.pop(context);
+                                                  paramValue.showLoaderDialog(
+                                                      context);
                                                   await paramValue.editInformationUserById(
                                                       UserModel(
                                                           createdAt: paramValue

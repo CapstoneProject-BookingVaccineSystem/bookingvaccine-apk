@@ -770,7 +770,9 @@ class _HomeScreenState extends State<HomeScreen> {
           body: Consumer<HomeViewModel>(
             builder: (context, value, child) {
               if (value.state == StatusState.loding) {
-                return const LoadingScreen();
+                return const Center(
+                  child: LoadingScreen(),
+                );
               }
               return ListView(
                 children: [

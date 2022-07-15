@@ -4,11 +4,12 @@ import 'package:bookingvaccine/model/api/user_api.dart';
 import 'package:bookingvaccine/model/user_model.dart';
 import 'package:bookingvaccine/screen/prompt/prompt.dart';
 import 'package:bookingvaccine/screen/storage/storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../component/loading_screen.dart';
 import '../home/home_view_model.dart';
 
 class ProfilViewModel extends ChangeNotifier {
@@ -36,7 +37,6 @@ class ProfilViewModel extends ChangeNotifier {
   }
 
   getDataUser() async {
-    changeStatusState(StatusState.loding);
     int _idUser = await Storage().idUser();
     UserModel _getDataUser = await UserApi().getUserById(_idUser);
 
@@ -72,32 +72,45 @@ class ProfilViewModel extends ChangeNotifier {
   }
 
   editUserById(UserModel paramUser, BuildContext paramContext) async {
-    await UserApi().editUserByid(paramUser);
-
-    Prompt().promptSucces(paramContext, 'Profil Berhasil Diperbarui');
+    try {
+      await UserApi().editUserByid(paramUser);
+      Navigator.pop(paramContext);
+      Prompt().promptSucces(paramContext, 'Profil Berhasil Diperbarui');
+    } catch (e) {
+      Navigator.pop(paramContext);
+    }
   }
 
   editInformationUserById(
       UserModel paramUser, BuildContext paramContext) async {
-    final prefs = await SharedPreferences.getInstance();
-    await UserApi().editUserByid(paramUser);
-    Prompt().promptSucces(paramContext, 'Informasi Akun Berhasil Diperbarui');
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await UserApi().editUserByid(paramUser);
+      Navigator.pop(paramContext);
+      Prompt().promptSucces(paramContext, 'Informasi Akun Berhasil Diperbarui');
 
-    final _token = await AuthApi().loginUser(nikC.text, 'Akil1221');
+      final _token = await AuthApi().loginUser(nikC.text, 'Akil1221');
 
-    await prefs.setString(
-      'token',
-      _token['token'],
-    );
+      await prefs.setString(
+        'token',
+        _token['token'],
+      );
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   changePasswordUserId(UserModel paramUser, BuildContext paramContext) async {
-    await UserApi().editUserByid(paramUser);
-    newPassword.clear();
-    confirmPassword.clear();
-    oldPassword.clear();
-    await getDataUser();
-    Prompt().promptSucces(paramContext, 'Password Berhasil Diperbarui');
+    try {
+      await UserApi().editUserByid(paramUser);
+      newPassword.clear();
+      confirmPassword.clear();
+      oldPassword.clear();
+      await getDataUser();
+      Prompt().promptSucces(paramContext, 'Password Berhasil Diperbarui');
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   void changeDate(String paramDate) {
@@ -112,19 +125,36 @@ class ProfilViewModel extends ChangeNotifier {
   }
 
   pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-    final prefs = await SharedPreferences.getInstance();
-    if (result != null) {
-      PlatformFile file = result.files.first;
-      imageProfil = file.path!;
-      await prefs.setString('imageProfil', file.path!);
-      notifyListeners();
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles();
+      final prefs = await SharedPreferences.getInstance();
+      if (result != null) {
+        PlatformFile file = result.files.first;
+        imageProfil = file.path!;
+        await prefs.setString('imageProfil', file.path!);
+        notifyListeners();
+      }
+    } catch (e) {
+      throw Exception(e);
     }
   }
 
   getDataHome(BuildContext context) async {
-    var _viewModel = Provider.of<HomeViewModel>(context, listen: false);
-    await _viewModel.getDataHome();
-    Navigator.pop(context);
+    try {
+      var _viewModel = Provider.of<HomeViewModel>(context, listen: false);
+      await _viewModel.getDataHome();
+      Navigator.pop(context);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  showLoaderDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (_) => const Dialog(
+              backgroundColor: Colors.transparent,
+              child: LoadingScreen(),
+            ));
   }
 }
