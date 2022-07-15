@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -17,8 +18,15 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(
       const Duration(seconds: 3),
-      () {
-        Navigator.pushReplacementNamed(context, '/signIn');
+      () async {
+        final prefs = await SharedPreferences.getInstance();
+        final int? idUser = prefs.getInt('idUser');
+
+        if (idUser == 0) {
+          Navigator.pushReplacementNamed(context, '/signIn');
+        } else {
+          Navigator.pushReplacementNamed(context, '/home');
+        }
       },
     );
   }

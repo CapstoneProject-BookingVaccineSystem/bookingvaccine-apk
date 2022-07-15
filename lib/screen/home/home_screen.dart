@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../profil/profil_view_model.dart';
 
@@ -724,7 +725,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+                      final prefs = await SharedPreferences.getInstance();
+                      await prefs.setInt(
+                        'idUser',
+                        0,
+                      );
                       Navigator.pushReplacementNamed(context, '/signIn');
                     },
                     child: Container(
