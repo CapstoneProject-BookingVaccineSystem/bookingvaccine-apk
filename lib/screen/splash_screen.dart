@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
         final prefs = await SharedPreferences.getInstance();
         final int? idUser = prefs.getInt('idUser');
 
-        if (idUser == 0) {
+        if (idUser == null) {
           Navigator.pushReplacementNamed(context, '/signIn');
         } else {
           Navigator.pushReplacementNamed(context, '/home');
