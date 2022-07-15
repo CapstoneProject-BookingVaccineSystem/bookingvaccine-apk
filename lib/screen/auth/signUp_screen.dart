@@ -1,9 +1,13 @@
+// ignore_for_file: file_names
+
 import 'dart:async';
 
+import 'package:bookingvaccine/model/register_model.dart';
 import 'package:bookingvaccine/screen/auth/auth_view_model.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:provider/provider.dart';
@@ -19,11 +23,12 @@ class SignUpScreen extends StatelessWidget {
     final _isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
 
     final List<String> genderItems = [
-      'Laki-laki',
+      'Laki-Laki',
       'Perempuan',
     ];
     String? selectedValue;
 
+    // ignore: unused_local_variable
     bool value = false;
 
     Widget logo() {
@@ -106,6 +111,11 @@ class SignUpScreen extends StatelessWidget {
             right: 18,
           ),
           child: TextFormField(
+            keyboardType: TextInputType.text,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.deny(RegExp(r'[0-9]')),
+            ],
+            controller: paramValue.firstNameC,
             textInputAction: TextInputAction.next,
             style: const TextStyle(color: Colors.grey),
             decoration: InputDecoration(
@@ -143,6 +153,10 @@ class SignUpScreen extends StatelessWidget {
             right: 18,
           ),
           child: TextFormField(
+            controller: paramValue.lastNameC,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.deny(RegExp(r'[0-9]')),
+            ],
             textInputAction: TextInputAction.next,
             style: const TextStyle(color: Colors.grey),
             decoration: InputDecoration(
@@ -186,7 +200,7 @@ class SignUpScreen extends StatelessWidget {
                   context: context,
                   initialDate: DateTime.now(),
                   firstDate: DateTime(1900),
-                  lastDate: DateTime(2025)));
+                  lastDate: DateTime.now()));
               if (date != null) {
                 String dateFormat = DateFormat('yyyy-MM-dd').format(date);
                 paramValue.changeDate(dateFormat);
@@ -218,6 +232,13 @@ class SignUpScreen extends StatelessWidget {
               if (value == '') {
                 return 'Tanggal lahir tidak boleh kosong';
               }
+              int validate =
+                  DateTime.now().year - int.parse(value!.substring(0, 4));
+
+              if (validate < 18) {
+                return 'Umur belum cukup';
+              }
+
               return null;
             },
           ));
@@ -303,6 +324,7 @@ class SignUpScreen extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
+                controller: paramValue.emailC,
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
                 style: const TextStyle(color: Colors.grey),
@@ -352,6 +374,7 @@ class SignUpScreen extends StatelessWidget {
             right: 18,
           ),
           child: TextFormField(
+            controller: paramValue.passwordC,
             textInputAction: TextInputAction.done,
             obscureText: paramValue.isHidden,
             style: const TextStyle(color: Colors.grey),
@@ -410,12 +433,17 @@ class SignUpScreen extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
-                maxLength: 16,
+                controller: paramValue.nikC,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                  LengthLimitingTextInputFormatter(16),
+                ],
                 style: const TextStyle(color: Colors.grey),
                 decoration: InputDecoration(
                   hintText: 'NIK',
+                  errorText: paramValue.errorText,
                   hintStyle: greyTextStyle.copyWith(
                     fontSize: 10,
                     fontWeight: FontWeight.w500,
@@ -432,14 +460,14 @@ class SignUpScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                 ),
+                onChanged: (text) {
+                  paramValue.setStateErrorText(paramValue.nikC.text);
+                },
                 validator: (value) {
                   if (value == '') {
                     return 'NIK tidak boleh kosong';
                   }
 
-                  if (value!.length != 16) {
-                    return "Panjang NIK harus 16";
-                  }
                   return null;
                 },
               ),
@@ -459,6 +487,7 @@ class SignUpScreen extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
+                controller: paramValue.numberC,
                 textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.number,
                 style: const TextStyle(color: Colors.grey),
@@ -520,7 +549,6 @@ class SignUpScreen extends StatelessWidget {
                           text: 'kebijakan privasi',
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              print("TextSpan is clicked.");
                               // callMyFunction();
                             },
                           style: secondTextStyle.copyWith(
@@ -552,22 +580,35 @@ class SignUpScreen extends StatelessWidget {
           right: 51,
         ),
         child: GestureDetector(
-          onTap: () {
+          onTap: () async {
             paramValue.changeClickRegister(false);
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
+              if (paramValue.agree == true) {
+                await paramValue.registerUser(
+                    RegisterModel(
+                        username: paramValue.nikC.text,
+                        password: paramValue.passwordC.text,
+                        firstName: paramValue.firstNameC.text,
+                        lastName: paramValue.lastNameC.text,
+                        birthDate: DateTime.parse(paramValue.date),
+                        gender: selectedValue!,
+                        email: paramValue.emailC.text,
+                        noPhone: paramValue.numberC.text),
+                    context);
+              }
               if (paramValue.agree == false) {
                 paramValue.changestatusCheckbox(paramValue.agree);
               }
             }
-            Timer(const Duration(seconds: 1), () {
+            Timer(const Duration(milliseconds: 200), () {
               paramValue.changeClickRegister(true);
             });
             paramValue.changestatusCheckbox(paramValue.agree);
           },
           child: Container(
-            width: 273,
-            height: 35,
+            width: 339,
+            height: 42,
             decoration: BoxDecoration(
               color: paramValue.clickRegister == true
                   ? primaryColor2
@@ -577,7 +618,7 @@ class SignUpScreen extends StatelessWidget {
             child: Center(
               child: Text(
                 'Daftar Sekarang',
-                style: whiteTextStyle.copyWith(
+                style: secondTextStyle.copyWith(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
@@ -588,9 +629,10 @@ class SignUpScreen extends StatelessWidget {
       );
     }
 
-    Widget cancel() {
+    Widget cancel(SignUpViewModel paramValue) {
       return GestureDetector(
         onTap: () {
+          paramValue.changestatusCheckbox(true);
           Navigator.pop(context);
         },
         child: Container(
@@ -641,7 +683,7 @@ class SignUpScreen extends StatelessWidget {
                         nik(value),
                         telpNumber(value),
                         regiter(value),
-                        cancel(),
+                        cancel(value),
                       ],
                     ),
                   ),

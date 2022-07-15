@@ -6,6 +6,7 @@ import 'package:bookingvaccine/screen/auth/auth_view_model.dart';
 import 'package:bookingvaccine/screen/auth/signUp_screen.dart';
 import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -124,8 +125,11 @@ class SignInScreen extends StatelessWidget {
                 height: 10,
               ),
               TextFormField(
-                maxLength: 16,
                 controller: paramValue.nikC,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                  LengthLimitingTextInputFormatter(16),
+                ],
                 textInputAction: TextInputAction.next,
                 style: const TextStyle(color: Colors.grey),
                 keyboardType: TextInputType.number,
@@ -234,19 +238,6 @@ class SignInScreen extends StatelessWidget {
               const SizedBox(
                 height: 8,
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Text(
-                    'Lupa Password?',
-                    style: secondTextStyle.copyWith(
-                      fontSize: 10,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ),
-              ),
             ],
           ));
     }
@@ -266,7 +257,7 @@ class SignInScreen extends StatelessWidget {
               paramValue.changeClickEnter(false);
             }
             Timer(
-              const Duration(seconds: 1),
+              const Duration(milliseconds: 200),
               () {
                 paramValue.changeClickEnter(true);
               },
@@ -274,20 +265,23 @@ class SignInScreen extends StatelessWidget {
           },
           onTap: () async {
             paramValue.changeClickEnter(false);
+            paramValue.showLoaderDialog(context);
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
               paramValue.changeClickEnter(false);
+              paramValue.loginUser(
+                  paramValue.nikC.text, paramValue.passwordC.text, context);
             }
             Timer(
-              const Duration(seconds: 1),
+              const Duration(milliseconds: 200),
               () {
                 paramValue.changeClickEnter(true);
               },
             );
           },
           child: Container(
-            width: 273,
-            height: 35,
+            width: 317,
+            height: 45,
             decoration: BoxDecoration(
               color: paramValue.clickEnter == true
                   ? primaryColor2
@@ -297,7 +291,7 @@ class SignInScreen extends StatelessWidget {
             child: Center(
               child: Text(
                 'Masuk',
-                style: whiteTextStyle.copyWith(
+                style: secondTextStyle.copyWith(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
@@ -321,7 +315,7 @@ class SignInScreen extends StatelessWidget {
                 fontSize: 10,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             GestureDetector(
