@@ -25,7 +25,11 @@ class _SplashScreenState extends State<SplashScreen> {
         if (idUser == null) {
           Navigator.pushReplacementNamed(context, '/signIn');
         } else {
-          Navigator.pushReplacementNamed(context, '/home');
+          if (idUser != 0) {
+            Navigator.pushReplacementNamed(context, '/home');
+          } else {
+            Navigator.pushReplacementNamed(context, '/signIn');
+          }
         }
       },
     );
