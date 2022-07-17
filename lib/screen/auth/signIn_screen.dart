@@ -265,10 +265,11 @@ class SignInScreen extends StatelessWidget {
           },
           onTap: () async {
             paramValue.changeClickEnter(false);
-            paramValue.showLoaderDialog(context);
+       
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
               paramValue.changeClickEnter(false);
+             paramValue.showLoaderDialog(context);
               paramValue.loginUser(
                   paramValue.nikC.text, paramValue.passwordC.text, context);
             }
