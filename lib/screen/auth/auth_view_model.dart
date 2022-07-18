@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'package:bookingvaccine/component/loading_screen.dart';
-import 'package:bookingvaccine/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:bookingvaccine/model/api/auth_api.dart';
 import 'package:bookingvaccine/model/register_model.dart';
 import 'package:bookingvaccine/screen/prompt/prompt.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 
