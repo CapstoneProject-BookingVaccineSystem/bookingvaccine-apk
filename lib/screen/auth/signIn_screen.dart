@@ -28,15 +28,26 @@ class SignInScreen extends StatelessWidget {
             height: 81,
           ),
           const SizedBox(
-            width: 21.66,
+            width: 15,
           ),
-          Text(
-            'Logo',
-            style: secondTextStyle.copyWith(
-              fontSize: 36,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          Column(
+            children: [
+              Text(
+                'Vakyu',
+                style: secondTextStyle.copyWith(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text(
+                'Vaksin Yuk...',
+                style: secondTextStyle.copyWith(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          )
         ],
       );
     }
@@ -265,11 +276,11 @@ class SignInScreen extends StatelessWidget {
           },
           onTap: () async {
             paramValue.changeClickEnter(false);
-       
+
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
               paramValue.changeClickEnter(false);
-             paramValue.showLoaderDialog(context);
+              paramValue.showLoaderDialog(context);
               paramValue.loginUser(
                   paramValue.nikC.text, paramValue.passwordC.text, context);
             }
