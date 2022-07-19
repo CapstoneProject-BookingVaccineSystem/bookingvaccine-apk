@@ -393,8 +393,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           topRight: Radius.circular(10),
                         ),
                         image: DecorationImage(
-                            image:
-                                NetworkImage(paramValue.dataNews[index].image!),
+                            image: NetworkImage(
+                                paramValue.dataNews[index].image ?? ''),
                             fit: BoxFit.fill),
                       ),
                     ),
